@@ -13,6 +13,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.githug.florent37.materialviewpager.Utils.colorWithAlpha;
 import static com.githug.florent37.materialviewpager.Utils.dpToPx;
 
 /**
@@ -23,20 +24,17 @@ public class MaterialViewPagerAnimator {
     private Toolbar toolbar;
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
 
-    private RecyclerView mRecyclerView;
-
     private View headerBackground;
-    private ImageView headerBackgroundImage;
-    private View toolbarBackground;
     private View statusBackground;
     private View mLogo;
 
     private Context context;
 
+    private int color;
+
     float finalTitleY;
 
     float finalTabsY;
-    float originalTabsY;
 
     float finalTitleX;
     float originalTitleY;
@@ -46,18 +44,16 @@ public class MaterialViewPagerAnimator {
     float elevation;
 
 
-    public MaterialViewPagerAnimator(Toolbar toolbar, PagerSlidingTabStrip pagerSlidingTabStrip, View headerBackground, View toolbarBackground, View statusBackground, View logo_white) {
+    public MaterialViewPagerAnimator(Toolbar toolbar, PagerSlidingTabStrip pagerSlidingTabStrip, View headerBackground, View statusBackground, View logo_white) {
         this.context = toolbar.getContext();
+
+        color = context.getResources().getColor(R.color.colorPrimary);
 
         this.toolbar = toolbar;
         this.mPagerSlidingTabStrip = pagerSlidingTabStrip;
         this.headerBackground = headerBackground;
-        this.toolbarBackground = toolbarBackground;
         this.statusBackground = statusBackground;
         this.mLogo = logo_white;
-
-        toolbarBackground.setAlpha(0);
-        statusBackground.setAlpha(0);
 
         mPagerSlidingTabStrip.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
@@ -75,12 +71,11 @@ public class MaterialViewPagerAnimator {
         originalTitleY = mLogo.getY();
         originalTitleX = mLogo.getX();
 
-        finalTabsY = dpToPx(10, context);
-        originalTabsY = mPagerSlidingTabStrip.getTop();
+        finalTabsY = dpToPx(0,context);
 
         finalScale = 0.6f;
 
-        heightMaxScrollToolbar = dpToPx(250f, context);
+        heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
 
         elevation = dpToPx(4, context);
     }
@@ -96,15 +91,18 @@ public class MaterialViewPagerAnimator {
         float percent = yOffset / heightMaxScrollToolbar;
         percent = Math.min(percent, 1);
         {
-            toolbarBackground.setAlpha(percent);
-            statusBackground.setAlpha(percent);
+            int newColor = colorWithAlpha(color,percent);
+
+            toolbar.setBackgroundColor(newColor);
+            mPagerSlidingTabStrip.setBackgroundColor(newColor);
+            statusBackground.setBackgroundColor(newColor);
 
             if (percent == 1) {
-                ViewCompat.setElevation(toolbarBackground, elevation);
                 ViewCompat.setElevation(toolbar, elevation);
+                ViewCompat.setElevation(mPagerSlidingTabStrip, elevation);
             } else {
-                ViewCompat.setElevation(toolbarBackground, 0);
                 ViewCompat.setElevation(toolbar, 0);
+                ViewCompat.setElevation(mPagerSlidingTabStrip, 0);
             }
 
             {
@@ -130,7 +128,6 @@ public class MaterialViewPagerAnimator {
     public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
         if (recyclerView != null) {
             recyclerViewList.add(recyclerView);
-            recyclerView.scrollBy(0, totalScrolled);
             recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
                 @Override

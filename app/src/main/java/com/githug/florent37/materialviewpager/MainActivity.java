@@ -73,13 +73,14 @@ public class MainActivity extends ActionBarActivity implements MaterialViewPager
                 return "Page "+position;
             }
         });
+        mViewPager.setOffscreenPageLimit(mViewPager.getAdapter().getCount());
+
         mPagerTitleStrip.setViewPager(mViewPager);
 
         materialViewPagerAnimator = new MaterialViewPagerAnimator(
                 toolbar,
                 mPagerTitleStrip,
                 findViewById(R.id.headerBackground),
-                findViewById(R.id.toolbarBackground),
                 findViewById(R.id.statusBackground),
                 findViewById(R.id.logo_white)
         );
