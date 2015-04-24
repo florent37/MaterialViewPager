@@ -31,4 +31,5 @@ dependencies {
 
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.flaviofaria:kenburnsview:1.0.6'
+    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
 }
