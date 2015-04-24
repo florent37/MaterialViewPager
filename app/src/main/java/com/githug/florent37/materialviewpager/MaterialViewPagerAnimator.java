@@ -87,7 +87,11 @@ public class MaterialViewPagerAnimator {
 
     public void onMaterialScrolled(int yOffset) {
 
-        headerBackground.setTranslationY(-yOffset / 1.5f);
+        {
+            float newY = headerBackground.getY() + (-yOffset / 1.5f);
+            if (newY <= 0)
+                headerBackground.setTranslationY(-yOffset / 1.5f);
+        }
 
         float percent = yOffset / heightMaxScrollToolbar;
         percent = Math.min(percent, 1);
