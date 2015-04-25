@@ -82,11 +82,12 @@ public class MainActivity extends ActionBarActivity {
         mPagerTitleStrip.setViewPager(mViewPager);
 
         MaterialViewPager.register(this, new MaterialViewPagerAnimator(
-                new MaterialViewPagerHeader(toolbar)
-                        .setPagerSlidingTabStrip(mPagerTitleStrip)
-                        .setHeaderBackground(findViewById(R.id.headerBackground))
-                        .setStatusBackground(findViewById(R.id.statusBackground))
-                        .setLogo(findViewById(R.id.logo_white))
+                MaterialViewPagerHeader
+                        .withToolbar(toolbar)
+                        .withPagerSlidingTabStrip(mPagerTitleStrip)
+                        .withHeaderBackground(findViewById(R.id.headerBackground))
+                        .withStatusBackground(findViewById(R.id.statusBackground))
+                        .withLogo(findViewById(R.id.logo_white))
         ));
 
     }

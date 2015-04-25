@@ -30,26 +30,20 @@ public class MaterialViewPagerHeader {
     public float originalTitleX;
     public float finalScale;
 
-    public MaterialViewPagerHeader(Toolbar toolbar) {
+    private MaterialViewPagerHeader(Toolbar toolbar){
         this.toolbar = toolbar;
         this.context = toolbar.getContext();
+    }
+
+    public static MaterialViewPagerHeader withToolbar(Toolbar toolbar) {
+        return new MaterialViewPagerHeader(toolbar);
     }
 
     public Context getContext() {
         return context;
     }
 
-    public MaterialViewPagerHeader setContext(Context context) {
-        this.context = context;
-        return this;
-    }
-
-    public MaterialViewPagerHeader setToolbar(Toolbar toolbar) {
-        this.toolbar = toolbar;
-        return this;
-    }
-
-    public MaterialViewPagerHeader setPagerSlidingTabStrip(PagerSlidingTabStrip pagerSlidingTabStrip) {
+    public MaterialViewPagerHeader withPagerSlidingTabStrip(PagerSlidingTabStrip pagerSlidingTabStrip) {
         this.mPagerSlidingTabStrip = pagerSlidingTabStrip;
 
         mPagerSlidingTabStrip.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -65,17 +59,17 @@ public class MaterialViewPagerHeader {
         return this;
     }
 
-    public MaterialViewPagerHeader setHeaderBackground(View headerBackground) {
+    public MaterialViewPagerHeader withHeaderBackground(View headerBackground) {
         this.headerBackground = headerBackground;
         return this;
     }
 
-    public MaterialViewPagerHeader setStatusBackground(View statusBackground) {
+    public MaterialViewPagerHeader withStatusBackground(View statusBackground) {
         this.statusBackground = statusBackground;
         return this;
     }
 
-    public MaterialViewPagerHeader setLogo(View logo) {
+    public MaterialViewPagerHeader withLogo(View logo) {
         this.mLogo = logo;
         mLogo.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
@@ -108,7 +102,7 @@ public class MaterialViewPagerHeader {
         return statusBackground;
     }
 
-    public View getmLogo() {
+    public View getLogo() {
         return mLogo;
     }
 }

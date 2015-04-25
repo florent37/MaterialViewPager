@@ -51,23 +51,25 @@ public class MaterialViewPagerAnimator {
     }
 
     private void dispatchScrollOffset(Object source, float yOffset) {
-        for (Object scroll : scrollViewList) {
-            if (scroll != source) {
-                calledScrollList.add(scroll);
+        if(scrollViewList != null) {
+            for (Object scroll : scrollViewList) {
+                if (scroll != null && scroll != source) {
+                    calledScrollList.add(scroll);
 
-                if (scroll instanceof RecyclerView) {
-                    RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
-                    if (layoutManager instanceof LinearLayoutManager) {
-                        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-                        linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
+                    if (scroll instanceof RecyclerView) {
+                        RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
+                        if (layoutManager instanceof LinearLayoutManager) {
+                            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
+                            linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
+                        }
+                    } else if (scroll instanceof WebView) {
+                        ((WebView) scroll).scrollTo(0, (int) yOffset);
                     }
-                } else if (scroll instanceof WebView) {
-                    ((WebView) scroll).scrollTo(0, (int) yOffset);
+
+                    yOffsets.put(scroll, (int) yOffset);
+
+                    calledScrollList.remove(scroll);
                 }
-
-                yOffsets.put(scroll, (int) yOffset);
-
-                calledScrollList.remove(scroll);
             }
         }
     }
@@ -77,7 +79,8 @@ public class MaterialViewPagerAnimator {
         float scrollTop = -yOffset;
 
         { //parallax scroll of ImageView
-            mHeader.headerBackground.setTranslationY(scrollTop / 1.5f);
+            if(mHeader.headerBackground != null)
+                mHeader.headerBackground.setTranslationY(scrollTop / 1.5f);
         }
 
         yOffset = minMax(0, yOffset, scrollMax);
@@ -112,15 +115,13 @@ public class MaterialViewPagerAnimator {
             }
 
 
-            { //move the viewpager indicator
+            if(mHeader.mPagerSlidingTabStrip != null){ //move the viewpager indicator
                 float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
                 if (newY >= mHeader.finalTabsY)
                     mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
-                else{
-                }
             }
 
-            { //move the header logo to toolbar
+            if(mHeader.mLogo != null){ //move the header logo to toolbar
                 mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
                 mHeader.mLogo.setTranslationX((mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
@@ -133,20 +134,24 @@ public class MaterialViewPagerAnimator {
 
     private static void setElevation(float elevation, View... views) {
         for (View view : views) {
-            ViewCompat.setElevation(view, elevation);
+            if(view != null)
+                ViewCompat.setElevation(view, elevation);
         }
     }
 
     private static void setBackgroundColor(int color, View... views) {
         for (View view : views) {
-            view.setBackgroundColor(color);
+            if(view != null)
+                view.setBackgroundColor(color);
         }
     }
 
     private static void setScale(float scale, View... views) {
         for (View view : views) {
-            view.setScaleX(scale);
-            view.setScaleY(scale);
+            if(view != null) {
+                view.setScaleX(scale);
+                view.setScaleY(scale);
+            }
         }
     }
 
