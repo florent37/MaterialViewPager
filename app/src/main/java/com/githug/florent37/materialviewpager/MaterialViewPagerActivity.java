@@ -3,6 +3,7 @@ package com.githug.florent37.materialviewpager;
 import android.support.v7.widget.RecyclerView;
 import android.webkit.WebView;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 
 /**

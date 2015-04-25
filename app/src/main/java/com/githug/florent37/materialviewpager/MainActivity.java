@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.squareup.picasso.Picasso;
 

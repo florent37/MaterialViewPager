@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.ksoichiro.android.observablescrollview.ObservableWebView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/webView"
-    android:background="@android:color/transparent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    />
+    android:paddingTop="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    >
+
+    <com.github.ksoichiro.android.observablescrollview.ObservableWebView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webView"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>
