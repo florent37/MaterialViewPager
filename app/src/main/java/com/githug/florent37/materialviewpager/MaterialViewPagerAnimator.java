@@ -5,12 +5,12 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -88,20 +88,29 @@ public class MaterialViewPagerAnimator {
 
     public void onMaterialScrolled(Object source, int yOffset) {
 
+        if (yOffset > 250)
+            yOffset = 250;
+        if(yOffset < 0)
+            yOffset = 0;
+        Log.d("yOffset", "" + yOffset);
 
         for (Object scroll : scrollViewList) {
             if (scroll != source) {
                 calledScrollList.add(scroll);
 
-                if(scroll instanceof RecyclerView) {
-                    RecyclerView.LayoutManager layoutManager = ((RecyclerView)scroll).getLayoutManager();
+                if (scroll instanceof RecyclerView) {
+                    RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
                     if (layoutManager instanceof LinearLayoutManager) {
                         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
                         linearLayoutManager.scrollToPositionWithOffset(0, -yOffset);
                     }
-                }else if(scroll instanceof WebView){
-                    ((WebView)scroll).scrollTo(0,-yOffset);
+                } else if (scroll instanceof WebView) {
+                    ((WebView) scroll).scrollTo(0, yOffset);
                 }
+
+                yOffsets.put(scroll, yOffset);
+
+                calledScrollList.remove(scroll);
             }
         }
 
@@ -113,7 +122,7 @@ public class MaterialViewPagerAnimator {
 
 
         float percent = yOffset / heightMaxScrollToolbar;
-        percent = Math.min(percent, 1);
+        percent = Math.max(0, Math.min(percent, 1));
         {
             int newColor = colorWithAlpha(color, percent);
 
@@ -131,7 +140,7 @@ public class MaterialViewPagerAnimator {
             }
 
             {
-                float newY = mPagerSlidingTabStrip.getY() - yOffset;
+                float newY = mPagerSlidingTabStrip.getY() + -yOffset;
                 if (newY >= finalTabsY)
                     mPagerSlidingTabStrip.setTranslationY(-yOffset);
             }
@@ -148,13 +157,13 @@ public class MaterialViewPagerAnimator {
 
     private List<Object> scrollViewList = new ArrayList<>();
     private List<Object> calledScrollList = new ArrayList<>();
+    private HashMap<Object, Integer> yOffsets = new HashMap<>();
 
     public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
         if (recyclerView != null) {
             scrollViewList.add(recyclerView);
+            yOffsets.put(recyclerView, 0);
             recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-
-                int scrollY = 0;
 
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -165,12 +174,15 @@ public class MaterialViewPagerAnimator {
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
 
+                    int scrollY = yOffsets.get(recyclerView);
+
                     if (calledScrollList.contains(recyclerView)) {
                         calledScrollList.remove(recyclerView);
                         return;
                     }
 
                     scrollY += dy;
+                    yOffsets.put(recyclerView, scrollY);
 
                     onMaterialScrolled(recyclerView, scrollY);
                 }
@@ -179,7 +191,7 @@ public class MaterialViewPagerAnimator {
     }
 
     public void registerWebView(final ObservableWebView webView, Object o) {
-        if(webView != null) {
+        if (webView != null) {
             scrollViewList.add(webView);
             webView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override

@@ -57,6 +57,8 @@ public class WebViewFragment extends Fragment {
         webSettings.setDomStorageEnabled(true);
         mWebView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
 
+        mWebView.setVisibility(View.INVISIBLE);
+
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -64,6 +66,7 @@ public class WebViewFragment extends Fragment {
                 final String js = String.format("document.body.style.paddingTop= \"%dpx\"", marginTop);
 
                 mWebView.evaluateJavascript(js,null);
+                mWebView.setVisibility(View.VISIBLE);
             }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -74,7 +77,6 @@ public class WebViewFragment extends Fragment {
 
         mWebView.loadUrl("http://mobile.francetvinfo.fr/");
 
-        //materialViewPagerActivity.registerWebView(mWebView, null);
-
+        materialViewPagerActivity.registerWebView(mWebView, null);
     }
 }
