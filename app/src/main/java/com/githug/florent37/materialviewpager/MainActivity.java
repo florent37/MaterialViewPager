@@ -10,9 +10,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends ActionBarActivity implements MaterialViewPagerActivity {
@@ -60,7 +62,12 @@ public class MainActivity extends ActionBarActivity implements MaterialViewPager
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return ListFragment.newInstance();
+                switch (position) {
+                    case 0:
+                        return WebViewFragment.newInstance();
+                    default:
+                        return ListFragment.newInstance();
+                }
             }
 
             @Override
@@ -70,7 +77,7 @@ public class MainActivity extends ActionBarActivity implements MaterialViewPager
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return "Page "+position;
+                return "Page " + position;
             }
         });
         mViewPager.setOffscreenPageLimit(mViewPager.getAdapter().getCount());
@@ -94,7 +101,13 @@ public class MainActivity extends ActionBarActivity implements MaterialViewPager
 
     @Override
     public void registerRecyclerView(RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
-        materialViewPagerAnimator.registerRecyclerView(recyclerView,onScrollListener);
+        materialViewPagerAnimator.registerRecyclerView(recyclerView, onScrollListener);
 
     }
+
+    @Override
+    public void registerWebView(ObservableWebView mWebView, Object o) {
+        materialViewPagerAnimator.registerWebView(mWebView, o);
+    }
+
 }

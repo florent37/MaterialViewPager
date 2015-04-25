@@ -6,9 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
+import android.webkit.WebView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +74,7 @@ public class MaterialViewPagerAnimator {
         originalTitleY = mLogo.getY();
         originalTitleX = mLogo.getX();
 
-        finalTabsY = dpToPx(0,context);
+        finalTabsY = dpToPx(0, context);
 
         finalScale = 0.6f;
 
@@ -80,7 +83,14 @@ public class MaterialViewPagerAnimator {
         elevation = dpToPx(4, context);
     }
 
-    public void onMaterialScrolled(int yOffset) {
+    public void onMaterialScrolled(Object source, int yOffset) {
+
+        for (RecyclerView r : recyclerViewList) {
+            if (r != source) {
+                calledRecyclerViewList.add(r);
+                r.scrollBy(0, yOffset);
+            }
+        }
 
         {
             float newY = headerBackground.getY() + (-yOffset / 1.5f);
@@ -91,11 +101,12 @@ public class MaterialViewPagerAnimator {
         float percent = yOffset / heightMaxScrollToolbar;
         percent = Math.min(percent, 1);
         {
-            int newColor = colorWithAlpha(color,percent);
+            int newColor = colorWithAlpha(color, percent);
 
             toolbar.setBackgroundColor(newColor);
             mPagerSlidingTabStrip.setBackgroundColor(newColor);
             statusBackground.setBackgroundColor(newColor);
+
 
             if (percent == 1) {
                 ViewCompat.setElevation(toolbar, elevation);
@@ -106,7 +117,7 @@ public class MaterialViewPagerAnimator {
             }
 
             {
-                float newY = mPagerSlidingTabStrip.getY()-yOffset;
+                float newY = mPagerSlidingTabStrip.getY() - yOffset;
                 if (newY >= finalTabsY)
                     mPagerSlidingTabStrip.setTranslationY(-yOffset);
             }
@@ -121,6 +132,7 @@ public class MaterialViewPagerAnimator {
         }
     }
 
+    private List<ObservableWebView> webViews = new ArrayList<>();
     private List<RecyclerView> recyclerViewList = new ArrayList<>();
     private List<RecyclerView> calledRecyclerViewList = new ArrayList<>();
     private int totalScrolled = 0;
@@ -128,6 +140,7 @@ public class MaterialViewPagerAnimator {
     public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
         if (recyclerView != null) {
             recyclerViewList.add(recyclerView);
+            recyclerView.setClipToPadding(false);
             recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
                 @Override
@@ -139,14 +152,7 @@ public class MaterialViewPagerAnimator {
 
                     totalScrolled += dy;
 
-                    onMaterialScrolled(totalScrolled);
-
-                    for (RecyclerView r : recyclerViewList) {
-                        if (r != recyclerView) {
-                            calledRecyclerViewList.add(r);
-                            r.scrollBy(0, dy);
-                        }
-                    }
+                    onMaterialScrolled(recyclerView,totalScrolled);
 
                     if (onScrollListener != null)
                         onScrollListener.onScrolled(recyclerView, dx, dy);
@@ -160,5 +166,26 @@ public class MaterialViewPagerAnimator {
                 }
             });
         }
+    }
+
+    public void registerWebView(final ObservableWebView webView, Object o) {
+        webViews.add(webView);
+
+        webView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+            @Override
+            public void onScrollChanged(int i, boolean b, boolean b2) {
+                onMaterialScrolled(webView,totalScrolled);
+            }
+
+            @Override
+            public void onDownMotionEvent() {
+
+            }
+
+            @Override
+            public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+            }
+        });
     }
 }
