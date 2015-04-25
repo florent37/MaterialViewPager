@@ -8,12 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.githug.florent37.materialviewpager.fragment.ListFragment;
 import com.githug.florent37.materialviewpager.fragment.WebViewFragment;
 import com.squareup.picasso.Picasso;
@@ -84,11 +82,11 @@ public class MainActivity extends ActionBarActivity {
         mPagerTitleStrip.setViewPager(mViewPager);
 
         MaterialViewPager.register(this, new MaterialViewPagerAnimator(
-                toolbar,
-                mPagerTitleStrip,
-                findViewById(R.id.headerBackground),
-                findViewById(R.id.statusBackground),
-                findViewById(R.id.logo_white)
+                new MaterialViewPagerHeader(toolbar)
+                        .setPagerSlidingTabStrip(mPagerTitleStrip)
+                        .setHeaderBackground(findViewById(R.id.headerBackground))
+                        .setStatusBackground(findViewById(R.id.statusBackground))
+                        .setLogo(findViewById(R.id.logo_white))
         ));
 
     }

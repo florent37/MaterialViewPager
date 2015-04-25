@@ -26,69 +26,28 @@ import static com.githug.florent37.materialviewpager.Utils.dpToPx;
  */
 public class MaterialViewPagerAnimator {
 
-    private Toolbar toolbar;
-    private PagerSlidingTabStrip mPagerSlidingTabStrip;
-
-    private View headerBackground;
-    private View statusBackground;
-    private View mLogo;
-
     private Context context;
+    private MaterialViewPagerHeader mHeader;
 
     private int color;
 
-    float finalTitleY;
-
-    float finalTabsY;
-
-    float finalTitleX;
-    float originalTitleY;
-    float originalTitleX;
-    float finalScale;
     //float heightMaxScrollToolbar;
     float elevation;
 
     float scrollMax;
 
 
-    public MaterialViewPagerAnimator(Toolbar toolbar, PagerSlidingTabStrip pagerSlidingTabStrip, View headerBackground, View statusBackground, View logo_white) {
-        this.context = toolbar.getContext();
+    public MaterialViewPagerAnimator(MaterialViewPagerHeader header) {
+        this.mHeader = header;
+        this.context = mHeader.getContext();
 
         color = context.getResources().getColor(R.color.colorPrimary);
 
-        this.toolbar = toolbar;
-        this.mPagerSlidingTabStrip = pagerSlidingTabStrip;
-        this.headerBackground = headerBackground;
-        this.statusBackground = statusBackground;
-        this.mLogo = logo_white;
-
-        finalScale = 0.6f;
+        mHeader.finalScale = 0.6f;
         //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
         elevation = dpToPx(4, context);
 
         scrollMax = 250f;
-
-        mPagerSlidingTabStrip.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                finalTabsY = dpToPx(-2, context);
-
-                mPagerSlidingTabStrip.getViewTreeObserver().removeOnPreDrawListener(this);
-                return false;
-            }
-        });
-        mLogo.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                finalTitleY = dpToPx(35f, context);
-                finalTitleX = dpToPx(18f, context);
-                originalTitleY = mLogo.getY();
-                originalTitleX = mLogo.getX();
-
-                mLogo.getViewTreeObserver().removeOnPreDrawListener(this);
-                return false;
-            }
-        });
     }
 
     private void dispatchScrollOffset(Object source, float yOffset) {
@@ -118,7 +77,7 @@ public class MaterialViewPagerAnimator {
         float scrollTop = -yOffset;
 
         { //parallax scroll of ImageView
-            headerBackground.setTranslationY(scrollTop / 1.5f);
+            mHeader.headerBackground.setTranslationY(scrollTop / 1.5f);
         }
 
         yOffset = minMax(0, yOffset, scrollMax);
@@ -138,36 +97,36 @@ public class MaterialViewPagerAnimator {
                 setBackgroundColor(
                         colorWithAlpha(color, percent),
 
-                        toolbar,
-                        mPagerSlidingTabStrip,
-                        statusBackground
+                        mHeader.toolbar,
+                        mHeader.mPagerSlidingTabStrip,
+                        mHeader.statusBackground
                 );
 
                 setElevation(
                         (percent == 1) ? elevation : 0,
 
-                        toolbar,
-                        mPagerSlidingTabStrip,
-                        mLogo
+                        mHeader.toolbar,
+                        mHeader.mPagerSlidingTabStrip,
+                        mHeader.mLogo
                 );
             }
 
 
             { //move the viewpager indicator
-                float newY = mPagerSlidingTabStrip.getY() + scrollTop;
-                if (newY >= finalTabsY)
-                    mPagerSlidingTabStrip.setTranslationY(scrollTop);
+                float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
+                if (newY >= mHeader.finalTabsY)
+                    mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
                 else{
                 }
             }
 
             { //move the header logo to toolbar
-                mLogo.setTranslationY((finalTitleY - originalTitleY) * percent);
-                mLogo.setTranslationX((finalTitleX - originalTitleX) * percent);
+                mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                mHeader.mLogo.setTranslationX((mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
-                float scale = (1 - percent) * (1 - finalScale) + finalScale;
+                float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
 
-                setScale(scale, mLogo);
+                setScale(scale, mHeader.mLogo);
             }
         }
     }
