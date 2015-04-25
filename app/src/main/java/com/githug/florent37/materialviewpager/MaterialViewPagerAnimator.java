@@ -5,7 +5,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
@@ -92,20 +91,7 @@ public class MaterialViewPagerAnimator {
         });
     }
 
-    public void onMaterialScrolled(Object source, int yOffset) {
-
-        {
-            float newY = headerBackground.getY() + (-yOffset / 1.5f);
-            if (newY <= 0)
-                headerBackground.setTranslationY(-yOffset / 1.5f);
-        }
-
-        if (yOffset > scrollMax)
-            yOffset = (int) scrollMax;
-        if (yOffset < 0)
-            yOffset = 0;
-        Log.d("yOffset", "" + yOffset);
-
+    private void dispatchScrollOffset(Object source, float yOffset) {
         for (Object scroll : scrollViewList) {
             if (scroll != source) {
                 calledScrollList.add(scroll);
@@ -114,56 +100,101 @@ public class MaterialViewPagerAnimator {
                     RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
                     if (layoutManager instanceof LinearLayoutManager) {
                         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-                        linearLayoutManager.scrollToPositionWithOffset(0, -yOffset);
+                        linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
                     }
                 } else if (scroll instanceof WebView) {
-                    ((WebView) scroll).scrollTo(0, yOffset);
+                    ((WebView) scroll).scrollTo(0, (int) yOffset);
                 }
 
-                yOffsets.put(scroll, yOffset);
+                yOffsets.put(scroll, (int) yOffset);
 
                 calledScrollList.remove(scroll);
             }
         }
+    }
+
+    public void onMaterialScrolled(Object source, float yOffset) {
+
+        float scrollTop = -yOffset;
+
+        { //parallax scroll of ImageView
+            headerBackground.setTranslationY(scrollTop / 1.5f);
+        }
+
+        yOffset = minMax(0, yOffset, scrollMax);
+        //Log.d("yOffset", "" + yOffset);
+
+        dispatchScrollOffset(source, yOffset);
 
         float percent = yOffset / scrollMax;
-        float colorPercent = yOffset / scrollMax;
 
-        percent = Math.max(0, Math.min(percent, 1));
+        percent = minMax(0, percent, 1);
         {
-            int newColor = colorWithAlpha(color, colorPercent);
-
-            toolbar.setBackgroundColor(newColor);
-            mPagerSlidingTabStrip.setBackgroundColor(newColor);
-            statusBackground.setBackgroundColor(newColor);
-
-
-            if (percent == 1) {
-                ViewCompat.setElevation(toolbar, elevation);
-                ViewCompat.setElevation(mPagerSlidingTabStrip, elevation);
-                ViewCompat.setElevation(mLogo, elevation);
-            } else {
-                ViewCompat.setElevation(toolbar, 0);
-                ViewCompat.setElevation(mPagerSlidingTabStrip, 0);
-                ViewCompat.setElevation(mLogo, 0);
-            }
 
             {
-                float newY = mPagerSlidingTabStrip.getY() + -yOffset;
+                // change color of
+                // toolbar & viewpager indicator &  statusBaground
+
+                setBackgroundColor(
+                        colorWithAlpha(color, percent),
+
+                        toolbar,
+                        mPagerSlidingTabStrip,
+                        statusBackground
+                );
+
+                setElevation(
+                        (percent == 1) ? elevation : 0,
+
+                        toolbar,
+                        mPagerSlidingTabStrip,
+                        mLogo
+                );
+            }
+
+
+            { //move the viewpager indicator
+                float newY = mPagerSlidingTabStrip.getY() + scrollTop;
                 if (newY >= finalTabsY)
-                    mPagerSlidingTabStrip.setTranslationY(-yOffset);
+                    mPagerSlidingTabStrip.setTranslationY(scrollTop);
+                else{
+                }
             }
 
-            {
+            { //move the header logo to toolbar
                 mLogo.setTranslationY((finalTitleY - originalTitleY) * percent);
                 mLogo.setTranslationX((finalTitleX - originalTitleX) * percent);
 
                 float scale = (1 - percent) * (1 - finalScale) + finalScale;
 
-                mLogo.setScaleX(scale);
-                mLogo.setScaleY(scale);
+                setScale(scale, mLogo);
             }
         }
+    }
+
+    private static void setElevation(float elevation, View... views) {
+        for (View view : views) {
+            ViewCompat.setElevation(view, elevation);
+        }
+    }
+
+    private static void setBackgroundColor(int color, View... views) {
+        for (View view : views) {
+            view.setBackgroundColor(color);
+        }
+    }
+
+    private static void setScale(float scale, View... views) {
+        for (View view : views) {
+            view.setScaleX(scale);
+            view.setScaleY(scale);
+        }
+    }
+
+    private static float minMax(float min, float value, float max) {
+        value = Math.min(value, max);
+        value = Math.max(min, value);
+        return value;
     }
 
     private List<Object> scrollViewList = new ArrayList<>();
@@ -179,16 +210,16 @@ public class MaterialViewPagerAnimator {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
-                    if(onScrollListener != null)
-                        onScrollListener.onScrollStateChanged(recyclerView,newState);
+                    if (onScrollListener != null)
+                        onScrollListener.onScrollStateChanged(recyclerView, newState);
                 }
 
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
 
-                    if(onScrollListener != null)
-                        onScrollListener.onScrolled(recyclerView,dx,dy);
+                    if (onScrollListener != null)
+                        onScrollListener.onScrolled(recyclerView, dx, dy);
 
                     int scrollY = yOffsets.get(recyclerView);
 

@@ -1,7 +1,11 @@
 package com.githug.florent37.materialviewpager;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
@@ -40,4 +44,34 @@ public class MaterialViewPager {
         }
     }
 
+    public static void injectHeader(final WebView webView, boolean withAnimation){
+        if(webView != null) {
+
+            WebSettings webSettings = webView.getSettings();
+            webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+            webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+            webSettings.setJavaScriptEnabled(true);
+            webSettings.setDomStorageEnabled(true);
+
+            final int marginTop = 210;
+            final String js = String.format("document.body.style.paddingTop= \"%dpx\"", marginTop);
+
+            webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+            webView.evaluateJavascript(js, null);
+
+            if (withAnimation)
+                webView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        webView.setVisibility(View.VISIBLE);
+                        ObjectAnimator.ofFloat(webView, "alpha", 0, 1).start();
+                    }
+                }, 400);
+        }
+    }
+
+    public static void preLoadInjectHeader(WebView mWebView) {
+        mWebView.setBackgroundColor(Color.TRANSPARENT);
+        mWebView.setVisibility(View.INVISIBLE);
+    }
 }

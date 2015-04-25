@@ -1,5 +1,6 @@
 package com.githug.florent37.materialviewpager.fragment;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -36,31 +37,13 @@ public class WebViewFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mWebView = (ObservableWebView) view.findViewById(R.id.webView);
-        mWebView.setBackgroundColor(Color.TRANSPARENT);
 
-        WebSettings webSettings = mWebView.getSettings();
-
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        mWebView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
-
-        mWebView.setVisibility(View.INVISIBLE);
+        MaterialViewPager.preLoadInjectHeader(mWebView);
 
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                final int marginTop = 210;
-                final String js = String.format("document.body.style.paddingTop= \"%dpx\"", marginTop);
-
-                mWebView.evaluateJavascript(js, null);
-                mWebView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mWebView.setVisibility(View.VISIBLE);
-                    }
-                }, 400);
+                MaterialViewPager.injectHeader(mWebView,true);
             }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
