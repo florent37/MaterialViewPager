@@ -49,6 +49,8 @@ public class MaterialViewPagerAnimator {
     float heightMaxScrollToolbar;
     float elevation;
 
+    float scrollMax = 250f;
+
 
     public MaterialViewPagerAnimator(Toolbar toolbar, PagerSlidingTabStrip pagerSlidingTabStrip, View headerBackground, View statusBackground, View logo_white) {
         this.context = toolbar.getContext();
@@ -88,8 +90,8 @@ public class MaterialViewPagerAnimator {
 
     public void onMaterialScrolled(Object source, int yOffset) {
 
-        if (yOffset > 250)
-            yOffset = 250;
+        if (yOffset > scrollMax)
+            yOffset = (int)scrollMax;
         if(yOffset < 0)
             yOffset = 0;
         Log.d("yOffset", "" + yOffset);
@@ -122,9 +124,11 @@ public class MaterialViewPagerAnimator {
 
 
         float percent = yOffset / heightMaxScrollToolbar;
+        float colorPercent = yOffset / scrollMax;
+
         percent = Math.max(0, Math.min(percent, 1));
         {
-            int newColor = colorWithAlpha(color, percent);
+            int newColor = colorWithAlpha(color, colorPercent);
 
             toolbar.setBackgroundColor(newColor);
             mPagerSlidingTabStrip.setBackgroundColor(newColor);
