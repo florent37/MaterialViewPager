@@ -58,7 +58,6 @@
             app:pstsTextAllCaps="true" />
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/logo_white"
             android:layout_marginTop="120dp"
             android:layout_width="200dp"

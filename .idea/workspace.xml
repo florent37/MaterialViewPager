@@ -69,10 +69,26 @@
       <file leaf-file-name="MaterialViewPagerAnimator.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/MaterialViewPagerAnimator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.027088037" vertical-offset="1038" max-vertical-offset="3075">
-              <caret line="93" column="27" selection-start-line="93" selection-start-column="27" selection-end-line="93" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.5981941" vertical-offset="890" max-vertical-offset="3180">
+              <caret line="100" column="9" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
+              <folding>
+                <element signature="e#2224#2525#0" expanded="true" />
+                <element signature="e#2514#2515#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.5555553" vertical-offset="708" max-vertical-offset="1185">
+              <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -966,7 +982,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/TestAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/Utils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/ObservableWebViewWithHeader.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/manuelpeinado/fadingactionbar/view/OnScrollChangedCallback.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/manuelpeinado/fadingactionbar/view/ObservableScrollable.java" />
@@ -979,6 +994,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/ListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_webview.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/WebViewFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/MaterialViewPagerAnimator.java" />
       </list>
     </option>
@@ -1514,8 +1530,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1554,12 +1570,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/MaterialViewPagerAnimator.java</url>
-          <line>128</line>
+          <line>157</line>
           <properties />
-          <option name="timeStamp" value="27" />
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="28" />
+      <option name="time" value="31" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1575,7 +1591,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2655" max-vertical-offset="2955">
           <caret line="177" column="0" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#2224#2525#0" expanded="true" />
+            <element signature="e#2514#2515#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1615,7 +1634,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2655" max-vertical-offset="2955">
           <caret line="177" column="0" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#2224#2525#0" expanded="true" />
+            <element signature="e#2514#2515#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1767,13 +1789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/android/sdk/sources/android-22/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45643154" vertical-offset="158735" max-vertical-offset="308550">
-          <caret line="10907" column="17" selection-start-line="10907" selection-start-column="17" selection-end-line="10907" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/android/sdk/sources/android-22/android/support/v7/widget/RecyclerView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.769231" vertical-offset="13756" max-vertical-offset="129045">
@@ -1785,17 +1800,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="29630" max-vertical-offset="31275">
           <caret line="2199" column="23" selection-start-line="2199" selection-start-column="23" selection-end-line="2199" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.095022626" vertical-offset="453" max-vertical-offset="1200">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1944,11 +1948,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.5555553" vertical-offset="708" max-vertical-offset="1185">
+          <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android/sdk/sources/android-22/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="158527" max-vertical-offset="308550">
+          <caret line="10884" column="17" selection-start-line="10884" selection-start-column="17" selection-end-line="10884" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/githug/florent37/materialviewpager/MaterialViewPagerAnimator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.027088037" vertical-offset="1038" max-vertical-offset="3075">
-          <caret line="93" column="27" selection-start-line="93" selection-start-column="27" selection-end-line="93" selection-end-column="27" />
-          <folding />
+        <state vertical-scroll-proportion="0.5981941" vertical-offset="890" max-vertical-offset="3180">
+          <caret line="100" column="9" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
+          <folding>
+            <element signature="e#2224#2525#0" expanded="true" />
+            <element signature="e#2514#2515#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

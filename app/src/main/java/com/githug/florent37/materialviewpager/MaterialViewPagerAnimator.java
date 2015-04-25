@@ -46,10 +46,10 @@ public class MaterialViewPagerAnimator {
     float originalTitleY;
     float originalTitleX;
     float finalScale;
-    float heightMaxScrollToolbar;
+    //float heightMaxScrollToolbar;
     float elevation;
 
-    float scrollMax = 250f;
+    float scrollMax;
 
 
     public MaterialViewPagerAnimator(Toolbar toolbar, PagerSlidingTabStrip pagerSlidingTabStrip, View headerBackground, View statusBackground, View logo_white) {
@@ -63,32 +63,42 @@ public class MaterialViewPagerAnimator {
         this.statusBackground = statusBackground;
         this.mLogo = logo_white;
 
+        finalScale = 0.6f;
+        //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
+        elevation = dpToPx(4, context);
+
+        scrollMax = 250f;
+
         mPagerSlidingTabStrip.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                initialise();
+                finalTabsY = dpToPx(-2, context);
+
                 mPagerSlidingTabStrip.getViewTreeObserver().removeOnPreDrawListener(this);
+                return false;
+            }
+        });
+        mLogo.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                finalTitleY = dpToPx(35f, context);
+                finalTitleX = dpToPx(18f, context);
+                originalTitleY = mLogo.getY();
+                originalTitleX = mLogo.getX();
+
+                mLogo.getViewTreeObserver().removeOnPreDrawListener(this);
                 return false;
             }
         });
     }
 
-    private void initialise() {
-        finalTitleY = dpToPx(35f, context);
-        finalTitleX = dpToPx(18f, context);
-        originalTitleY = mLogo.getY();
-        originalTitleX = mLogo.getX();
-
-        finalTabsY = dpToPx(0, context);
-
-        finalScale = 0.6f;
-
-        heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
-
-        elevation = dpToPx(4, context);
-    }
-
     public void onMaterialScrolled(Object source, int yOffset) {
+
+        {
+            float newY = headerBackground.getY() + (-yOffset / 1.5f);
+            if (newY <= 0)
+                headerBackground.setTranslationY(-yOffset / 1.5f);
+        }
 
         if (yOffset > scrollMax)
             yOffset = (int)scrollMax;
@@ -116,14 +126,7 @@ public class MaterialViewPagerAnimator {
             }
         }
 
-        {
-            float newY = headerBackground.getY() + (-yOffset / 1.5f);
-            if (newY <= 0)
-                headerBackground.setTranslationY(-yOffset / 1.5f);
-        }
-
-
-        float percent = yOffset / heightMaxScrollToolbar;
+        float percent = yOffset / scrollMax;
         float colorPercent = yOffset / scrollMax;
 
         percent = Math.max(0, Math.min(percent, 1));
@@ -138,9 +141,11 @@ public class MaterialViewPagerAnimator {
             if (percent == 1) {
                 ViewCompat.setElevation(toolbar, elevation);
                 ViewCompat.setElevation(mPagerSlidingTabStrip, elevation);
+                ViewCompat.setElevation(mLogo, elevation);
             } else {
                 ViewCompat.setElevation(toolbar, 0);
                 ViewCompat.setElevation(mPagerSlidingTabStrip, 0);
+                ViewCompat.setElevation(mLogo, 0);
             }
 
             {
@@ -149,13 +154,15 @@ public class MaterialViewPagerAnimator {
                     mPagerSlidingTabStrip.setTranslationY(-yOffset);
             }
 
-            mLogo.setTranslationY((finalTitleY - originalTitleY) * percent);
-            mLogo.setTranslationX((finalTitleX - originalTitleX) * percent);
+            {
+                mLogo.setTranslationY((finalTitleY - originalTitleY) * percent);
+                mLogo.setTranslationX((finalTitleX - originalTitleX) * percent);
 
-            float scale = (1 - percent) * (1 - finalScale) + finalScale;
+                float scale = (1 - percent) * (1 - finalScale) + finalScale;
 
-            mLogo.setScaleX(scale);
-            mLogo.setScaleY(scale);
+                mLogo.setScaleX(scale);
+                mLogo.setScaleY(scale);
+            }
         }
     }
 
