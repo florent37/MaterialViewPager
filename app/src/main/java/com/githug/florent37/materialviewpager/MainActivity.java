@@ -60,8 +60,8 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
-                    case 0:
-                        return WebViewFragment.newInstance();
+                    //case 0:
+                    //    return WebViewFragment.newInstance();
                     default:
                         return ListFragment.newInstance();
                 }
@@ -83,6 +83,7 @@ public class MainActivity extends ActionBarActivity {
 
         MaterialViewPager.register(this, new MaterialViewPagerAnimator(
                 200,
+                true,
                 MaterialViewPagerHeader
                         .withToolbar(toolbar)
                         .withPagerSlidingTabStrip(mPagerTitleStrip)

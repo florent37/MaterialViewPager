@@ -31,6 +31,7 @@ public class MaterialViewPagerAnimator {
     private MaterialViewPagerHeader mHeader;
 
     private int color;
+    private boolean hideToolbarAndTitle;
 
     //float heightMaxScrollToolbar;
     public final int headerHeight;
@@ -38,9 +39,10 @@ public class MaterialViewPagerAnimator {
     public final float scrollMax;
 
 
-    public MaterialViewPagerAnimator(int headerHeight, MaterialViewPagerHeader header) {
+    public MaterialViewPagerAnimator(int headerHeight, boolean hideToolbarAndTitle, MaterialViewPagerHeader header) {
 
         this.headerHeight = headerHeight;
+        this.hideToolbarAndTitle = hideToolbarAndTitle;
         this.scrollMax = headerHeight + 50;
 
         this.mHeader = header;
@@ -94,10 +96,10 @@ public class MaterialViewPagerAnimator {
                 mHeader.headerBackground.setTranslationY(scrollTop / 1.5f);
         }
 
-        yOffset = minMax(0, yOffset, scrollMax);
+        //yOffset = ;
         //Log.d("yOffset", "" + yOffset);
 
-        dispatchScrollOffset(source, yOffset);
+        dispatchScrollOffset(source, minMax(0, yOffset, scrollMax));
 
         float percent = yOffset / scrollMax;
 
@@ -129,11 +131,7 @@ public class MaterialViewPagerAnimator {
 
                 setElevation(
                         (percent == 1) ? elevation : 0,
-
-                        mHeader.toolbar,
-                        mHeader.mPagerSlidingTabStrip,
-                        mHeader.statusBackground,
-                        mHeader.mLogo
+                        mHeader.toolbarLayout
                 );
             }
 
@@ -151,6 +149,15 @@ public class MaterialViewPagerAnimator {
                 float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
 
                 setScale(scale, mHeader.mLogo);
+            }
+
+            if(hideToolbarAndTitle){
+                float diffOffsetScrollMax = scrollMax-yOffset;
+                if(diffOffsetScrollMax<0){
+                    if(mHeader.toolbarLayout != null) {
+                        mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
+                    }
+                }
             }
         }
     }

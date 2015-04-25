@@ -29,8 +29,7 @@
             <View
                 android:id="@+id/statusBackground"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
 
         </FrameLayout>
 
@@ -39,35 +38,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:minHeight="?attr/actionBarSize" />
+            android:layout_height="wrap_content">
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:minHeight="?attr/actionBarSize" />
 
-        <com.astuetz.PagerSlidingTabStrip
-            android:id="@+id/pagerTitleStrip"
-            android:layout_marginTop="160dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:pstsDividerPadding="20dp"
-            app:pstsIndicatorColor="#FFF"
-            app:pstsIndicatorHeight="4dp"
-            app:pstsShouldExpand="true"
-            app:pstsTabPaddingLeftRight="10dp"
-            app:pstsTextAllCaps="true" />
+            <com.astuetz.PagerSlidingTabStrip
+                android:id="@+id/pagerTitleStrip"
+                android:layout_marginTop="160dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:pstsDividerPadding="20dp"
+                app:pstsIndicatorColor="#FFF"
+                app:pstsIndicatorHeight="4dp"
+                app:pstsShouldExpand="true"
+                app:pstsTabPaddingLeftRight="10dp"
+                app:pstsTextAllCaps="true" />
 
-        <ImageView
-            android:id="@+id/logo_white"
-            android:layout_marginTop="120dp"
-            android:layout_width="200dp"
-            android:layout_height="35dp"
-            android:fitsSystemWindows="true"
-            android:adjustViewBounds="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/logo_white" />
+            <ImageView
+                android:id="@+id/logo_white"
+                android:layout_marginTop="120dp"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:fitsSystemWindows="true"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/logo_white" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

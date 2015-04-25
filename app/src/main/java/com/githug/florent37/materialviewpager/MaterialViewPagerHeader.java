@@ -16,6 +16,7 @@ public class MaterialViewPagerHeader {
 
     protected Context context;
 
+    protected View toolbarLayout;
     protected Toolbar toolbar;
     protected PagerSlidingTabStrip mPagerSlidingTabStrip;
 
@@ -33,6 +34,7 @@ public class MaterialViewPagerHeader {
     private MaterialViewPagerHeader(Toolbar toolbar){
         this.toolbar = toolbar;
         this.context = toolbar.getContext();
+        this.toolbarLayout = (View) toolbar.getParent();
     }
 
     public static MaterialViewPagerHeader withToolbar(Toolbar toolbar) {
