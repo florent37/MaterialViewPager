@@ -4,13 +4,10 @@ import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 
-import com.astuetz.PagerSlidingTabStrip;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -38,6 +35,7 @@ public class MaterialViewPagerAnimator {
     public final float elevation;
     public final float scrollMax;
 
+    private float lastYOffset = -1;
 
     public MaterialViewPagerAnimator(int headerHeight, boolean hideToolbarAndTitle, MaterialViewPagerHeader header) {
 
@@ -48,12 +46,11 @@ public class MaterialViewPagerAnimator {
         this.mHeader = header;
         this.context = mHeader.getContext();
 
-        if(this.mHeader.headerBackground != null) {
+        if (this.mHeader.headerBackground != null) {
             ViewGroup.LayoutParams layoutParams = this.mHeader.headerBackground.getLayoutParams();
             layoutParams.height = (int) Utils.dpToPx(this.scrollMax + 10, context);
             this.mHeader.headerBackground.setLayoutParams(layoutParams);
         }
-
 
 
         color = context.getResources().getColor(R.color.colorPrimary);
@@ -64,7 +61,7 @@ public class MaterialViewPagerAnimator {
     }
 
     private void dispatchScrollOffset(Object source, float yOffset) {
-        if(scrollViewList != null) {
+        if (scrollViewList != null) {
             for (Object scroll : scrollViewList) {
                 if (scroll != null && scroll != source) {
                     calledScrollList.add(scroll);
@@ -92,7 +89,7 @@ public class MaterialViewPagerAnimator {
         float scrollTop = -yOffset;
 
         { //parallax scroll of ImageView
-            if(mHeader.headerBackground != null)
+            if (mHeader.headerBackground != null)
                 mHeader.headerBackground.setTranslationY(scrollTop / 1.5f);
         }
 
@@ -115,18 +112,18 @@ public class MaterialViewPagerAnimator {
                         mHeader.statusBackground
                 );
 
-                if(percent >=1){
+                if (percent >= 1) {
                     setBackgroundColor(
                             colorWithAlpha(color, percent),
                             mHeader.toolbar,
                             mHeader.mPagerSlidingTabStrip
                     );
-                }else{
+                } else {
                     setBackgroundColor(
                             colorWithAlpha(color, 0),
                             mHeader.toolbar,
                             mHeader.mPagerSlidingTabStrip
-                            );
+                    );
                 }
 
                 setElevation(
@@ -136,13 +133,13 @@ public class MaterialViewPagerAnimator {
             }
 
 
-            if(mHeader.mPagerSlidingTabStrip != null){ //move the viewpager indicator
+            if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
                 float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
                 if (newY >= mHeader.finalTabsY)
                     mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
             }
 
-            if(mHeader.mLogo != null){ //move the header logo to toolbar
+            if (mHeader.mLogo != null) { //move the header logo to toolbar
                 mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
                 mHeader.mLogo.setTranslationX((mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
@@ -151,34 +148,50 @@ public class MaterialViewPagerAnimator {
                 setScale(scale, mHeader.mLogo);
             }
 
-            if(hideToolbarAndTitle){
-                float diffOffsetScrollMax = scrollMax-yOffset;
-                if(diffOffsetScrollMax<0){
-                    if(mHeader.toolbarLayout != null) {
+            if (hideToolbarAndTitle) {
+                if(headerYOffset == Float.MAX_VALUE)
+                    headerYOffset = scrollMax;
+                float diffOffsetScrollMax = headerYOffset - yOffset;
+                if (diffOffsetScrollMax < 0) {
+                    if (mHeader.toolbarLayout != null) {
                         mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
                     }
+                } else {
+                    if (mHeader.toolbarLayout != null) {
+                        mHeader.toolbarLayout.setTranslationY(0);
+                    }
+                }
+
+                if(lastYOffset > yOffset){
+                   // if (mHeader.toolbarLayout != null && mHeader.toolbarLayout.getTranslationY()!=0)
+                   //     mHeader.toolbarLayout.animate().translationY(0).setDuration(500).start();
+                   // headerYOffset = yOffset;
                 }
             }
         }
+
+        lastYOffset = yOffset;
     }
+
+    private float headerYOffset = Float.MAX_VALUE;
 
     private static void setElevation(float elevation, View... views) {
         for (View view : views) {
-            if(view != null)
+            if (view != null)
                 ViewCompat.setElevation(view, elevation);
         }
     }
 
     private static void setBackgroundColor(int color, View... views) {
         for (View view : views) {
-            if(view != null)
+            if (view != null)
                 view.setBackgroundColor(color);
         }
     }
 
     private static void setScale(float scale, View... views) {
         for (View view : views) {
-            if(view != null) {
+            if (view != null) {
                 view.setScaleX(scale);
                 view.setScaleY(scale);
             }
