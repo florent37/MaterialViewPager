@@ -1,9 +1,11 @@
 package com.githug.florent37.materialviewpager;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -24,6 +26,7 @@ import static com.githug.florent37.materialviewpager.Utils.dpToPx;
  */
 public class MaterialViewPagerAnimator {
 
+    private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
     private Context context;
     private MaterialViewPagerHeader mHeader;
 
@@ -130,8 +133,8 @@ public class MaterialViewPagerAnimator {
                         (percent == 1) ? elevation : 0,
                         mHeader.toolbarLayout
                 );
-            }
 
+            }
 
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
                 float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
@@ -148,32 +151,45 @@ public class MaterialViewPagerAnimator {
                 setScale(scale, mHeader.mLogo);
             }
 
-            if (hideToolbarAndTitle) {
-                if(headerYOffset == Float.MAX_VALUE)
-                    headerYOffset = scrollMax;
-                float diffOffsetScrollMax = headerYOffset - yOffset;
-                if (diffOffsetScrollMax < 0) {
-                    if (mHeader.toolbarLayout != null) {
+            if (hideToolbarAndTitle && mHeader.toolbarLayout != null) {
+                boolean scrollUp = lastYOffset < yOffset;
+
+                if (scrollUp) {
+                    Log.d(TAG, "scrollUp");
+
+                    if (headerYOffset == Float.MAX_VALUE)
+                        headerYOffset = scrollMax;
+
+                    float diffOffsetScrollMax = headerYOffset - yOffset;
+                    if (diffOffsetScrollMax <= 0) {
                         mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
                     }
                 } else {
-                    if (mHeader.toolbarLayout != null) {
+                    Log.d(TAG, "scrollDown");
+                    if (yOffset > mHeader.toolbarLayout.getHeight()) {
+                        if (headerAnimator == null) {
+                            headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(600);
+                            headerAnimator.start();
+                            headerYOffset = yOffset;
+                        }
+                    } else {
+                        headerYOffset = Float.MAX_VALUE;
                         mHeader.toolbarLayout.setTranslationY(0);
                     }
                 }
-
-                if(lastYOffset > yOffset){
-                   // if (mHeader.toolbarLayout != null && mHeader.toolbarLayout.getTranslationY()!=0)
-                   //     mHeader.toolbarLayout.animate().translationY(0).setDuration(500).start();
-                   // headerYOffset = yOffset;
-                }
             }
+        }
+
+        if (headerAnimator != null && percent < 1) {
+            headerAnimator.cancel();
+            headerAnimator = null;
         }
 
         lastYOffset = yOffset;
     }
 
     private float headerYOffset = Float.MAX_VALUE;
+    private ObjectAnimator headerAnimator;
 
     private static void setElevation(float elevation, View... views) {
         for (View view : views) {
