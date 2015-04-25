@@ -1,6 +1,5 @@
-package com.githug.florent37.materialviewpager;
+package com.githug.florent37.materialviewpager.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,14 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
+import com.githug.florent37.materialviewpager.MaterialViewPager;
+import com.githug.florent37.materialviewpager.R;
 
 /**
  * Created by florentchampigny on 24/04/15.
@@ -25,17 +23,8 @@ public class WebViewFragment extends Fragment {
 
     private ObservableWebView mWebView;
 
-    private MaterialViewPagerActivity materialViewPagerActivity;
-
     public static WebViewFragment newInstance() {
         return new WebViewFragment();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof MaterialViewPagerActivity)
-            materialViewPagerActivity = ((MaterialViewPagerActivity) activity);
     }
 
     @Override
@@ -65,8 +54,13 @@ public class WebViewFragment extends Fragment {
                 final int marginTop = 210;
                 final String js = String.format("document.body.style.paddingTop= \"%dpx\"", marginTop);
 
-                mWebView.evaluateJavascript(js,null);
-                mWebView.setVisibility(View.VISIBLE);
+                mWebView.evaluateJavascript(js, null);
+                mWebView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mWebView.setVisibility(View.VISIBLE);
+                    }
+                }, 400);
             }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -77,6 +71,6 @@ public class WebViewFragment extends Fragment {
 
         mWebView.loadUrl("http://mobile.francetvinfo.fr/");
 
-        materialViewPagerActivity.registerWebView(mWebView, null);
+        MaterialViewPager.registerWebView(getActivity(),mWebView,null);
     }
 }

@@ -10,15 +10,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
+import com.githug.florent37.materialviewpager.fragment.ListFragment;
+import com.githug.florent37.materialviewpager.fragment.WebViewFragment;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends ActionBarActivity implements MaterialViewPagerActivity {
+public class MainActivity extends ActionBarActivity {
 
     private ViewPager mViewPager;
     private PagerSlidingTabStrip mPagerTitleStrip;
@@ -28,8 +28,6 @@ public class MainActivity extends ActionBarActivity implements MaterialViewPager
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
-
-    private MaterialViewPagerAnimator materialViewPagerAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,30 +83,20 @@ public class MainActivity extends ActionBarActivity implements MaterialViewPager
 
         mPagerTitleStrip.setViewPager(mViewPager);
 
-        materialViewPagerAnimator = new MaterialViewPagerAnimator(
+        MaterialViewPager.register(this, new MaterialViewPagerAnimator(
                 toolbar,
                 mPagerTitleStrip,
                 findViewById(R.id.headerBackground),
                 findViewById(R.id.statusBackground),
                 findViewById(R.id.logo_white)
-        );
+        ));
+
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void registerRecyclerView(RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
-        materialViewPagerAnimator.registerRecyclerView(recyclerView, onScrollListener);
-
-    }
-
-    @Override
-    public void registerWebView(ObservableWebView mWebView, Object o) {
-        materialViewPagerAnimator.registerWebView(mWebView, o);
     }
 
 }

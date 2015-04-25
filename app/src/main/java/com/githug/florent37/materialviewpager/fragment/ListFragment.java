@@ -1,4 +1,4 @@
-package com.githug.florent37.materialviewpager;
+package com.githug.florent37.materialviewpager.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
+import com.githug.florent37.materialviewpager.MaterialViewPager;
+import com.githug.florent37.materialviewpager.R;
+import com.githug.florent37.materialviewpager.TestAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +25,10 @@ public class ListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
-    private MaterialViewPagerActivity materialViewPagerActivity;
-
     private List<Object> mContentItems = new ArrayList<>();
 
     public static ListFragment newInstance() {
         return new ListFragment();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof MaterialViewPagerActivity)
-            materialViewPagerActivity = ((MaterialViewPagerActivity) activity);
     }
 
     @Override
@@ -57,6 +50,6 @@ public class ListFragment extends Fragment {
         mAdapter = new TestAdapter(mContentItems);
         mRecyclerView.setAdapter(mAdapter);
 
-        materialViewPagerActivity.registerRecyclerView(mRecyclerView, null);
+        MaterialViewPager.registerRecyclerView(getActivity(), mRecyclerView, null);
     }
 }

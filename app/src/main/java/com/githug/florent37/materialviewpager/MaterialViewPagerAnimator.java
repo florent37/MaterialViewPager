@@ -101,8 +101,8 @@ public class MaterialViewPagerAnimator {
         }
 
         if (yOffset > scrollMax)
-            yOffset = (int)scrollMax;
-        if(yOffset < 0)
+            yOffset = (int) scrollMax;
+        if (yOffset < 0)
             yOffset = 0;
         Log.d("yOffset", "" + yOffset);
 
@@ -179,11 +179,16 @@ public class MaterialViewPagerAnimator {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
+                    if(onScrollListener != null)
+                        onScrollListener.onScrollStateChanged(recyclerView,newState);
                 }
 
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
+
+                    if(onScrollListener != null)
+                        onScrollListener.onScrolled(recyclerView,dx,dy);
 
                     int scrollY = yOffsets.get(recyclerView);
 
@@ -201,12 +206,14 @@ public class MaterialViewPagerAnimator {
         }
     }
 
-    public void registerWebView(final ObservableWebView webView, Object o) {
+    public void registerWebView(final ObservableWebView webView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (webView != null) {
             scrollViewList.add(webView);
             webView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onScrollChanged(i, b, b2);
                     if (calledScrollList.contains(webView)) {
                         calledScrollList.remove(webView);
                         return;
@@ -216,12 +223,14 @@ public class MaterialViewPagerAnimator {
 
                 @Override
                 public void onDownMotionEvent() {
-
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onDownMotionEvent();
                 }
 
                 @Override
                 public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
                 }
             });
         }
