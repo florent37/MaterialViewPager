@@ -52,12 +52,17 @@ public class MaterialViewPager {
             webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
             webSettings.setJavaScriptEnabled(true);
             webSettings.setDomStorageEnabled(true);
-
-            final int marginTop = 210;
-            final String js = String.format("document.body.style.paddingTop= \"%dpx\"", marginTop);
-
             webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
-            webView.evaluateJavascript(js, null);
+
+            {
+                final int marginTop = 210;
+                final String js = String.format("document.body.style.marginTop= \"%dpx\"", marginTop);
+                webView.evaluateJavascript(js, null);
+            }
+            {
+                final String js = "document.body.style.backround-color= white";
+                webView.evaluateJavascript(js, null);
+            }
 
             if (withAnimation)
                 webView.postDelayed(new Runnable() {
