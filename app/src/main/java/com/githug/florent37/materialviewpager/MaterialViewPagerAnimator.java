@@ -89,6 +89,9 @@ public class MaterialViewPagerAnimator {
 
     public void onMaterialScrolled(Object source, float yOffset) {
 
+        if(yOffset == lastYOffset)
+            return;
+
         float scrollTop = -yOffset;
 
         { //parallax scroll of ImageView
@@ -156,25 +159,19 @@ public class MaterialViewPagerAnimator {
 
                 if (scrollUp) {
                     Log.d(TAG, "scrollUp");
-
-                    if (headerYOffset == Float.MAX_VALUE)
-                        headerYOffset = scrollMax;
-
-                    float diffOffsetScrollMax = headerYOffset - yOffset;
-                    if (diffOffsetScrollMax <= 0) {
-                        mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
-                    }
+                    followScrollToolbarLayout(yOffset);
                 } else {
                     Log.d(TAG, "scrollDown");
                     if (yOffset > mHeader.toolbarLayout.getHeight()) {
-                        if (headerAnimator == null) {
-                            headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(600);
-                            headerAnimator.start();
-                            headerYOffset = yOffset;
+                        animateEnterToolbarLayout(yOffset);
+                    }
+                    else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
+                        if(headerAnimator != null){
+                            mHeader.toolbarLayout.setTranslationY(0);
+                        }else {
+                            headerYOffset = Float.MAX_VALUE;
+                            followScrollToolbarLayout(yOffset);
                         }
-                    } else {
-                        headerYOffset = Float.MAX_VALUE;
-                        mHeader.toolbarLayout.setTranslationY(0);
                     }
                 }
             }
@@ -186,6 +183,24 @@ public class MaterialViewPagerAnimator {
         }
 
         lastYOffset = yOffset;
+    }
+
+    private void followScrollToolbarLayout(float yOffset){
+        if (headerYOffset == Float.MAX_VALUE)
+            headerYOffset = scrollMax;
+
+        float diffOffsetScrollMax = headerYOffset - yOffset;
+        if (diffOffsetScrollMax <= 0) {
+            mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
+        }
+    }
+
+    private void animateEnterToolbarLayout(float yOffset){
+        if (headerAnimator == null) {
+            headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(600);
+            headerAnimator.start();
+            headerYOffset = yOffset;
+        }
     }
 
     private float headerYOffset = Float.MAX_VALUE;
