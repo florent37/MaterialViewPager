@@ -11,7 +11,6 @@ import android.webkit.WebView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 
-import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,33 +18,33 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class MaterialViewPager {
 
-    private static ConcurrentHashMap<Object,MaterialViewPagerAnimator> hashMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Object, MaterialViewPagerAnimator> hashMap = new ConcurrentHashMap<>();
 
-    public static void register(Activity activity, MaterialViewPagerAnimator animator){
-        if(!hashMap.containsKey(activity))
-            hashMap.put(activity,animator);
+    public static void register(Activity activity, MaterialViewPagerAnimator animator) {
+        if (!hashMap.containsKey(activity))
+            hashMap.put(activity, animator);
     }
 
-    public static void registerRecyclerView(Activity activity, RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener){
-        if(activity != null && hashMap.containsKey(activity)){
+    public static void registerRecyclerView(Activity activity, RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
+        if (activity != null && hashMap.containsKey(activity)) {
             MaterialViewPagerAnimator animator = hashMap.get(activity);
-            if(animator != null){
-                animator.registerRecyclerView(recyclerView,onScrollListener);
+            if (animator != null) {
+                animator.registerRecyclerView(recyclerView, onScrollListener);
             }
         }
     }
 
-    public static void registerWebView(Activity activity, ObservableWebView webView, ObservableScrollViewCallbacks observableScrollViewCallbacks){
-        if(activity != null && hashMap.containsKey(activity)){
+    public static void registerWebView(Activity activity, ObservableWebView webView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
+        if (activity != null && hashMap.containsKey(activity)) {
             MaterialViewPagerAnimator animator = hashMap.get(activity);
-            if(animator != null){
+            if (animator != null) {
                 animator.registerWebView(webView, observableScrollViewCallbacks);
             }
         }
     }
 
-    public static void injectHeader(final WebView webView, boolean withAnimation){
-        if(webView != null) {
+    public static void injectHeader(final WebView webView, boolean withAnimation) {
+        if (webView != null) {
 
             WebSettings webSettings = webView.getSettings();
             webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);

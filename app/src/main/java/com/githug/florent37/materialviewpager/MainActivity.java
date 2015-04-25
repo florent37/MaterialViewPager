@@ -82,6 +82,7 @@ public class MainActivity extends ActionBarActivity {
         mPagerTitleStrip.setViewPager(mViewPager);
 
         MaterialViewPager.register(this, new MaterialViewPagerAnimator(
+                200,
                 MaterialViewPagerHeader
                         .withToolbar(toolbar)
                         .withPagerSlidingTabStrip(mPagerTitleStrip)

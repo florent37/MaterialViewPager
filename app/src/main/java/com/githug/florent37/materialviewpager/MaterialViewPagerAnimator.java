@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 
@@ -32,22 +33,32 @@ public class MaterialViewPagerAnimator {
     private int color;
 
     //float heightMaxScrollToolbar;
-    float elevation;
+    public final int headerHeight;
+    public final float elevation;
+    public final float scrollMax;
 
-    float scrollMax;
 
+    public MaterialViewPagerAnimator(int headerHeight, MaterialViewPagerHeader header) {
 
-    public MaterialViewPagerAnimator(MaterialViewPagerHeader header) {
+        this.headerHeight = headerHeight;
+        this.scrollMax = headerHeight + 50;
+
         this.mHeader = header;
         this.context = mHeader.getContext();
+
+        if(this.mHeader.headerBackground != null) {
+            ViewGroup.LayoutParams layoutParams = this.mHeader.headerBackground.getLayoutParams();
+            layoutParams.height = (int) Utils.dpToPx(this.scrollMax + 10, context);
+            this.mHeader.headerBackground.setLayoutParams(layoutParams);
+        }
+
+
 
         color = context.getResources().getColor(R.color.colorPrimary);
 
         mHeader.finalScale = 0.6f;
         //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
         elevation = dpToPx(4, context);
-
-        scrollMax = 250f;
     }
 
     private void dispatchScrollOffset(Object source, float yOffset) {
@@ -99,17 +110,29 @@ public class MaterialViewPagerAnimator {
 
                 setBackgroundColor(
                         colorWithAlpha(color, percent),
-
-                        mHeader.toolbar,
-                        mHeader.mPagerSlidingTabStrip,
                         mHeader.statusBackground
                 );
+
+                if(percent >=1){
+                    setBackgroundColor(
+                            colorWithAlpha(color, percent),
+                            mHeader.toolbar,
+                            mHeader.mPagerSlidingTabStrip
+                    );
+                }else{
+                    setBackgroundColor(
+                            colorWithAlpha(color, 0),
+                            mHeader.toolbar,
+                            mHeader.mPagerSlidingTabStrip
+                            );
+                }
 
                 setElevation(
                         (percent == 1) ? elevation : 0,
 
                         mHeader.toolbar,
                         mHeader.mPagerSlidingTabStrip,
+                        mHeader.statusBackground,
                         mHeader.mLogo
                 );
             }
