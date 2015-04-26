@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -30,33 +29,26 @@ public class MaterialViewPagerAnimator {
     private Context context;
     private MaterialViewPagerHeader mHeader;
 
-    private int color;
-    private boolean hideToolbarAndTitle;
+    private MaterialViewPagerSettings settings;
 
-    //float heightMaxScrollToolbar;
-    public final int headerHeight;
     public final float elevation;
     public final float scrollMax;
 
     private float lastYOffset = -1;
 
-    public MaterialViewPagerAnimator(int headerHeight, boolean hideToolbarAndTitle, MaterialViewPagerHeader header) {
+    public MaterialViewPagerAnimator(MaterialViewPagerSettings materialViewPagerSettings, MaterialViewPagerHeader header) {
 
-        this.headerHeight = headerHeight;
-        this.hideToolbarAndTitle = hideToolbarAndTitle;
-        this.scrollMax = headerHeight + 50;
-
+        this.settings = materialViewPagerSettings;
         this.mHeader = header;
         this.context = mHeader.getContext();
+
+        this.scrollMax = settings.headerHeight + 50;
 
         if (this.mHeader.headerBackground != null) {
             ViewGroup.LayoutParams layoutParams = this.mHeader.headerBackground.getLayoutParams();
             layoutParams.height = (int) Utils.dpToPx(this.scrollMax + 10, context);
             this.mHeader.headerBackground.setLayoutParams(layoutParams);
         }
-
-
-        color = context.getResources().getColor(R.color.colorPrimary);
 
         mHeader.finalScale = 0.6f;
         //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
@@ -89,7 +81,7 @@ public class MaterialViewPagerAnimator {
 
     public void onMaterialScrolled(Object source, float yOffset) {
 
-        if(yOffset == lastYOffset)
+        if (yOffset == lastYOffset)
             return;
 
         float scrollTop = -yOffset;
@@ -114,19 +106,19 @@ public class MaterialViewPagerAnimator {
                 // toolbar & viewpager indicator &  statusBaground
 
                 setBackgroundColor(
-                        colorWithAlpha(color, percent),
+                        colorWithAlpha(settings.color, percent),
                         mHeader.statusBackground
                 );
 
                 if (percent >= 1) {
                     setBackgroundColor(
-                            colorWithAlpha(color, percent),
+                            colorWithAlpha(settings.color, percent),
                             mHeader.toolbar,
                             mHeader.mPagerSlidingTabStrip
                     );
                 } else {
                     setBackgroundColor(
-                            colorWithAlpha(color, 0),
+                            colorWithAlpha(settings.color, 0),
                             mHeader.toolbar,
                             mHeader.mPagerSlidingTabStrip
                     );
@@ -146,29 +138,34 @@ public class MaterialViewPagerAnimator {
             }
 
             if (mHeader.mLogo != null) { //move the header logo to toolbar
-                mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
-                mHeader.mLogo.setTranslationX((mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
-                float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
+                if (settings.hideLogoWithFade) {
+                    mHeader.mLogo.setAlpha(1 - percent);
+                    mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                } else {
+                    mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    mHeader.mLogo.setTranslationX((mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
-                setScale(scale, mHeader.mLogo);
+                    float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
+
+                    setScale(scale, mHeader.mLogo);
+                }
             }
 
-            if (hideToolbarAndTitle && mHeader.toolbarLayout != null) {
+            if (settings.hideToolbarAndTitle && mHeader.toolbarLayout != null) {
                 boolean scrollUp = lastYOffset < yOffset;
 
                 if (scrollUp) {
-                    Log.d(TAG, "scrollUp");
+                    //Log.d(TAG, "scrollUp");
                     followScrollToolbarLayout(yOffset);
                 } else {
-                    Log.d(TAG, "scrollDown");
+                    //Log.d(TAG, "scrollDown");
                     if (yOffset > mHeader.toolbarLayout.getHeight()) {
                         animateEnterToolbarLayout(yOffset);
-                    }
-                    else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
-                        if(headerAnimator != null){
+                    } else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
+                        if (headerAnimator != null) {
                             mHeader.toolbarLayout.setTranslationY(0);
-                        }else {
+                        } else {
                             headerYOffset = Float.MAX_VALUE;
                             followScrollToolbarLayout(yOffset);
                         }
@@ -185,7 +182,7 @@ public class MaterialViewPagerAnimator {
         lastYOffset = yOffset;
     }
 
-    private void followScrollToolbarLayout(float yOffset){
+    private void followScrollToolbarLayout(float yOffset) {
         if (headerYOffset == Float.MAX_VALUE)
             headerYOffset = scrollMax;
 
@@ -195,7 +192,7 @@ public class MaterialViewPagerAnimator {
         }
     }
 
-    private void animateEnterToolbarLayout(float yOffset){
+    private void animateEnterToolbarLayout(float yOffset) {
         if (headerAnimator == null) {
             headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(600);
             headerAnimator.start();
@@ -303,5 +300,9 @@ public class MaterialViewPagerAnimator {
                 }
             });
         }
+    }
+
+    public int getHeaderHeight() {
+        return settings.headerHeight;
     }
 }
