@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -34,6 +35,7 @@ public class MaterialViewPagerAnimator {
 
     public final float elevation;
     public final float scrollMax;
+    public final float scrollMaxDp;
 
     private float lastYOffset = -1;
 
@@ -43,13 +45,14 @@ public class MaterialViewPagerAnimator {
         this.mHeader = header;
         this.context = mHeader.getContext();
 
-        this.scrollMax = settings.headerHeight + 50;
+        this.scrollMax = settings.headerHeight; // + 50;
+        this.scrollMaxDp = Utils.dpToPx(this.scrollMax,context);
 
         if (this.mHeader.headerBackground != null) {
             this.mHeader.headerBackground.setBackgroundColor(this.settings.color);
 
             ViewGroup.LayoutParams layoutParams = this.mHeader.headerBackground.getLayoutParams();
-            layoutParams.height = (int) Utils.dpToPx(this.scrollMax + 10, context);
+            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight + 60, context);
             this.mHeader.headerBackground.setLayoutParams(layoutParams);
         }
         if(this.mHeader.mPagerSlidingTabStrip != null){
@@ -106,9 +109,9 @@ public class MaterialViewPagerAnimator {
         }
 
         //yOffset = ;
-        //Log.d("yOffset", "" + yOffset);
+        Log.d("yOffset", "" + yOffset);
 
-        dispatchScrollOffset(source, minMax(0, yOffset, scrollMax));
+        dispatchScrollOffset(source, minMax(0, yOffset, scrollMaxDp));
 
         float percent = yOffset / scrollMax;
 
