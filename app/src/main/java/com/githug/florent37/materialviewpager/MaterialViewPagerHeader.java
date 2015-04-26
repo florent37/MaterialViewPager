@@ -20,6 +20,7 @@ public class MaterialViewPagerHeader {
     protected Toolbar toolbar;
     protected PagerSlidingTabStrip mPagerSlidingTabStrip;
 
+    protected View toolbarLayoutBackground;
     protected View headerBackground;
     protected View statusBackground;
     protected View mLogo;
@@ -71,6 +72,11 @@ public class MaterialViewPagerHeader {
         return this;
     }
 
+    public MaterialViewPagerHeader withToolbarLayoutBackground(View toolbarLayoutBackground) {
+        this.toolbarLayoutBackground = toolbarLayoutBackground;
+        return this;
+    }
+
     public MaterialViewPagerHeader withLogo(View logo) {
         this.mLogo = logo;
         mLogo.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -107,4 +113,5 @@ public class MaterialViewPagerHeader {
     public View getLogo() {
         return mLogo;
     }
+
 }

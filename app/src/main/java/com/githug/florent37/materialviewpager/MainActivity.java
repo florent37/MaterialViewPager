@@ -60,8 +60,8 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
-                    case 0:
-                        return WebViewFragment.newInstance();
+                    //case 0:
+                    //    return WebViewFragment.newInstance();
                     default:
                         return ListFragment.newInstance();
                 }
@@ -83,13 +83,14 @@ public class MainActivity extends ActionBarActivity {
 
         MaterialViewPagerSettings settings = MaterialViewPagerSettings.Builder(
                 getResources().getColor(R.color.colorPrimary),
-                250)
+                200)
                 .hideLogoWithFade()
                 .hideToolbarAndTitle()
                 .build();
 
         MaterialViewPagerHeader header = MaterialViewPagerHeader
                 .withToolbar(toolbar)
+                .withToolbarLayoutBackground(findViewById(R.id.toolbar_layout_background))
                 .withPagerSlidingTabStrip(mPagerTitleStrip)
                 .withHeaderBackground(findViewById(R.id.headerBackground))
                 .withStatusBackground(findViewById(R.id.statusBackground))

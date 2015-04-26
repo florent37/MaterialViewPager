@@ -56,6 +56,11 @@ public class MaterialViewPagerAnimator {
             layoutParams.setMargins(0,marginTop,0,0);
             this.mHeader.mPagerSlidingTabStrip.setLayoutParams(layoutParams);
         }
+        if(this.mHeader.toolbarLayoutBackground != null){
+            ViewGroup.LayoutParams layoutParams = this.mHeader.toolbarLayoutBackground.getLayoutParams();
+            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight, context);
+            this.mHeader.toolbarLayoutBackground.setLayoutParams(layoutParams);
+        }
 
         mHeader.finalScale = 0.6f;
         //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
@@ -121,12 +126,14 @@ public class MaterialViewPagerAnimator {
                     setBackgroundColor(
                             colorWithAlpha(settings.color, percent),
                             mHeader.toolbar,
+                            mHeader.toolbarLayoutBackground,
                             mHeader.mPagerSlidingTabStrip
                     );
                 } else {
                     setBackgroundColor(
                             colorWithAlpha(settings.color, 0),
                             mHeader.toolbar,
+                            mHeader.toolbarLayoutBackground,
                             mHeader.mPagerSlidingTabStrip
                     );
                 }
@@ -140,8 +147,10 @@ public class MaterialViewPagerAnimator {
 
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
                 float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
-                if (newY >= mHeader.finalTabsY)
+                if (newY >= mHeader.finalTabsY) {
                     mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
+                    mHeader.toolbarLayoutBackground.setTranslationY(scrollTop);
+                }
             }
 
             if (mHeader.mLogo != null) { //move the header logo to toolbar
