@@ -1,7 +1,0 @@
-<resources>
-
-    <dimen name="cardMarginHorizontal">10dp</dimen>
-    <dimen name="cardMarginVertical">8dp</dimen>
-    <dimen name="material_viewpager_padding_top">210dp</dimen>
-
-</resources>
