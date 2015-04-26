@@ -15,7 +15,7 @@
             android:id="@+id/headerBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            tools:background="@color/colorPrimary"
             tools:layout_height="250dp">
 
             <com.flaviofaria.kenburnsview.KenBurnsView

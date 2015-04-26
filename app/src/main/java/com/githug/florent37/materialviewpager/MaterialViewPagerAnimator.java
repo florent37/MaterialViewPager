@@ -46,6 +46,8 @@ public class MaterialViewPagerAnimator {
         this.scrollMax = settings.headerHeight + 50;
 
         if (this.mHeader.headerBackground != null) {
+            this.mHeader.headerBackground.setBackgroundColor(this.settings.color);
+
             ViewGroup.LayoutParams layoutParams = this.mHeader.headerBackground.getLayoutParams();
             layoutParams.height = (int) Utils.dpToPx(this.scrollMax + 10, context);
             this.mHeader.headerBackground.setLayoutParams(layoutParams);
