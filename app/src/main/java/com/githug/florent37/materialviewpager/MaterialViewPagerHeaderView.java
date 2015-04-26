@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 /**
  * Created by florentchampigny on 26/04/15.
@@ -28,17 +29,27 @@ public class MaterialViewPagerHeaderView extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    private void setMaterialHeight() {
+        MaterialViewPagerAnimator animator = MaterialViewPager.getAnimator(getContext());
+        if (animator != null) {
+            ViewGroup.LayoutParams params = getLayoutParams();
+            params.height = Math.round(Utils.dpToPx(animator.getHeaderHeight() + 10, getContext()));
+            super.setLayoutParams(params);
+        }
+    }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
-        if(!isInEditMode()){
-            MaterialViewPagerAnimator animator = MaterialViewPager.getAnimator(getContext());
-            if(animator != null) {
-                ViewGroup.LayoutParams params = getLayoutParams();
-                params.height = Math.round(Utils.dpToPx(animator.getHeaderHeight()+10,getContext()));
-                setLayoutParams(params);
-            }
+        if (!isInEditMode()) {
+            getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    setMaterialHeight();
+                    getViewTreeObserver().removeOnPreDrawListener(this);
+                    return false;
+                }
+            });
         }
     }
 }

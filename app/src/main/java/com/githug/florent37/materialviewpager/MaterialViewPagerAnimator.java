@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -293,6 +294,36 @@ public class MaterialViewPagerAnimator {
         }
     }
 
+    public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
+        if(scrollView != null){
+            scrollViewList.add(scrollView);
+            scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+                @Override
+                public void onScrollChanged(int i, boolean b, boolean b2) {
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onScrollChanged(i, b, b2);
+                    if (calledScrollList.contains(scrollView)) {
+                        calledScrollList.remove(scrollView);
+                        return;
+                    }
+                    onMaterialScrolled(scrollView, i);
+                }
+
+                @Override
+                public void onDownMotionEvent() {
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onDownMotionEvent();
+                }
+
+                @Override
+                public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
+                }
+            });
+        }
+    }
+
     public void registerWebView(final ObservableWebView webView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (webView != null) {
             scrollViewList.add(webView);
@@ -326,4 +357,5 @@ public class MaterialViewPagerAnimator {
     public int getHeaderHeight() {
         return settings.headerHeight;
     }
+
 }

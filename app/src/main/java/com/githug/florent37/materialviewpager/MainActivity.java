@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.githug.florent37.materialviewpager.fragment.ListFragment;
+import com.githug.florent37.materialviewpager.fragment.ScrollFragment;
 import com.githug.florent37.materialviewpager.fragment.WebViewFragment;
 import com.squareup.picasso.Picasso;
 
@@ -60,7 +61,11 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
-                    //case 0:
+                    case 0:
+                        return ListFragment.newInstance();
+                    //case 1:
+                    //    return ScrollFragment.newInstance();
+                    //case 2:
                     //    return WebViewFragment.newInstance();
                     default:
                         return ListFragment.newInstance();
