@@ -83,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
 
         MaterialViewPagerSettings settings = MaterialViewPagerSettings.Builder(
                 getResources().getColor(R.color.colorPrimary),
-                200)
+                250)
                 .hideLogoWithFade()
                 .hideToolbarAndTitle()
                 .build();

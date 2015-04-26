@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.RelativeLayout;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
@@ -48,6 +49,12 @@ public class MaterialViewPagerAnimator {
             ViewGroup.LayoutParams layoutParams = this.mHeader.headerBackground.getLayoutParams();
             layoutParams.height = (int) Utils.dpToPx(this.scrollMax + 10, context);
             this.mHeader.headerBackground.setLayoutParams(layoutParams);
+        }
+        if(this.mHeader.mPagerSlidingTabStrip != null){
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) this.mHeader.mPagerSlidingTabStrip.getLayoutParams();
+            int marginTop = (int) Utils.dpToPx(this.settings.headerHeight - 40, context);
+            layoutParams.setMargins(0,marginTop,0,0);
+            this.mHeader.mPagerSlidingTabStrip.setLayoutParams(layoutParams);
         }
 
         mHeader.finalScale = 0.6f;
