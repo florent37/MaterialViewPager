@@ -38,6 +38,8 @@ public class MaterialViewPager extends FrameLayout {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaterialViewPager);
             {
                 headerLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_header, -1);
+                if(headerLayoutId == -1)
+                    headerLayoutId = R.layout.material_view_pager_default_header;
             }
             {
                 logoLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_logo, -1);
