@@ -22,6 +22,13 @@ public class Utils {
         return px;
     }
 
+    public static float pxToDp(float px, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / (metrics.densityDpi / 160f);
+        return dp;
+    }
+
     public static int colorWithAlpha(int color, float percent){
         int r = Color.red(color);
         int g = Color.green(color);

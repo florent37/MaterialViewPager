@@ -3,7 +3,6 @@ package com.github.florent37.materialviewpager.sample;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -11,12 +10,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
-import com.astuetz.PagerSlidingTabStrip;
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.MaterialViewPagerAnimator;
-import com.github.florent37.materialviewpager.MaterialViewPagerHeader;
-import com.github.florent37.materialviewpager.MaterialViewPagerSettings;
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.sample.fragment.ListFragment;
 import com.squareup.picasso.Picasso;
 
@@ -89,15 +85,7 @@ public class MainActivity extends ActionBarActivity {
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
-
-        MaterialViewPagerSettings settings = MaterialViewPagerSettings.Builder(
-                getResources().getColor(R.color.colorPrimary),
-                200)
-                //.hideLogoWithFade()
-                .hideToolbarAndTitle()
-                .build();
-
-        MaterialViewPagerHelper.register(this, new MaterialViewPagerAnimator(settings, mViewPager));
+        MaterialViewPagerHelper.register(this, new MaterialViewPagerAnimator(mViewPager));
     }
 
     @Override

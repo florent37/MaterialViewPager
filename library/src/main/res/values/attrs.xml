@@ -4,7 +4,11 @@
     <declare-styleable name="MaterialViewPager">
         <attr name="viewpager_header" format="reference"/>
         <attr name="viewpager_logo" format="reference"/>
-        <attr name="viewpager_logo_margin_top" format="dimension"/>
+        <attr name="viewpager_logoMarginTop" format="dimension"/>
+        <attr name="viewpager_color" format="color"/>
+        <attr name="viewpager_headerHeight" format="dimension"/>
+        <attr name="viewpager_hideToolbarAndTitle" format="boolean"/>
+        <attr name="viewpager_hideLogoWithFade" format="boolean"/>
     </declare-styleable>
 
 </resources>

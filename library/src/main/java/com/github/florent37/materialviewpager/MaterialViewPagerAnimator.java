@@ -32,7 +32,7 @@ public class MaterialViewPagerAnimator {
     private Context context;
     private MaterialViewPagerHeader mHeader;
 
-    private MaterialViewPagerSettings settings;
+    private MaterialViewPager materialViewPager;
 
     public final float elevation;
     public final float scrollMax;
@@ -40,31 +40,31 @@ public class MaterialViewPagerAnimator {
 
     private float lastYOffset = -1;
 
-    public MaterialViewPagerAnimator(MaterialViewPagerSettings materialViewPagerSettings, MaterialViewPager materialViewPager) {
+    public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
-        this.settings = materialViewPagerSettings;
+        this.materialViewPager = materialViewPager;
         this.mHeader = materialViewPager.materialViewPagerHeader;
         this.context = mHeader.getContext();
 
-        this.scrollMax = settings.headerHeight; // + 50;
+        this.scrollMax = materialViewPager.headerHeight; // + 50;
         this.scrollMaxDp = Utils.dpToPx(this.scrollMax,context);
 
         if (this.mHeader.headerBackground != null) {
-            this.mHeader.headerBackground.setBackgroundColor(this.settings.color);
+            this.mHeader.headerBackground.setBackgroundColor(this.materialViewPager.color);
 
             ViewGroup.LayoutParams layoutParams = this.mHeader.headerBackground.getLayoutParams();
-            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight + 60, context);
+            layoutParams.height = (int) Utils.dpToPx(this.materialViewPager.headerHeight + 60, context);
             this.mHeader.headerBackground.setLayoutParams(layoutParams);
         }
         if(this.mHeader.mPagerSlidingTabStrip != null){
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) this.mHeader.mPagerSlidingTabStrip.getLayoutParams();
-            int marginTop = (int) Utils.dpToPx(this.settings.headerHeight - 40, context);
+            int marginTop = (int) Utils.dpToPx(this.materialViewPager.headerHeight - 40, context);
             layoutParams.setMargins(0,marginTop,0,0);
             this.mHeader.mPagerSlidingTabStrip.setLayoutParams(layoutParams);
         }
         if(this.mHeader.toolbarLayoutBackground != null){
             ViewGroup.LayoutParams layoutParams = this.mHeader.toolbarLayoutBackground.getLayoutParams();
-            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight, context);
+            layoutParams.height = (int) Utils.dpToPx(this.materialViewPager.headerHeight, context);
             this.mHeader.toolbarLayoutBackground.setLayoutParams(layoutParams);
         }
 
@@ -124,20 +124,20 @@ public class MaterialViewPagerAnimator {
                 // toolbar & viewpager indicator &  statusBaground
 
                 setBackgroundColor(
-                        colorWithAlpha(settings.color, percent),
+                        colorWithAlpha(materialViewPager.color, percent),
                         mHeader.statusBackground
                 );
 
                 if (percent >= 1) {
                     setBackgroundColor(
-                            colorWithAlpha(settings.color, percent),
+                            colorWithAlpha(materialViewPager.color, percent),
                             mHeader.toolbar,
                             mHeader.toolbarLayoutBackground,
                             mHeader.mPagerSlidingTabStrip
                     );
                 } else {
                     setBackgroundColor(
-                            colorWithAlpha(settings.color, 0),
+                            colorWithAlpha(materialViewPager.color, 0),
                             mHeader.toolbar,
                             mHeader.toolbarLayoutBackground,
                             mHeader.mPagerSlidingTabStrip
@@ -161,7 +161,7 @@ public class MaterialViewPagerAnimator {
 
             if (mHeader.mLogo != null) { //move the header logo to toolbar
 
-                if (settings.hideLogoWithFade) {
+                if (materialViewPager.hideLogoWithFade) {
                     mHeader.mLogo.setAlpha(1 - percent);
                     mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
                 } else {
@@ -174,7 +174,7 @@ public class MaterialViewPagerAnimator {
                 }
             }
 
-            if (settings.hideToolbarAndTitle && mHeader.toolbarLayout != null) {
+            if (materialViewPager.hideToolbarAndTitle && mHeader.toolbarLayout != null) {
                 boolean scrollUp = lastYOffset < yOffset;
 
                 if (scrollUp) {
@@ -355,7 +355,7 @@ public class MaterialViewPagerAnimator {
     }
 
     public int getHeaderHeight() {
-        return settings.headerHeight;
+        return materialViewPager.headerHeight;
     }
 
 }

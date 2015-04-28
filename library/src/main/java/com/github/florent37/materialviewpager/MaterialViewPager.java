@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import static com.github.florent37.materialviewpager.Utils.pxToDp;
+
 /**
  * Created by florentchampigny on 28/04/15.
  */
@@ -33,6 +35,11 @@ public class MaterialViewPager extends FrameLayout {
     protected ViewPager mViewPager;
     protected PagerSlidingTabStrip mPagerTitleStrip;
 
+    protected int headerHeight;
+    protected int color;
+    protected boolean hideToolbarAndTitle;
+    protected boolean hideLogoWithFade;
+
     private void handleAttributes(Context context, AttributeSet attrs){
         try {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaterialViewPager);
@@ -43,7 +50,18 @@ public class MaterialViewPager extends FrameLayout {
             }
             {
                 logoLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_logo, -1);
-                logoMarginTop = styledAttrs.getDimensionPixelSize(R.styleable.MaterialViewPager_viewpager_logo_margin_top, 0);
+                logoMarginTop = styledAttrs.getDimensionPixelSize(R.styleable.MaterialViewPager_viewpager_logoMarginTop, 0);
+            }
+            {
+                color = styledAttrs.getColor(R.styleable.MaterialViewPager_viewpager_color, 0);
+            }
+            {
+                headerHeight = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerHeight, 200);
+                headerHeight = Math.round(pxToDp(headerHeight,context));
+            }
+            {
+                hideToolbarAndTitle = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideToolbarAndTitle, false);
+                hideLogoWithFade = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideLogoWithFade, false);
             }
             styledAttrs.recycle();
         } catch (Exception e) {
@@ -118,4 +136,5 @@ public class MaterialViewPager extends FrameLayout {
     public Toolbar getToolbar() {
         return mToolbar;
     }
+
 }
