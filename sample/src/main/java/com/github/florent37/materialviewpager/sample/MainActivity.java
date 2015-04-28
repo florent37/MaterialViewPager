@@ -84,8 +84,6 @@ public class MainActivity extends ActionBarActivity {
         });
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
-
-        MaterialViewPagerHelper.register(this, new MaterialViewPagerAnimator(mViewPager));
     }
 
     @Override

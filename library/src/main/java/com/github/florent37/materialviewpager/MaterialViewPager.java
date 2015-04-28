@@ -121,6 +121,8 @@ public class MaterialViewPager extends FrameLayout {
                     .withHeaderBackground(findViewById(R.id.headerBackground))
                     .withStatusBackground(findViewById(R.id.statusBackground))
                     .withLogo(logoContainer);
+
+            MaterialViewPagerHelper.register((android.app.Activity) getContext(), new MaterialViewPagerAnimator(this));
         }
 
     }
