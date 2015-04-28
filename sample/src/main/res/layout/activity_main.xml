@@ -6,80 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    <com.github.florent37.materialviewpager.MaterialViewPager
+        android:id="@+id/materialViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/headerBackground"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:background="@color/colorPrimary"
-            tools:layout_height="250dp">
-
-            <com.flaviofaria.kenburnsview.KenBurnsView
-                android:id="@+id/headerBackgroundImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:alpha="0.5" />
-
-            <View
-                android:id="@+id/statusBackground"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </FrameLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <RelativeLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:id="@+id/toolbar_layout_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:minHeight="?attr/actionBarSize" />
-
-            <com.astuetz.PagerSlidingTabStrip
-                android:id="@+id/pagerTitleStrip"
-                android:layout_marginTop="160dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:pstsDividerPadding="20dp"
-                app:pstsIndicatorColor="#FFF"
-                app:pstsIndicatorHeight="4dp"
-                app:pstsShouldExpand="true"
-                app:pstsTabPaddingLeftRight="10dp"
-                app:pstsTextAllCaps="true" />
-
-            <ImageView
-                android:id="@+id/logo_white"
-                android:layout_marginTop="120dp"
-                android:layout_width="200dp"
-                android:layout_height="35dp"
-                android:fitsSystemWindows="true"
-                android:adjustViewBounds="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/logo_white" />
-        </RelativeLayout>
-
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        app:viewpager_header="@layout/header_background"
+        app:viewpager_logo="@layout/header_logo"
+        app:viewpager_logo_margin_top="120dp"
+        />
 
     <include layout="@layout/drawer" />
 

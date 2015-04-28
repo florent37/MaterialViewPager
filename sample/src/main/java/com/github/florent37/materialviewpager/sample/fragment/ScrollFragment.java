@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.sample.R;
 
 /**
@@ -32,6 +32,6 @@ public class ScrollFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mScrollView = (ObservableScrollView) view.findViewById(R.id.scrollView);
 
-        MaterialViewPager.registerScrollView(getActivity(), mScrollView, null);
+        MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
     }
 }

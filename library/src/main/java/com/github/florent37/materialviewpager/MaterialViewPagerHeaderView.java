@@ -30,7 +30,7 @@ public class MaterialViewPagerHeaderView extends View {
     }
 
     private void setMaterialHeight() {
-        MaterialViewPagerAnimator animator = MaterialViewPager.getAnimator(getContext());
+        MaterialViewPagerAnimator animator = MaterialViewPagerHelper.getAnimator(getContext());
         if (animator != null) {
             ViewGroup.LayoutParams params = getLayoutParams();
             params.height = Math.round(Utils.dpToPx(animator.getHeaderHeight() + 10, getContext()));

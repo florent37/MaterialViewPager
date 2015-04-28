@@ -1,0 +1,31 @@
+language: android
+
+jdk:
+  - openjdk7
+
+android:
+  components:
+
+    - build-tools-21.1.1
+    - android-21
+    - extra-android-support
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+
+notifications:
+  email: true
+
+# Turn off caching to avoid any caching problems
+cache: false
+# Use the Travis Container-Based Infrastructure (see #203)
+sudo: false
+
+install:
+  # Ensure Gradle wrapper is executable, download wrapper and show version
+  - chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
+  # Download and show android dependencies
+  # - ./gradlew androidDependencies
+
+script:
+  - ./gradlew clean assembleDebug

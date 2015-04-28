@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
-import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.sample.R;
 
 /**
@@ -34,12 +34,12 @@ public class WebViewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mWebView = (ObservableWebView) view.findViewById(R.id.webView);
 
-        MaterialViewPager.preLoadInjectHeader(mWebView);
+        MaterialViewPagerHelper.preLoadInjectHeader(mWebView);
 
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                MaterialViewPager.injectHeader(mWebView,true);
+                MaterialViewPagerHelper.injectHeader(mWebView, true);
             }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -50,6 +50,6 @@ public class WebViewFragment extends Fragment {
 
         mWebView.loadUrl("http://mobile.francetvinfo.fr/");
 
-        MaterialViewPager.registerWebView(getActivity(),mWebView,null);
+        MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
     }
 }

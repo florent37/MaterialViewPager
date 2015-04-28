@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.MaterialViewPagerAnimator;
 import com.github.florent37.materialviewpager.MaterialViewPagerHeader;
 import com.github.florent37.materialviewpager.MaterialViewPagerSettings;
@@ -21,10 +22,7 @@ import com.squareup.picasso.Picasso;
 
 public class MainActivity extends ActionBarActivity {
 
-    private ViewPager mViewPager;
-    private PagerSlidingTabStrip mPagerTitleStrip;
-
-    private ImageView headerBackgroundImage;
+    private MaterialViewPager mViewPager;
 
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -37,11 +35,10 @@ public class MainActivity extends ActionBarActivity {
 
         setTitle("");
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mPagerTitleStrip = (PagerSlidingTabStrip) findViewById(R.id.pagerTitleStrip);
+        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+
+        toolbar = mViewPager.getToolbar();
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        headerBackgroundImage = (ImageView) findViewById(R.id.headerBackgroundImage);
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -59,9 +56,12 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
 
-        Picasso.with(getApplicationContext()).load("https://dancole2009.files.wordpress.com/2010/01/material-testing-81.jpg").centerCrop().fit().into(headerBackgroundImage);
+        ImageView headerBackgroundImage = (ImageView) findViewById(R.id.headerBackgroundImage);
 
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+        Picasso.with(getApplicationContext()).load("https://dancole2009.files.wordpress.com/2010/01/material-testing-81.jpg")
+                .centerCrop().fit().into(headerBackgroundImage);
+
+        mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
@@ -86,9 +86,9 @@ public class MainActivity extends ActionBarActivity {
                 return "Page " + position;
             }
         });
-        mViewPager.setOffscreenPageLimit(mViewPager.getAdapter().getCount());
+        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+        mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
-        mPagerTitleStrip.setViewPager(mViewPager);
 
         MaterialViewPagerSettings settings = MaterialViewPagerSettings.Builder(
                 getResources().getColor(R.color.colorPrimary),
@@ -97,16 +97,7 @@ public class MainActivity extends ActionBarActivity {
                 .hideToolbarAndTitle()
                 .build();
 
-        MaterialViewPagerHeader header = MaterialViewPagerHeader
-                .withToolbar(toolbar)
-                .withToolbarLayoutBackground(findViewById(R.id.toolbar_layout_background))
-                .withPagerSlidingTabStrip(mPagerTitleStrip)
-                .withHeaderBackground(findViewById(R.id.headerBackground))
-                .withStatusBackground(findViewById(R.id.statusBackground))
-                .withLogo(findViewById(R.id.logo_white));
-
-        MaterialViewPager.register(this, new MaterialViewPagerAnimator(settings, header));
-
+        MaterialViewPagerHelper.register(this, new MaterialViewPagerAnimator(settings, mViewPager));
     }
 
     @Override

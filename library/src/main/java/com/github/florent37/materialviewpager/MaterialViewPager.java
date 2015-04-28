@@ -1,104 +1,119 @@
 package com.github.florent37.materialviewpager;
 
-import android.animation.ObjectAnimator;
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
+import android.content.res.TypedArray;
+import android.os.Build;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
-
-import java.util.concurrent.ConcurrentHashMap;
+import com.astuetz.PagerSlidingTabStrip;
 
 /**
- * Created by florentchampigny on 25/04/15.
+ * Created by florentchampigny on 28/04/15.
  */
-public class MaterialViewPager {
+public class MaterialViewPager extends FrameLayout {
 
-    private static ConcurrentHashMap<Object, MaterialViewPagerAnimator> hashMap = new ConcurrentHashMap<>();
+    private ViewGroup headerBackgroundContainer;
+    private int headerLayoutId;
 
-    public static void register(Activity activity, MaterialViewPagerAnimator animator) {
-        if (!hashMap.containsKey(activity))
-            hashMap.put(activity, animator);
-    }
+    private ViewGroup logoContainer;
+    private int logoLayoutId;
+    private int logoMarginTop;
 
-    public static void registerRecyclerView(Activity activity, RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
-        if (activity != null && hashMap.containsKey(activity)) {
-            MaterialViewPagerAnimator animator = hashMap.get(activity);
-            if (animator != null) {
-                animator.registerRecyclerView(recyclerView, onScrollListener);
+    protected MaterialViewPagerHeader materialViewPagerHeader;
+
+    protected Toolbar mToolbar;
+    protected ViewPager mViewPager;
+    protected PagerSlidingTabStrip mPagerTitleStrip;
+
+    private void handleAttributes(Context context, AttributeSet attrs){
+        try {
+            TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaterialViewPager);
+            {
+                headerLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_header, -1);
             }
+            {
+                logoLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_logo, -1);
+                logoMarginTop = styledAttrs.getDimensionPixelSize(R.styleable.MaterialViewPager_viewpager_logo_margin_top, 0);
+            }
+            styledAttrs.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public static void registerWebView(Activity activity, ObservableWebView webView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
-        if (activity != null && hashMap.containsKey(activity)) {
-            MaterialViewPagerAnimator animator = hashMap.get(activity);
-            if (animator != null) {
-                animator.registerWebView(webView, observableScrollViewCallbacks);
+    public MaterialViewPager(Context context) {
+        super(context);
+    }
+
+    public MaterialViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        handleAttributes(context,attrs);
+    }
+
+    public MaterialViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        handleAttributes(context,attrs);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public MaterialViewPager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        handleAttributes(context,attrs);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        addView(LayoutInflater.from(getContext()).inflate(R.layout.material_view_pager_layout,this,false));
+
+        headerBackgroundContainer = (ViewGroup) findViewById(R.id.headerBackgroundContainer);
+        logoContainer = (ViewGroup) findViewById(R.id.logoContainer);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mPagerTitleStrip = (PagerSlidingTabStrip) findViewById(R.id.pagerTitleStrip);
+
+        if(headerLayoutId != -1){
+            headerBackgroundContainer.addView(LayoutInflater.from(getContext()).inflate(headerLayoutId,headerBackgroundContainer,false));
+        }
+        if(logoLayoutId != -1){
+            logoContainer.addView(LayoutInflater.from(getContext()).inflate(logoLayoutId,logoContainer,false));
+            if(logoMarginTop != 0){
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) logoContainer.getLayoutParams();
+                layoutParams.setMargins(0,logoMarginTop,0,0);
+                logoContainer.setLayoutParams(layoutParams);
             }
         }
-    }
 
-    public static void registerScrollView(Activity activity, ObservableScrollView mScrollView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
-        if (activity != null && hashMap.containsKey(activity)) {
-            MaterialViewPagerAnimator animator = hashMap.get(activity);
-            if (animator != null) {
-                animator.registerScrollView(mScrollView, observableScrollViewCallbacks);
-            }
+        if(!isInEditMode()) {
+            materialViewPagerHeader = MaterialViewPagerHeader
+                    .withToolbar(mToolbar)
+                    .withToolbarLayoutBackground(findViewById(R.id.toolbar_layout_background))
+                    .withPagerSlidingTabStrip(mPagerTitleStrip)
+                    .withHeaderBackground(findViewById(R.id.headerBackground))
+                    .withStatusBackground(findViewById(R.id.statusBackground))
+                    .withLogo(logoContainer);
         }
+
     }
 
-    public static MaterialViewPagerAnimator getAnimator(Context context) {
-        return hashMap.get(context);
+    public ViewPager getViewPager() {
+        return mViewPager;
     }
 
-    public static void injectHeader(final WebView webView, boolean withAnimation) {
-        if (webView != null) {
-
-            MaterialViewPagerAnimator animator = MaterialViewPager.getAnimator(webView.getContext());
-            if (animator != null) {
-
-                WebSettings webSettings = webView.getSettings();
-                webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-                webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-                webSettings.setJavaScriptEnabled(true);
-                webSettings.setDomStorageEnabled(true);
-                webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
-
-                {
-
-                    final int marginTop = animator.getHeaderHeight() + 10;
-                    final String js = String.format("document.body.style.marginTop= \"%dpx\"", marginTop);
-                    webView.evaluateJavascript(js, null);
-                }
-
-                {
-                    final String js = "document.body.style.backround-color= white";
-                    webView.evaluateJavascript(js, null);
-                }
-
-                if (withAnimation)
-                    webView.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            webView.setVisibility(View.VISIBLE);
-                            ObjectAnimator.ofFloat(webView, "alpha", 0, 1).start();
-                        }
-                    }, 400);
-            }
-        }
+    public PagerSlidingTabStrip getPagerTitleStrip() {
+        return mPagerTitleStrip;
     }
 
-    public static void preLoadInjectHeader(WebView mWebView) {
-        mWebView.setBackgroundColor(Color.TRANSPARENT);
-        mWebView.setVisibility(View.INVISIBLE);
+    public Toolbar getToolbar() {
+        return mToolbar;
     }
-
 }

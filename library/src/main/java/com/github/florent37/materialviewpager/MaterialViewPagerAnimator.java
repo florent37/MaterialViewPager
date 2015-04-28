@@ -40,10 +40,10 @@ public class MaterialViewPagerAnimator {
 
     private float lastYOffset = -1;
 
-    public MaterialViewPagerAnimator(MaterialViewPagerSettings materialViewPagerSettings, MaterialViewPagerHeader header) {
+    public MaterialViewPagerAnimator(MaterialViewPagerSettings materialViewPagerSettings, MaterialViewPager materialViewPager) {
 
         this.settings = materialViewPagerSettings;
-        this.mHeader = header;
+        this.mHeader = materialViewPager.materialViewPagerHeader;
         this.context = mHeader.getContext();
 
         this.scrollMax = settings.headerHeight; // + 50;

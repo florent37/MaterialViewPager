@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MaterialViewPager">
+        <attr name="viewpager_header" format="reference"/>
+        <attr name="viewpager_logo" format="reference"/>
+        <attr name="viewpager_logo_margin_top" format="dimension"/>
+    </declare-styleable>
+
+</resources>
