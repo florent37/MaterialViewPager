@@ -23,11 +23,8 @@ import static com.github.florent37.materialviewpager.Utils.pxToDp;
 public class MaterialViewPager extends FrameLayout {
 
     private ViewGroup headerBackgroundContainer;
-    private int headerLayoutId;
 
     private ViewGroup logoContainer;
-    private int logoLayoutId;
-    private int logoMarginTop;
 
     protected MaterialViewPagerHeader materialViewPagerHeader;
 
@@ -35,43 +32,7 @@ public class MaterialViewPager extends FrameLayout {
     protected ViewPager mViewPager;
     protected PagerSlidingTabStrip mPagerTitleStrip;
 
-    protected int headerHeight;
-    protected int color;
-    protected boolean hideToolbarAndTitle;
-    protected boolean hideLogoWithFade;
-    protected boolean enableToolbarElevation;
-
-    private void handleAttributes(Context context, AttributeSet attrs){
-        try {
-            TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaterialViewPager);
-            {
-                headerLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_header, -1);
-                if(headerLayoutId == -1)
-                    headerLayoutId = R.layout.material_view_pager_default_header;
-            }
-            {
-                logoLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_logo, -1);
-                logoMarginTop = styledAttrs.getDimensionPixelSize(R.styleable.MaterialViewPager_viewpager_logoMarginTop, 0);
-            }
-            {
-                color = styledAttrs.getColor(R.styleable.MaterialViewPager_viewpager_color, 0);
-            }
-            {
-                headerHeight = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerHeight, 200);
-                headerHeight = Math.round(pxToDp(headerHeight,context));
-            }
-            {
-                hideToolbarAndTitle = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideToolbarAndTitle, false);
-                hideLogoWithFade = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideLogoWithFade, false);
-            }
-            {
-                enableToolbarElevation = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_enableToolbarElevation, false);
-            }
-            styledAttrs.recycle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
 
     public MaterialViewPager(Context context) {
         super(context);
@@ -79,18 +40,18 @@ public class MaterialViewPager extends FrameLayout {
 
     public MaterialViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        handleAttributes(context,attrs);
+        settings.handleAttributes(context,attrs);
     }
 
     public MaterialViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        handleAttributes(context,attrs);
+        settings.handleAttributes(context,attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MaterialViewPager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        handleAttributes(context,attrs);
+        settings.handleAttributes(context,attrs);
     }
 
     @Override
@@ -105,14 +66,14 @@ public class MaterialViewPager extends FrameLayout {
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mPagerTitleStrip = (PagerSlidingTabStrip) findViewById(R.id.pagerTitleStrip);
 
-        if(headerLayoutId != -1){
-            headerBackgroundContainer.addView(LayoutInflater.from(getContext()).inflate(headerLayoutId,headerBackgroundContainer,false));
+        if(settings.headerLayoutId != -1){
+            headerBackgroundContainer.addView(LayoutInflater.from(getContext()).inflate(settings.headerLayoutId,headerBackgroundContainer,false));
         }
-        if(logoLayoutId != -1){
-            logoContainer.addView(LayoutInflater.from(getContext()).inflate(logoLayoutId,logoContainer,false));
-            if(logoMarginTop != 0){
+        if(settings.logoLayoutId != -1){
+            logoContainer.addView(LayoutInflater.from(getContext()).inflate(settings.logoLayoutId,logoContainer,false));
+            if(settings.logoMarginTop != 0){
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) logoContainer.getLayoutParams();
-                layoutParams.setMargins(0,logoMarginTop,0,0);
+                layoutParams.setMargins(0,settings.logoMarginTop,0,0);
                 logoContainer.setLayoutParams(layoutParams);
             }
         }
