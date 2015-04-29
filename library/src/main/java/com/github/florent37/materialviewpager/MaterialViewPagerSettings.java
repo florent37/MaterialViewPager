@@ -12,6 +12,7 @@ import static com.github.florent37.materialviewpager.Utils.pxToDp;
 public class MaterialViewPagerSettings {
 
     protected int headerLayoutId;
+    protected int pagerTitleStripId;
 
     protected int logoLayoutId;
     protected int logoMarginTop;
@@ -29,6 +30,11 @@ public class MaterialViewPagerSettings {
                 headerLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_header, -1);
                 if(headerLayoutId == -1)
                     headerLayoutId = R.layout.material_view_pager_default_header;
+            }
+            {
+                pagerTitleStripId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_pagerTitleStrip, -1);
+                if(pagerTitleStripId == -1)
+                    pagerTitleStripId = R.layout.material_view_pager_pagertitlestrip_standard;
             }
             {
                 logoLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_logo, -1);

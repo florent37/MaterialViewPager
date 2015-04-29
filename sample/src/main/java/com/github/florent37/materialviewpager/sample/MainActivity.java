@@ -17,6 +17,7 @@ import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerAnimator;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.sample.fragment.ListFragment;
+import com.github.florent37.materialviewpager.sample.fragment.ScrollFragment;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends ActionBarActivity {
@@ -56,7 +57,6 @@ public class MainActivity extends ActionBarActivity {
         mDrawer.setDrawerListener(mDrawerToggle);
 
         ImageView headerBackgroundImage = (ImageView) findViewById(R.id.headerBackgroundImage);
-
         Picasso.with(getApplicationContext()).load("https://dancole2009.files.wordpress.com/2010/01/material-testing-81.jpg")
                 .centerCrop().fit().into(headerBackgroundImage);
 
@@ -66,8 +66,8 @@ public class MainActivity extends ActionBarActivity {
                 switch (position) {
                     case 0:
                         return ListFragment.newInstance();
-                    //case 1:
-                    //    return ScrollFragment.newInstance();
+                    case 1:
+                        return ScrollFragment.newInstance();
                     //case 2:
                     //    return WebViewFragment.newInstance();
                     default:
@@ -103,7 +103,17 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return "Page " + position;
+                switch (position){
+                    case 0:
+                        return "Selection";
+                    case 1:
+                        return "Actualités";
+                    case 2:
+                        return "Professionnel";
+                    case 3:
+                        return "Divertissement";
+                }
+                return "";
             }
         });
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());

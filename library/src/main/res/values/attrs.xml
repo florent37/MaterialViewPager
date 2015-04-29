@@ -4,6 +4,7 @@
     <declare-styleable name="MaterialViewPager">
         <attr name="viewpager_header" format="reference"/>
         <attr name="viewpager_logo" format="reference"/>
+        <attr name="viewpager_pagerTitleStrip" format="reference"/>
         <attr name="viewpager_logoMarginTop" format="dimension"/>
         <attr name="viewpager_color" format="color"/>
         <attr name="viewpager_headerHeight" format="dimension"/>

@@ -49,18 +49,13 @@
             tools:background="#A333"
             android:minHeight="?attr/actionBarSize" />
 
-        <com.astuetz.PagerSlidingTabStrip
-            android:id="@+id/pagerTitleStrip"
+        <FrameLayout
+            android:id="@+id/pagerTitleStripContainer"
             android:layout_marginTop="160dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:pstsDividerPadding="20dp"
-            app:pstsIndicatorColor="#FFF"
-            app:pstsIndicatorHeight="4dp"
-            app:pstsShouldExpand="true"
-            app:pstsTabPaddingLeftRight="10dp"
             tools:background="#A333"
-            app:pstsTextAllCaps="true" />
+            />
 
         <FrameLayout
             android:id="@+id/logoContainer"

@@ -23,7 +23,7 @@ import static com.github.florent37.materialviewpager.Utils.pxToDp;
 public class MaterialViewPager extends FrameLayout {
 
     private ViewGroup headerBackgroundContainer;
-
+    private ViewGroup pagerTitleStripContainer;
     private ViewGroup logoContainer;
 
     protected MaterialViewPagerHeader materialViewPagerHeader;
@@ -60,14 +60,17 @@ public class MaterialViewPager extends FrameLayout {
         addView(LayoutInflater.from(getContext()).inflate(R.layout.material_view_pager_layout,this,false));
 
         headerBackgroundContainer = (ViewGroup) findViewById(R.id.headerBackgroundContainer);
+        pagerTitleStripContainer = (ViewGroup) findViewById(R.id.pagerTitleStripContainer);
         logoContainer = (ViewGroup) findViewById(R.id.logoContainer);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mPagerTitleStrip = (PagerSlidingTabStrip) findViewById(R.id.pagerTitleStrip);
 
         if(settings.headerLayoutId != -1){
             headerBackgroundContainer.addView(LayoutInflater.from(getContext()).inflate(settings.headerLayoutId,headerBackgroundContainer,false));
+        }
+        if(settings.pagerTitleStripId != -1){
+            pagerTitleStripContainer.addView(LayoutInflater.from(getContext()).inflate(settings.pagerTitleStripId,pagerTitleStripContainer,false));
         }
         if(settings.logoLayoutId != -1){
             logoContainer.addView(LayoutInflater.from(getContext()).inflate(settings.logoLayoutId,logoContainer,false));
@@ -82,7 +85,7 @@ public class MaterialViewPager extends FrameLayout {
             materialViewPagerHeader = MaterialViewPagerHeader
                     .withToolbar(mToolbar)
                     .withToolbarLayoutBackground(findViewById(R.id.toolbar_layout_background))
-                    .withPagerSlidingTabStrip(mPagerTitleStrip)
+                    .withPagerSlidingTabStrip(pagerTitleStripContainer)
                     .withHeaderBackground(findViewById(R.id.headerBackground))
                     .withStatusBackground(findViewById(R.id.statusBackground))
                     .withLogo(logoContainer);
@@ -97,7 +100,7 @@ public class MaterialViewPager extends FrameLayout {
     }
 
     public PagerSlidingTabStrip getPagerTitleStrip() {
-        return mPagerTitleStrip;
+        return (PagerSlidingTabStrip) pagerTitleStripContainer.findViewById(R.id.materialviewpager_pagerTitleStrip);
     }
 
     public Toolbar getToolbar() {

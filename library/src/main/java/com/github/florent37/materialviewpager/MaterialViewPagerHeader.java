@@ -18,7 +18,7 @@ public class MaterialViewPagerHeader {
 
     protected View toolbarLayout;
     protected Toolbar toolbar;
-    protected PagerSlidingTabStrip mPagerSlidingTabStrip;
+    protected View mPagerSlidingTabStrip;
 
     protected View toolbarLayoutBackground;
     protected View headerBackground;
@@ -46,7 +46,7 @@ public class MaterialViewPagerHeader {
         return context;
     }
 
-    public MaterialViewPagerHeader withPagerSlidingTabStrip(PagerSlidingTabStrip pagerSlidingTabStrip) {
+    public MaterialViewPagerHeader withPagerSlidingTabStrip(View pagerSlidingTabStrip) {
         this.mPagerSlidingTabStrip = pagerSlidingTabStrip;
 
         mPagerSlidingTabStrip.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -96,10 +96,6 @@ public class MaterialViewPagerHeader {
 
     public Toolbar getToolbar() {
         return toolbar;
-    }
-
-    public PagerSlidingTabStrip getPagerSlidingTabStrip() {
-        return mPagerSlidingTabStrip;
     }
 
     public View getHeaderBackground() {
