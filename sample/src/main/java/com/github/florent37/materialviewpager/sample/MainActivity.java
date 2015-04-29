@@ -109,10 +109,11 @@ public class MainActivity extends ActionBarActivity {
                         color = getResources().getColor(R.color.red);
                         break;
                 }
-                MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(color);
 
                 final float alpha = headerBackgroundImage.getAlpha();
-                final int fadeDuration = 600;
+                final int fadeDuration = 500;
+
+                MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(color, fadeDuration*2);
 
                 final String urlImage = imageUrl;
 
@@ -139,6 +140,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
                 fadeOut.start();
+
             }
 
             @Override

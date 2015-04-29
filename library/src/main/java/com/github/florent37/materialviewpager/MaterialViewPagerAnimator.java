@@ -189,9 +189,10 @@ public class MaterialViewPagerAnimator {
         lastYOffset = yOffset;
     }
 
-    public void setColor(int color) {
+    public void setColor(int color, int duration) {
         ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", new int[]{settings.color, color});
         colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.setDuration(duration);
         colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
