@@ -1,6 +1,8 @@
 package com.github.florent37.materialviewpager;
 
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +41,7 @@ public class MaterialViewPagerAnimator {
     public final float scrollMaxDp;
 
     private float lastYOffset = -1;
+    private float lastPercent;
 
     public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
@@ -122,32 +125,8 @@ public class MaterialViewPagerAnimator {
             {
                 // change color of
                 // toolbar & viewpager indicator &  statusBaground
-
-                setBackgroundColor(
-                        colorWithAlpha(materialViewPager.color, percent),
-                        mHeader.statusBackground
-                );
-
-                if (percent >= 1) {
-                    setBackgroundColor(
-                            colorWithAlpha(materialViewPager.color, percent),
-                            mHeader.toolbar,
-                            mHeader.toolbarLayoutBackground,
-                            mHeader.mPagerSlidingTabStrip
-                    );
-                } else {
-                    setBackgroundColor(
-                            colorWithAlpha(materialViewPager.color, 0),
-                            mHeader.toolbar,
-                            mHeader.toolbarLayoutBackground,
-                            mHeader.mPagerSlidingTabStrip
-                    );
-                }
-
-                setElevation(
-                        (percent == 1) ? elevation : 0,
-                        mHeader.toolbarLayout
-                );
+                setColorPercent(percent);
+                lastPercent = percent;
 
             }
 
@@ -202,6 +181,54 @@ public class MaterialViewPagerAnimator {
         }
 
         lastYOffset = yOffset;
+    }
+
+    public void setColor(int color){
+        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.statusBackground,"backgroundColor", new int[]{materialViewPager.color,color});
+        colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int colorAlpha = colorWithAlpha((Integer) animation.getAnimatedValue(), lastPercent);
+                mHeader.statusBackground.setBackgroundColor(colorAlpha);
+                mHeader.toolbar.setBackgroundColor(colorAlpha);
+                mHeader.toolbarLayoutBackground.setBackgroundColor(colorAlpha);
+                mHeader.mPagerSlidingTabStrip.setBackgroundColor(colorAlpha);
+            }
+        });
+        colorAnim.start();
+        materialViewPager.color = color;
+    }
+
+    public void setColorPercent(float percent){
+        // change color of
+        // toolbar & viewpager indicator &  statusBaground
+
+        setBackgroundColor(
+                colorWithAlpha(materialViewPager.color, percent),
+                mHeader.statusBackground
+        );
+
+        if (percent >= 1) {
+            setBackgroundColor(
+                    colorWithAlpha(materialViewPager.color, percent),
+                    mHeader.toolbar,
+                    mHeader.toolbarLayoutBackground,
+                    mHeader.mPagerSlidingTabStrip
+            );
+        } else {
+            setBackgroundColor(
+                    colorWithAlpha(materialViewPager.color, 0),
+                    mHeader.toolbar,
+                    mHeader.toolbarLayoutBackground,
+                    mHeader.mPagerSlidingTabStrip
+            );
+        }
+
+        setElevation(
+                (percent == 1) ? elevation : 0,
+                mHeader.toolbarLayout
+        );
     }
 
     private void followScrollToolbarLayout(float yOffset) {
