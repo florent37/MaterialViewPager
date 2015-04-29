@@ -39,6 +39,7 @@ public class MaterialViewPager extends FrameLayout {
     protected int color;
     protected boolean hideToolbarAndTitle;
     protected boolean hideLogoWithFade;
+    protected boolean enableToolbarElevation;
 
     private void handleAttributes(Context context, AttributeSet attrs){
         try {
@@ -62,6 +63,9 @@ public class MaterialViewPager extends FrameLayout {
             {
                 hideToolbarAndTitle = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideToolbarAndTitle, false);
                 hideLogoWithFade = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideLogoWithFade, false);
+            }
+            {
+                enableToolbarElevation = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_enableToolbarElevation, false);
             }
             styledAttrs.recycle();
         } catch (Exception e) {

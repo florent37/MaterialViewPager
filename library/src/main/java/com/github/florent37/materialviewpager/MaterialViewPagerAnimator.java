@@ -34,6 +34,8 @@ public class MaterialViewPagerAnimator {
     private Context context;
     private MaterialViewPagerHeader mHeader;
 
+    private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 600;
+
     private MaterialViewPager materialViewPager;
 
     public final float elevation;
@@ -50,7 +52,7 @@ public class MaterialViewPagerAnimator {
         this.context = mHeader.getContext();
 
         this.scrollMax = materialViewPager.headerHeight; // + 50;
-        this.scrollMaxDp = Utils.dpToPx(this.scrollMax,context);
+        this.scrollMaxDp = Utils.dpToPx(this.scrollMax, context);
 
         if (this.mHeader.headerBackground != null) {
             this.mHeader.headerBackground.setBackgroundColor(this.materialViewPager.color);
@@ -59,13 +61,13 @@ public class MaterialViewPagerAnimator {
             layoutParams.height = (int) Utils.dpToPx(this.materialViewPager.headerHeight + 60, context);
             this.mHeader.headerBackground.setLayoutParams(layoutParams);
         }
-        if(this.mHeader.mPagerSlidingTabStrip != null){
+        if (this.mHeader.mPagerSlidingTabStrip != null) {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) this.mHeader.mPagerSlidingTabStrip.getLayoutParams();
             int marginTop = (int) Utils.dpToPx(this.materialViewPager.headerHeight - 40, context);
-            layoutParams.setMargins(0,marginTop,0,0);
+            layoutParams.setMargins(0, marginTop, 0, 0);
             this.mHeader.mPagerSlidingTabStrip.setLayoutParams(layoutParams);
         }
-        if(this.mHeader.toolbarLayoutBackground != null){
+        if (this.mHeader.toolbarLayoutBackground != null) {
             ViewGroup.LayoutParams layoutParams = this.mHeader.toolbarLayoutBackground.getLayoutParams();
             layoutParams.height = (int) Utils.dpToPx(this.materialViewPager.headerHeight, context);
             this.mHeader.toolbarLayoutBackground.setLayoutParams(layoutParams);
@@ -183,11 +185,11 @@ public class MaterialViewPagerAnimator {
         lastYOffset = yOffset;
     }
 
-    public void setColor(int color){
+    public void setColor(int color) {
         final int colorAlphaOrigin = colorWithAlpha(materialViewPager.color, lastPercent);
         final int colorAlphaDestination = colorWithAlpha(color, lastPercent);
 
-        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground,"backgroundColor", new int[]{materialViewPager.color,color});
+        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", new int[]{materialViewPager.color, color});
         colorAnim.setEvaluator(new ArgbEvaluator());
         colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -203,7 +205,7 @@ public class MaterialViewPagerAnimator {
         materialViewPager.color = color;
     }
 
-    public void setColorPercent(float percent){
+    public void setColorPercent(float percent) {
         // change color of
         // toolbar & viewpager indicator &  statusBaground
 
@@ -228,10 +230,14 @@ public class MaterialViewPagerAnimator {
             );
         }
 
-        setElevation(
-                (percent == 1) ? elevation : 0,
-                mHeader.toolbarLayout
-        );
+        if (materialViewPager.enableToolbarElevation)
+            setElevation(
+                    (percent == 1) ? elevation : 0,
+                    mHeader.toolbar,
+                    mHeader.toolbarLayoutBackground,
+                    mHeader.mPagerSlidingTabStrip,
+                    mHeader.mLogo
+            );
     }
 
     private void followScrollToolbarLayout(float yOffset) {
@@ -246,7 +252,7 @@ public class MaterialViewPagerAnimator {
 
     private void animateEnterToolbarLayout(float yOffset) {
         if (headerAnimator == null) {
-            headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(600);
+            headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
             headerAnimator.start();
             headerYOffset = yOffset;
         }
@@ -325,7 +331,7 @@ public class MaterialViewPagerAnimator {
     }
 
     public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
-        if(scrollView != null){
+        if (scrollView != null) {
             scrollViewList.add(scrollView);
             scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
