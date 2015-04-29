@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
@@ -72,8 +73,8 @@ public class MainActivity extends ActionBarActivity {
                 switch (position) {
                     case 0:
                         return ListFragment.newInstance();
-                    case 1:
-                        return ScrollFragment.newInstance();
+                    //case 1:
+                    //    return ScrollFragment.newInstance();
                     //case 2:
                     //    return WebViewFragment.newInstance();
                     default:
@@ -111,7 +112,7 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 final float alpha = headerBackgroundImage.getAlpha();
-                final int fadeDuration = 500;
+                final int fadeDuration = 400;
 
                 MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(color, fadeDuration*2);
 
@@ -128,7 +129,7 @@ public class MainActivity extends ActionBarActivity {
                             @Override
                             public void onSuccess() {
                                 final ObjectAnimator fadeIn = ObjectAnimator.ofFloat(headerBackgroundImage,"alpha",alpha).setDuration(fadeDuration);
-                                fadeIn.setInterpolator(new DecelerateInterpolator());
+                                fadeIn.setInterpolator(new AccelerateInterpolator());
                                 fadeIn.start();
                             }
 
