@@ -47,6 +47,7 @@ public class MaterialViewPagerHelper {
         }
     }
 
+    @Deprecated
     public static void registerListView(Activity activity, ObservableListView listView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (activity != null && hashMap.containsKey(activity)) {
             MaterialViewPagerAnimator animator = hashMap.get(activity);

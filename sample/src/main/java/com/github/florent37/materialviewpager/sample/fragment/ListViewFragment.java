@@ -26,6 +26,7 @@ import java.util.List;
 /**
  * Created by florentchampigny on 24/04/15.
  */
+@Deprecated
 public class ListViewFragment extends Fragment {
 
     private ObservableListView mListView;

@@ -10,6 +10,7 @@ import com.github.florent37.materialviewpager.R;
 /**
  * Created by florentchampigny on 24/04/15.
  */
+@Deprecated
 public class ListViewMaterialAdapter extends BaseAdapter {
 
     static final int TYPE_PLACEHOLDER = Integer.MIN_VALUE;

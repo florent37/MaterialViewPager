@@ -406,6 +406,7 @@ public class MaterialViewPagerAnimator {
         return settings.headerHeight;
     }
 
+    @Deprecated
     public void registerListView(final ObservableListView listView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (listView != null) {
             scrollViewList.add(listView);

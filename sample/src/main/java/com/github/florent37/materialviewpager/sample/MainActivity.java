@@ -65,12 +65,12 @@ public class MainActivity extends ActionBarActivity {
                 switch (position) {
                     case 0:
                         return RecyclerViewFragment.newInstance();
-                    case 1:
-                        return ScrollFragment.newInstance();
-                    case 2:
-                        return ListViewFragment.newInstance();
-                    case 3:
-                        return WebViewFragment.newInstance();
+                    //case 1:
+                    //    return ScrollFragment.newInstance();
+                    //case 2:
+                    //    return ListViewFragment.newInstance();
+                    //case 3:
+                    //    return WebViewFragment.newInstance();
                     default:
                         return RecyclerViewFragment.newInstance();
                 }
