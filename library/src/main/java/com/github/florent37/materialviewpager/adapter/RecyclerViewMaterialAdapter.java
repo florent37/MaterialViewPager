@@ -1,25 +1,25 @@
-package com.github.florent37.materialviewpager.sample;
+package com.github.florent37.materialviewpager.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.florent37.materialviewpager.R;
+
 import java.util.List;
 
 /**
  * Created by florentchampigny on 24/04/15.
  */
-public class TestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<Object> contents;
+    static final int TYPE_PLACEHOLDER = Integer.MIN_VALUE;
+    static final int PLACEHOLDER_SIZE = 1;
+    private RecyclerView.Adapter mAdapter;
 
-    static final int TYPE_PLACEHOLDER = 0;
-    static final int TYPE_HEADER = 1;
-    static final int TYPE_CELL = 2;
-
-    public TestAdapter(List<Object> contents) {
-        this.contents = contents;
+    public RecyclerViewMaterialAdapter(RecyclerView.Adapter adapter) {
+        this.mAdapter = adapter;
     }
 
     @Override
@@ -27,16 +27,14 @@ public class TestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         switch (position) {
             case 0:
                 return TYPE_PLACEHOLDER;
-            case 1:
-                return TYPE_HEADER;
             default:
-                return TYPE_CELL;
+                return mAdapter.getItemViewType(position-PLACEHOLDER_SIZE);
         }
     }
 
     @Override
     public int getItemCount() {
-        return contents.size() + 1;
+        return mAdapter.getItemCount() + PLACEHOLDER_SIZE;
     }
 
     @Override
@@ -50,20 +48,9 @@ public class TestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return new RecyclerView.ViewHolder(view) {
                 };
             }
-            case TYPE_HEADER: {
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.list_item_card_big, parent, false);
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
-            case TYPE_CELL: {
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.list_item_card_small, parent, false);
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
+            default:
+                return mAdapter.onCreateViewHolder(parent,viewType);
         }
-        return null;
     }
 
 
@@ -72,9 +59,8 @@ public class TestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         switch (getItemViewType(position)) {
             case TYPE_PLACEHOLDER:
                 break;
-            case TYPE_HEADER:
-                break;
-            case TYPE_CELL:
+            default:
+                mAdapter.onBindViewHolder(holder,position-PLACEHOLDER_SIZE);
                 break;
         }
     }

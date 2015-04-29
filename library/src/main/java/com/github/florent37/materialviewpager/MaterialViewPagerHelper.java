@@ -4,11 +4,13 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
@@ -41,6 +43,15 @@ public class MaterialViewPagerHelper {
             MaterialViewPagerAnimator animator = hashMap.get(activity);
             if (animator != null) {
                 animator.registerWebView(webView, observableScrollViewCallbacks);
+            }
+        }
+    }
+
+    public static void registerListView(Activity activity, ObservableListView listView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
+        if (activity != null && hashMap.containsKey(activity)) {
+            MaterialViewPagerAnimator animator = hashMap.get(activity);
+            if (animator != null) {
+                animator.registerListView(listView, observableScrollViewCallbacks);
             }
         }
     }

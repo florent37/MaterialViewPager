@@ -1,32 +1,22 @@
 package com.github.florent37.materialviewpager.sample;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.github.florent37.materialviewpager.MaterialViewPagerAnimator;
-import com.github.florent37.materialviewpager.MaterialViewPagerHeader;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.MaterialViewPagerImageHeader;
-import com.github.florent37.materialviewpager.sample.fragment.ListFragment;
+import com.github.florent37.materialviewpager.sample.fragment.ListViewFragment;
+import com.github.florent37.materialviewpager.sample.fragment.RecyclerViewFragment;
 import com.github.florent37.materialviewpager.sample.fragment.ScrollFragment;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.github.florent37.materialviewpager.sample.fragment.WebViewFragment;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -74,13 +64,15 @@ public class MainActivity extends ActionBarActivity {
             public Fragment getItem(int position) {
                 switch (position) {
                     case 0:
-                        return ListFragment.newInstance();
-                    //case 1:
-                    //    return ScrollFragment.newInstance();
-                    //case 2:
-                    //    return WebViewFragment.newInstance();
+                        return RecyclerViewFragment.newInstance();
+                    case 1:
+                        return ScrollFragment.newInstance();
+                    case 2:
+                        return ListViewFragment.newInstance();
+                    case 3:
+                        return WebViewFragment.newInstance();
                     default:
-                        return ListFragment.newInstance();
+                        return RecyclerViewFragment.newInstance();
                 }
             }
 

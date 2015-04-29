@@ -11,8 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
@@ -94,7 +97,14 @@ public class MaterialViewPagerAnimator {
                             LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
                             linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
                         }
-                    } else if (scroll instanceof WebView) {
+                    }
+                    else if (scroll instanceof ScrollView) {
+                        ((ScrollView) scroll).scrollTo(0, (int) yOffset);
+                    }
+                    else if (scroll instanceof ListView) {
+                        ((ListView) scroll).scrollTo(0, (int) yOffset);
+                    }
+                    else if (scroll instanceof WebView) {
                         ((WebView) scroll).scrollTo(0, (int) yOffset);
                     }
 
@@ -396,4 +406,33 @@ public class MaterialViewPagerAnimator {
         return settings.headerHeight;
     }
 
+    public void registerListView(final ObservableListView listView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
+        if (listView != null) {
+            scrollViewList.add(listView);
+            listView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+                @Override
+                public void onScrollChanged(int i, boolean b, boolean b2) {
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onScrollChanged(i, b, b2);
+                    if (calledScrollList.contains(listView)) {
+                        calledScrollList.remove(listView);
+                        return;
+                    }
+                    onMaterialScrolled(listView, i);
+                }
+
+                @Override
+                public void onDownMotionEvent() {
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onDownMotionEvent();
+                }
+
+                @Override
+                public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+                    if (observableScrollViewCallbacks != null)
+                        observableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
+                }
+            });
+        }
+    }
 }
