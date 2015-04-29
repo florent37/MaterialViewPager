@@ -20,7 +20,9 @@ import android.widget.ImageView;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerAnimator;
+import com.github.florent37.materialviewpager.MaterialViewPagerHeader;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import com.github.florent37.materialviewpager.MaterialViewPagerImageHeader;
 import com.github.florent37.materialviewpager.sample.fragment.ListFragment;
 import com.github.florent37.materialviewpager.sample.fragment.ScrollFragment;
 import com.squareup.picasso.Callback;
@@ -62,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
 
-        final ImageView headerBackgroundImage = (ImageView) findViewById(R.id.headerBackgroundImage);
+        final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
@@ -111,36 +113,10 @@ public class MainActivity extends ActionBarActivity {
                         break;
                 }
 
-                final float alpha = headerBackgroundImage.getAlpha();
                 final int fadeDuration = 400;
 
                 MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(color, fadeDuration*2);
-
-                final String urlImage = imageUrl;
-
-                final ObjectAnimator fadeOut = ObjectAnimator.ofFloat(headerBackgroundImage,"alpha",0).setDuration(fadeDuration);
-                fadeOut.setInterpolator(new DecelerateInterpolator());
-                fadeOut.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        Picasso.with(getApplicationContext()).load(urlImage)
-                                .centerCrop().fit().into(headerBackgroundImage, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                final ObjectAnimator fadeIn = ObjectAnimator.ofFloat(headerBackgroundImage,"alpha",alpha).setDuration(fadeDuration);
-                                fadeIn.setInterpolator(new AccelerateInterpolator());
-                                fadeIn.start();
-                            }
-
-                            @Override
-                            public void onError() {
-
-                            }
-                        });
-                    }
-                });
-                fadeOut.start();
+                headerBackgroundImage.setImageUrl(imageUrl,fadeDuration);
 
             }
 
