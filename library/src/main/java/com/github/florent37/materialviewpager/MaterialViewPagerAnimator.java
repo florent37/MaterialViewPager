@@ -41,7 +41,7 @@ public class MaterialViewPagerAnimator {
     public final float scrollMaxDp;
 
     private float lastYOffset = -1;
-    private float lastPercent;
+    private float lastPercent = 0;
 
     public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
@@ -184,7 +184,10 @@ public class MaterialViewPagerAnimator {
     }
 
     public void setColor(int color){
-        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.statusBackground,"backgroundColor", new int[]{materialViewPager.color,color});
+        final int colorAlphaOrigin = colorWithAlpha(materialViewPager.color, lastPercent);
+        final int colorAlphaDestination = colorWithAlpha(color, lastPercent);
+
+        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground,"backgroundColor", new int[]{materialViewPager.color,color});
         colorAnim.setEvaluator(new ArgbEvaluator());
         colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

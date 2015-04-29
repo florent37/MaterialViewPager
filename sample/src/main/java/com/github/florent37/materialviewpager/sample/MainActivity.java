@@ -78,20 +78,22 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void setPrimaryItem(ViewGroup container, int position, Object object) {
                 super.setPrimaryItem(container, position, object);
+                int color = 0;
                 switch (position){
                     case 0:
-                        MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(getResources().getColor(R.color.blue));
+                        color = getResources().getColor(R.color.blue);
                         break;
                     case 1:
-                        MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(getResources().getColor(R.color.green));
+                        color = getResources().getColor(R.color.green);
                         break;
                     case 2:
-                        MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(getResources().getColor(R.color.cyan));
+                        color = getResources().getColor(R.color.cyan);
                         break;
                     case 3:
-                        MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(getResources().getColor(R.color.red));
+                        color = getResources().getColor(R.color.red);
                         break;
                 }
+                MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(color);
             }
 
             @Override
