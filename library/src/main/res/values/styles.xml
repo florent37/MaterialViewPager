@@ -14,6 +14,10 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="windowActionBar">false</item>
 
+        <!-- Toolbar Theme / Apply white arrow -->
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="actionBarTheme">@style/AppTheme.ActionBarTheme</item>
+
         <!-- Material Theme -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -23,7 +27,11 @@
         <item name="android:navigationBarColor" tools:targetApi="21">@color/navigationBarColor</item>
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="21">true</item>
 
+    </style>
 
+    <style name="AppTheme.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- White arrow -->
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">

@@ -2,21 +2,17 @@ package com.github.florent37.materialviewpager;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.astuetz.PagerSlidingTabStrip;
-
-import static com.github.florent37.materialviewpager.Utils.pxToDp;
 
 /**
  * Created by florentchampigny on 28/04/15.
@@ -31,7 +27,6 @@ public class MaterialViewPager extends FrameLayout {
 
     protected Toolbar mToolbar;
     protected ViewPager mViewPager;
-    protected PagerSlidingTabStrip mPagerTitleStrip;
 
     protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
 
@@ -41,24 +36,24 @@ public class MaterialViewPager extends FrameLayout {
 
     public MaterialViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        settings.handleAttributes(context,attrs);
+        settings.handleAttributes(context, attrs);
     }
 
     public MaterialViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        settings.handleAttributes(context,attrs);
+        settings.handleAttributes(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MaterialViewPager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        settings.handleAttributes(context,attrs);
+        settings.handleAttributes(context, attrs);
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        addView(LayoutInflater.from(getContext()).inflate(R.layout.material_view_pager_layout,this,false));
+        addView(LayoutInflater.from(getContext()).inflate(R.layout.material_view_pager_layout, this, false));
 
         headerBackgroundContainer = (ViewGroup) findViewById(R.id.headerBackgroundContainer);
         pagerTitleStripContainer = (ViewGroup) findViewById(R.id.pagerTitleStripContainer);
@@ -67,22 +62,27 @@ public class MaterialViewPager extends FrameLayout {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        if(settings.headerLayoutId != -1){
-            headerBackgroundContainer.addView(LayoutInflater.from(getContext()).inflate(settings.headerLayoutId,headerBackgroundContainer,false));
+        if (settings.headerLayoutId != -1) {
+            headerBackgroundContainer.addView(LayoutInflater.from(getContext()).inflate(settings.headerLayoutId, headerBackgroundContainer, false));
         }
-        if(settings.pagerTitleStripId != -1){
-            pagerTitleStripContainer.addView(LayoutInflater.from(getContext()).inflate(settings.pagerTitleStripId,pagerTitleStripContainer,false));
+
+        if (isInEditMode()) { //preview titlestrip
+            settings.pagerTitleStripId = R.layout.tools_material_view_pager_pagertitlestrip;
         }
-        if(settings.logoLayoutId != -1){
-            logoContainer.addView(LayoutInflater.from(getContext()).inflate(settings.logoLayoutId,logoContainer,false));
-            if(settings.logoMarginTop != 0){
+        if (settings.pagerTitleStripId != -1) {
+            pagerTitleStripContainer.addView(LayoutInflater.from(getContext()).inflate(settings.pagerTitleStripId, pagerTitleStripContainer, false));
+        }
+
+        if (settings.logoLayoutId != -1) {
+            logoContainer.addView(LayoutInflater.from(getContext()).inflate(settings.logoLayoutId, logoContainer, false));
+            if (settings.logoMarginTop != 0) {
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) logoContainer.getLayoutParams();
-                layoutParams.setMargins(0,settings.logoMarginTop,0,0);
+                layoutParams.setMargins(0, settings.logoMarginTop, 0, 0);
                 logoContainer.setLayoutParams(layoutParams);
             }
         }
 
-        if(!isInEditMode()) {
+        if (!isInEditMode()) {
             materialViewPagerHeader = MaterialViewPagerHeader
                     .withToolbar(mToolbar)
                     .withToolbarLayoutBackground(findViewById(R.id.toolbar_layout_background))
@@ -108,28 +108,28 @@ public class MaterialViewPager extends FrameLayout {
         return mToolbar;
     }
 
-    public void setImageUrl(String imageUrl, int fadeDuration){
-        if(imageUrl != null) {
+    public void setImageUrl(String imageUrl, int fadeDuration) {
+        if (imageUrl != null) {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
             //if using MaterialViewPagerImageHeader
             if (headerBackgroundImage != null) {
-                headerBackgroundImage.setImageUrl(imageUrl,fadeDuration);
+                headerBackgroundImage.setImageUrl(imageUrl, fadeDuration);
             }
         }
     }
 
-    public void setImageDrawable(Drawable drawable, int fadeDuration){
-        if(drawable != null) {
+    public void setImageDrawable(Drawable drawable, int fadeDuration) {
+        if (drawable != null) {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
             //if using MaterialViewPagerImageHeader
             if (headerBackgroundImage != null) {
-                headerBackgroundImage.setImageDrawable(drawable,fadeDuration);
+                headerBackgroundImage.setImageDrawable(drawable, fadeDuration);
             }
         }
     }
 
-    public void setColor(int color, int fadeDuration){
-        MaterialViewPagerHelper.getAnimator(getContext()).setColor(color, fadeDuration*2);
+    public void setColor(int color, int fadeDuration) {
+        MaterialViewPagerHelper.getAnimator(getContext()).setColor(color, fadeDuration * 2);
     }
 
 }

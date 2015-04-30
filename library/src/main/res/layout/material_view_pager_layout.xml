@@ -46,15 +46,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            tools:background="#A333"
-            android:minHeight="?attr/actionBarSize" />
+            tools:background="#3FFF"
+            android:title="Toolbar"
+            app:theme="@style/AppTheme.ActionBarTheme"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            android:minHeight="?attr/actionBarSize"
+            />
 
         <FrameLayout
             android:id="@+id/pagerTitleStripContainer"
             android:layout_marginTop="160dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            tools:background="#A333"
+            tools:background="#3FFF"
             />
 
         <FrameLayout
