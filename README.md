@@ -110,6 +110,16 @@ mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager())
                 return RecyclerViewFragment.newInstance();
             }
 
+            @Override
+            public int getCount() {
+                return 4;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return "Tab "+position;
+            }
+
             //called when the current page has changed
             @Override
             public void setPrimaryItem(ViewGroup container, int position, Object object) {
@@ -149,15 +159,6 @@ mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager())
 
             }
 
-            @Override
-            public int getCount() {
-                return 4;
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return "Tab "+position;
-            }
         });
 ```
 
