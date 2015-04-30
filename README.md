@@ -206,6 +206,8 @@ MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 
 #Animate Header
 
+[![Video](http://share.gifyoutube.com/yABkgW.gif)](http://youtu.be/90gKwEL1j2I )
+
 Simply listen to the ViewPager Page Change and modify the header's **color and image**
 
 ```java
