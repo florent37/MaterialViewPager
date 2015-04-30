@@ -64,6 +64,111 @@ public class MainActivity extends ActionBarActivity {
 }
 ```
 
+#Customisation
+
+First choose your color and height
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager
+        android:id="@+id/materialViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:viewpager_color="@color/colorPrimary"
+        app:viewpager_headerHeight="200dp"
+
+        />
+```
+
+##Set your logo
+
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager
+        ...
+        app:viewpager_logo="@layout/header_logo"
+        app:viewpager_logoMarginTop="100dp" <-- look at the preview
+        ...
+        />
+```
+
+###Titlebar Logo
+
+[![Video](http://share.gifyoutube.com/ygbqnA.gif)](http://youtu.be/82gvoUqXb_I)
+
+Your logo's layout must
+* layout_width="@dimen/materialviewpager_logoWidth"
+* layout_height="@dimen/materialviewpager_logoHeight"
+
+**header_logo.xml**
+```xml
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/logo_white"
+    android:layout_width="@dimen/materialviewpager_logoWidth"
+    android:layout_height="@dimen/materialviewpager_logoHeight"
+    android:fitsSystemWindows="true"
+    android:adjustViewBounds="true"
+    android:layout_centerHorizontal="true"
+    android:src="@drawable/logo_white" />
+```
+
+```
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_hideLogoWithFade="false"
+        ...
+        />
+
+```
+
+###Fading Logo
+
+[![Video](http://share.gifyoutube.com/KYb0D4.gif)](http://youtu.be/9laniARQdqg)
+
+**header_logo.xml**
+```xml
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/circle">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:fitsSystemWindows="true"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:src="@drawable/flying" />
+</FrameLayout>
+```
+
+```
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_hideLogoWithFade="true"
+        ...
+        />
+```
+
+###Hide Logo and Toolbar
+
+```
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:hideToolbarAndTitle="true"
+        ...
+        />
+```
+
+###Sticky Toolbar
+
+```
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:hideToolbarAndTitle="false"
+        ...
+        />
+```
+
 #Toolbar
 
 ```java
@@ -271,91 +376,6 @@ mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager())
             }
 
         });
-```
-
-#Customisation
-
-First choose your color and height
-```xml
-<com.github.florent37.materialviewpager.MaterialViewPager
-        android:id="@+id/materialViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        app:viewpager_color="@color/colorPrimary"
-        app:viewpager_headerHeight="200dp"
-
-        />
-```
-
-##Set your logo
-
-```xml
-<com.github.florent37.materialviewpager.MaterialViewPager
-        ...
-        app:viewpager_logo="@layout/header_logo"
-        app:viewpager_logoMarginTop="100dp" <-- look at the preview
-        ...
-        />
-```
-
-###Titlebar Logo
-
-[![Video](http://share.gifyoutube.com/ygbqnA.gif)](http://youtu.be/82gvoUqXb_I)
-
-Your logo's layout must
-* layout_width="@dimen/materialviewpager_logoWidth"
-* layout_height="@dimen/materialviewpager_logoHeight"
-
-**header_logo.xml**
-```xml
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/logo_white"
-    android:layout_width="@dimen/materialviewpager_logoWidth"
-    android:layout_height="@dimen/materialviewpager_logoHeight"
-    android:fitsSystemWindows="true"
-    android:adjustViewBounds="true"
-    android:layout_centerHorizontal="true"
-    android:src="@drawable/logo_white" />
-```
-
-```
-<com.github.florent37.materialviewpager.MaterialViewPager`
-        ...
-        app:viewpager_hideLogoWithFade="false"
-        ...
-        />
-
-```
-
-###Fading Logo
-
-[![Video](http://share.gifyoutube.com/KYb0D4.gif)](http://youtu.be/9laniARQdqg)
-
-**header_logo.xml**
-```xml
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="80dp"
-    android:layout_height="80dp"
-    android:layout_centerHorizontal="true"
-    android:background="@drawable/circle">
-
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:fitsSystemWindows="true"
-        android:adjustViewBounds="true"
-        android:layout_gravity="center"
-        android:src="@drawable/flying" />
-</FrameLayout>
-```
-
-```
-<com.github.florent37.materialviewpager.MaterialViewPager`
-        ...
-        app:viewpager_hideLogoWithFade="true"
-        ...
-        />
 ```
 
 #Dependencies
