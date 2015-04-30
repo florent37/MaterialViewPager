@@ -138,7 +138,7 @@ And must include @layout/material_view_pager_placeholder as first child
 
 **WebView - (killed for less...)**
 
-The ScrollView must be an [ObservableWebView][android-observablescrollview]
+The WebView must be an [ObservableWebView][android-observablescrollview]
 ```java
 
 //must be called before loadUrl()
@@ -162,9 +162,11 @@ mWebView.loadUrl("http://...");
 MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
 ```
 
-**ListView - Deprecated**
+**[Deprecated] ListView**
 
-~~The ScrollView must be an [ObservableListView][android-observablescrollview]~~
+*Smoother if using RecyclerView !*
+
+The ListView must be an [ObservableListView][android-observablescrollview]
 
 ```java
 mAdapter = new ListViewMaterialAdapter(new ***Adapter(getActivity(),mList));
