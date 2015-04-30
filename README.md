@@ -290,10 +290,10 @@ First choose your color and height
 
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager
-
+        ...
         app:viewpager_logo="@layout/header_logo"
         app:viewpager_logoMarginTop="100dp" <-- look at the preview
-
+        ...
         />
 ```
 
@@ -319,8 +319,10 @@ Your logo's layout must
 
 ```
 <com.github.florent37.materialviewpager.MaterialViewPager`
-
+        ...
         app:viewpager_hideLogoWithFade="false"
+        ...
+        />
 
 ```
 
@@ -348,10 +350,10 @@ Your logo's layout must
 
 ```
 <com.github.florent37.materialviewpager.MaterialViewPager`
-
+        ...
         app:viewpager_hideLogoWithFade="true"
-
-
+        ...
+        />
 ```
 
 #Dependencies
