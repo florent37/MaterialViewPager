@@ -93,6 +93,19 @@ mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
 #Register your Scrollable
 
+First thing, your fragment view and your scrollable must be **transparent**, so **do not use android:backgound="..."**
+Sample :
+
+```xml
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />
+```
+
+
 ##RecyclerView
 
 From your fragment
