@@ -44,6 +44,7 @@ Add MaterialViewPager to your activity's layout
 ```
 
 You will see on Android Studio Preview :
+
 ![alt preview](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/preview_small.png)
 
 **Retrieve the MaterialViewPager**
