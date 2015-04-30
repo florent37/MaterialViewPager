@@ -6,4 +6,4 @@
     android:fitsSystemWindows="true"
     android:adjustViewBounds="true"
     android:layout_centerHorizontal="true"
-    android:src="@drawable/logo_white" />
+    android:src="@android:color/white" />

@@ -94,10 +94,58 @@ viewPage.setAdapter(...);
 mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 ```
 
+Register your Scrollable
+--------
+
+**RecyclerView**
+
+From your fragment
+```java
+MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+```
+
+**ScrollView**
+
+The ScrollView must be an [ObservableScrollView][android-observablescrollview]
+```java
+MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
+```
+
+**WebView - (killed for less...)**
+
+The ScrollView must be an [ObservableWebView][android-observablescrollview]
+```java
+
+//must be called before loadUrl()
+MaterialViewPagerHelper.preLoadInjectHeader(mWebView);
+
+//have to inject header when WebView page loaded
+mWebView.setWebViewClient(new WebViewClient() {
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        MaterialViewPagerHelper.injectHeader(mWebView, true);
+    }
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        view.loadUrl(url);
+        return true;
+    }
+});
+
+mWebView.loadUrl("http://...");
+
+MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
+```
+
+~~ListView - Deprecated~~
+```java
+MaterialViewPagerHelper.registerListView(getActivity(), mScrollView, null);
+```
+
 Animate Header
 --------
 
-Simply listen to the ViewPager Page Change and modify the header's color and image
+Simply listen to the ViewPager Page Change and modify the header's **color and image**
 
 ```java
 //it's a sample ViewPagerAdapter
@@ -161,6 +209,11 @@ mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager())
 
         });
 ```
+
+Customisation
+--------
+
+
 
 Dependencies
 --------
