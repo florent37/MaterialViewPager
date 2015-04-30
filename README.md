@@ -292,11 +292,14 @@ First choose your color and height
 <com.github.florent37.materialviewpager.MaterialViewPager
 
         app:viewpager_logo="@layout/header_logo"
+        app:viewpager_logoMarginTop="100dp" <-- look at the preview
 
         />
 ```
 
 ###Titlebar Logo
+
+[![Video](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/titlebar_logo.gif)](http://youtu.be/0BibJRq8K8E)
 
 Your logo's layout must
 * layout_width="@dimen/materialviewpager_logoWidth"
@@ -323,6 +326,8 @@ Your logo's layout must
 
 ###Fading Logo
 
+[![Video](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/fading_logo.gif)](http://youtu.be/9laniARQdqg)
+
 **header_logo.xml**
 ```xml
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -345,6 +350,7 @@ Your logo's layout must
 <com.github.florent37.materialviewpager.MaterialViewPager`
 
         app:viewpager_hideLogoWithFade="true"
+
 
 ```
 
