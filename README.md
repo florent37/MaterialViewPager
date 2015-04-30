@@ -17,15 +17,82 @@ repositories {
 }
 ```
 
-In your wear module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
+In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
 compile ('com.github.florent37:materialviewpager:1.0.0@aar'){
     transitive = true
 }
 ```
 
+Usage
+--------
+
+Add MaterialViewPager to your activity's layout
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager
+    android:id="@+id/materialViewPager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:viewpager_logo="@layout/header_logo"
+    app:viewpager_logoMarginTop="100dp"
+    app:viewpager_color="@color/colorPrimary"
+    app:viewpager_headerHeight="200dp"
+    app:viewpager_hideLogoWithFade="true"
+    app:viewpager_hideToolbarAndTitle="true"
+    app:viewpager_enableToolbarElevation="true"
+    />
+```
+
+![alt preview](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/preview_small.png)
+
+```java
+public class MainActivity extends ActionBarActivity {
+
+    private MaterialViewPager mViewPager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+    }
+}
+```
+
+**Retrieve the Toolbar**
+
+```java
+Toolbar toolbar = mViewPager.getToolbar();
+
+if (toolbar != null) {
+     setSupportActionBar(toolbar);
+
+     ActionBar actionBar = getSupportActionBar();
+     actionBar.setDisplayHomeAsUpEnabled(true);
+     actionBar.setDisplayShowHomeEnabled(true);
+     actionBar.setDisplayShowTitleEnabled(true);
+     actionBar.setDisplayUseLogoEnabled(false);
+     actionBar.setHomeButtonEnabled(true);
+}
+```
+
+**Retrieve the ViewPager**
+```
+ViewPager viewPager = ViewPager.getViewPager();
+viewPage.setAdapter(...);
+``
+
 Dependencies
 --------
+
+* [Picasso][picasso] (from Square)
+* [KenBurnsView][kenburnsview] (from flavioarfaria)
+* [Material PagerSlidingTabStrip][pagerslidingtitlestrip] (from jpardogo, forked from astuetz)
+* [Android-Observablescrollview][android-observablescrollview] (from ksoichiro)
+* Android Support v7
+* Android Support v7 - RecyclerView
+* Android Support v7 - CardsView
 
 Credits
 -------
@@ -65,5 +132,7 @@ License
 
 
 [snap]: https://oss.sonatype.org/content/repositories/snapshots/
-[tuto_wear]: http://tutos-android-france.com/developper-une-application-pour-les-montres-android-wear/
-[gson]: https://github.com/google/gson
+[picasso]: https://github.com/square/picasso
+[kenburnsview]: https://github.com/flavioarfaria/KenBurnsView
+[pagerslidingtitlestrip]: https://github.com/jpardogo/PagerSlidingTabStrip
+[android-observablescrollview]: https://github.com/ksoichiro/Android-ObservableScrollView
