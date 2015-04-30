@@ -6,7 +6,6 @@ MaterialViewPager
 [![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
 #Download
---------
 
 In your root build.gradle add
 ```groovy
@@ -25,7 +24,6 @@ compile ('com.github.florent37:materialviewpager:1.0.0@aar'){
 ```
 
 #Usage
---------
 
 Add MaterialViewPager to your activity's layout
 ```xml
@@ -67,7 +65,6 @@ public class MainActivity extends ActionBarActivity {
 ```
 
 #Toolbar
---------
 
 ```java
 Toolbar toolbar = mViewPager.getToolbar();
@@ -85,7 +82,7 @@ if (toolbar != null) {
 ```
 
 #ViewPager
---------
+
 ```java
 ViewPager viewPager = mViewPager.getViewPager();
 viewPage.setAdapter(...);
@@ -95,7 +92,6 @@ mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 ```
 
 #Register your Scrollable
---------
 
 ##RecyclerView
 
@@ -175,7 +171,6 @@ MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 ```
 
 #Animate Header
---------
 
 Simply listen to the ViewPager Page Change and modify the header's **color and image**
 
@@ -243,12 +238,10 @@ mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager())
 ```
 
 #Customisation
---------
 
 
 
 #Dependencies
---------
 
 * [Picasso][picasso] (from Square)
 * [KenBurnsView][kenburnsview] (from flavioarfaria)
@@ -259,7 +252,6 @@ mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager())
 * Android Support v7 - CardsView
 
 #Credits
--------
 
 Author: Florent Champigny
 
