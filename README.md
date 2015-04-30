@@ -66,7 +66,8 @@ public class MainActivity extends ActionBarActivity {
 }
 ```
 
-**Retrieve the Toolbar**
+Toolbar
+--------
 
 ```java
 Toolbar toolbar = mViewPager.getToolbar();
@@ -83,11 +84,12 @@ if (toolbar != null) {
 }
 ```
 
-**Retrieve the ViewPager**
-```
+ViewPager
+--------
+```java
 ViewPager viewPager = ViewPager.getViewPager();
 viewPage.setAdapter(...);
-``
+```
 
 Dependencies
 --------
