@@ -5,7 +5,7 @@ MaterialViewPager
 
 [![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
-Download
+#Download
 --------
 
 In your root build.gradle add
@@ -24,7 +24,7 @@ compile ('com.github.florent37:materialviewpager:1.0.0@aar'){
 }
 ```
 
-Usage
+#Usage
 --------
 
 Add MaterialViewPager to your activity's layout
@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
 }
 ```
 
-Toolbar
+#Toolbar
 --------
 
 ```java
@@ -84,7 +84,7 @@ if (toolbar != null) {
 }
 ```
 
-ViewPager
+#ViewPager
 --------
 ```java
 ViewPager viewPager = mViewPager.getViewPager();
@@ -94,10 +94,10 @@ viewPage.setAdapter(...);
 mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 ```
 
-Register your Scrollable
+#Register your Scrollable
 --------
 
-**RecyclerView**
+##RecyclerView
 
 From your fragment
 ```java
@@ -107,7 +107,7 @@ mRecyclerView.setAdapter(mAdapter);
 MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 ```
 
-**ScrollView**
+##ScrollView
 
 The ScrollView must be an [ObservableScrollView][android-observablescrollview]
 ```java
@@ -136,7 +136,7 @@ And must include @layout/material_view_pager_placeholder as first child
 </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 ```
 
-**[Killed for less...] WebView**
+##[Killed for less...] WebView
 
 The WebView must be an [ObservableWebView][android-observablescrollview]
 ```java
@@ -162,7 +162,7 @@ mWebView.loadUrl("http://...");
 MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
 ```
 
-**[Deprecated] ListView**
+##[Deprecated] ListView
 
 *Smoother if using RecyclerView !*
 
@@ -174,7 +174,7 @@ mListView.setAdapter(mAdapter);
 MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 ```
 
-Animate Header
+#Animate Header
 --------
 
 Simply listen to the ViewPager Page Change and modify the header's **color and image**
@@ -242,12 +242,12 @@ mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager())
         });
 ```
 
-Customisation
+#Customisation
 --------
 
 
 
-Dependencies
+#Dependencies
 --------
 
 * [Picasso][picasso] (from Square)
@@ -258,7 +258,7 @@ Dependencies
 * Android Support v7 - RecyclerView
 * Android Support v7 - CardsView
 
-Credits
+#Credits
 -------
 
 Author: Florent Champigny
