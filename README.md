@@ -43,7 +43,12 @@ Add MaterialViewPager to your activity's layout
     />
 ```
 
+You will see on Android Studio Preview :
 ![alt preview](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/preview_small.png)
+
+**Retrieve the MaterialViewPager**
+
+You can use MaterialViewPager as an usual Android View, and get it by findViewById
 
 ```java
 public class MainActivity extends ActionBarActivity {
