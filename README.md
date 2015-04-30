@@ -3,6 +3,8 @@ MaterialViewPager
 
 [![Build Status](https://travis-ci.org/florent37/MaterialViewPager.svg)](https://travis-ci.org/florent37/MaterialViewPager)
 
+[![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
+
 Download
 --------
 
@@ -21,8 +23,6 @@ compile ('com.github.florent37:materialviewpager:1.0.0@aar'){
     transitive = true
 }
 ```
-
-[![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
 Dependencies
 --------
