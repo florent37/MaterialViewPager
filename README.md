@@ -87,8 +87,78 @@ if (toolbar != null) {
 ViewPager
 --------
 ```java
-ViewPager viewPager = ViewPager.getViewPager();
+ViewPager viewPager = mViewPager.getViewPager();
 viewPage.setAdapter(...);
+
+//After set an adapter to the ViewPager
+mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+```
+
+Animate Header
+--------
+
+Simply listen to the ViewPager Page Change and modify the header's color and image
+
+```java
+//it's a sample ViewPagerAdapter
+mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+
+            int oldPosition = -1;
+
+            @Override
+            public Fragment getItem(int position) {
+                return RecyclerViewFragment.newInstance();
+            }
+
+            //called when the current page has changed
+            @Override
+            public void setPrimaryItem(ViewGroup container, int position, Object object) {
+                super.setPrimaryItem(container, position, object);
+
+                //only if position changed
+                if(position == oldPosition)
+                    return;
+                oldPosition = position;
+
+                int color = 0;
+                String imageUrl = "";
+                switch (position){
+                    case 0:
+                        imageUrl = "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg";
+                        color = getResources().getColor(R.color.blue);
+                        break;
+                    case 1:
+                        imageUrl = "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg";
+                        color = getResources().getColor(R.color.green);
+                        break;
+                    case 2:
+                        imageUrl = "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg";
+                        color = getResources().getColor(R.color.cyan);
+                        break;
+                    case 3:
+                        imageUrl = "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg";
+                        color = getResources().getColor(R.color.red);
+                        break;
+                }
+
+                final int fadeDuration = 400;
+
+                //change header's color and image
+                mViewPager.setImageUrl(imageUrl,fadeDuration);
+                mViewPager.setColor(color,fadeDuration);
+
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return "Tab "+position;
+            }
+        });
 ```
 
 Dependencies

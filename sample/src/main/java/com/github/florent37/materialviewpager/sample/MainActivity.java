@@ -61,8 +61,8 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
-                    case 0:
-                        return RecyclerViewFragment.newInstance();
+                    //case 0:
+                    //    return RecyclerViewFragment.newInstance();
                     //case 1:
                     //    return ScrollFragment.newInstance();
                     //case 2:
