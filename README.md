@@ -299,7 +299,7 @@ First choose your color and height
 
 ###Titlebar Logo
 
-[![Video](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/titlebar_logo.gif)](http://youtu.be/0BibJRq8K8E)
+[![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
 Your logo's layout must
 * layout_width="@dimen/materialviewpager_logoWidth"
@@ -326,7 +326,7 @@ Your logo's layout must
 
 ###Fading Logo
 
-[![Video](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/fading_logo.gif)](http://youtu.be/9laniARQdqg)
+[![Video](http://share.gifyoutube.com/KYb0D4.gif)](http://youtu.be/9laniARQdqg)
 
 **header_logo.xml**
 ```xml
