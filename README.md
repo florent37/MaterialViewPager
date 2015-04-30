@@ -136,7 +136,7 @@ And must include @layout/material_view_pager_placeholder as first child
 </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 ```
 
-**WebView - (killed for less...)**
+**[killed for less...] WebView**
 
 The WebView must be an [ObservableWebView][android-observablescrollview]
 ```java
