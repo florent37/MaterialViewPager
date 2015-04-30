@@ -34,8 +34,10 @@ public class WebViewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mWebView = (ObservableWebView) view.findViewById(R.id.webView);
 
+        //must be called before loadUrl()
         MaterialViewPagerHelper.preLoadInjectHeader(mWebView);
 
+        //have to inject header when WebView page loaded
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {

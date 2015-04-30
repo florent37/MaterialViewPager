@@ -101,6 +101,9 @@ Register your Scrollable
 
 From your fragment
 ```java
+mAdapter = new RecyclerViewMaterialAdapter(new ***Adapter(mList));
+mRecyclerView.setAdapter(mAdapter);
+
 MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 ```
 
@@ -109,6 +112,28 @@ MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null)
 The ScrollView must be an [ObservableScrollView][android-observablescrollview]
 ```java
 MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
+```
+
+And must include @layout/material_view_pager_placeholder as first child
+```xml
+<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/material_view_pager_placeholder"/>
+
+        ...your content...
+
+    </LinearLayout>
+</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 ```
 
 **WebView - (killed for less...)**
@@ -139,7 +164,9 @@ MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
 
 ~~ListView - Deprecated~~
 ```java
-MaterialViewPagerHelper.registerListView(getActivity(), mScrollView, null);
+mAdapter = new ListViewMaterialAdapter(new ***Adapter(getActivity(),mList));
+mListView.setAdapter(mAdapter);
+MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 ```
 
 Animate Header
