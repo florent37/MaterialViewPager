@@ -61,7 +61,6 @@ public class MaterialViewPagerAnimator {
         this.scrollMax = settings.headerHeight; // + 50;
         this.scrollMaxDp = Utils.dpToPx(this.scrollMax, context);
 
-        mHeader.finalScale = 0.6f;
         //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
         elevation = dpToPx(4, context);
     }

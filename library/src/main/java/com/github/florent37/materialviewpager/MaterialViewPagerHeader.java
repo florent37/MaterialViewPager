@@ -25,10 +25,14 @@ public class MaterialViewPagerHeader {
     protected View statusBackground;
     protected View mLogo;
 
-    public float finalTitleY;
     public float finalTabsY;
+
+    public float finalTitleY;
+    public float finalTitleHeight;
     public float finalTitleX;
+
     public float originalTitleY;
+    public float originalTitleHeight;
     public float originalTitleX;
     public float finalScale;
 
@@ -82,10 +86,15 @@ public class MaterialViewPagerHeader {
         mLogo.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                finalTitleY = dpToPx(35f, context);
+                finalTitleY = dpToPx(34f, context);
                 finalTitleX = dpToPx(18f, context);
                 originalTitleY = mLogo.getY();
                 originalTitleX = mLogo.getX();
+
+                originalTitleHeight = mLogo.getHeight();
+                finalTitleHeight = dpToPx(21, context);
+
+                finalScale = finalTitleHeight / originalTitleHeight ;
 
                 mLogo.getViewTreeObserver().removeOnPreDrawListener(this);
                 return false;
