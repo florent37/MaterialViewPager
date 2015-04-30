@@ -163,6 +163,8 @@ MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
 ```
 
 ~~ListView - Deprecated~~
+The ScrollView must be an [ObservableListView][android-observablescrollview]
+
 ```java
 mAdapter = new ListViewMaterialAdapter(new ***Adapter(getActivity(),mList));
 mListView.setAdapter(mAdapter);
