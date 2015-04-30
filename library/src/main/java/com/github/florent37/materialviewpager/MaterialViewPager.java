@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -27,6 +28,9 @@ public class MaterialViewPager extends FrameLayout {
 
     protected Toolbar mToolbar;
     protected ViewPager mViewPager;
+
+    protected View headerBackground;
+    protected View toolbarLayoutBackground;
 
     protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
 
@@ -82,18 +86,52 @@ public class MaterialViewPager extends FrameLayout {
             }
         }
 
+        headerBackground = findViewById(R.id.headerBackground);
+        toolbarLayoutBackground = findViewById(R.id.toolbar_layout_background);
+
+        initialiseHeights();
+
         if (!isInEditMode()) {
             materialViewPagerHeader = MaterialViewPagerHeader
                     .withToolbar(mToolbar)
-                    .withToolbarLayoutBackground(findViewById(R.id.toolbar_layout_background))
+                    .withToolbarLayoutBackground(toolbarLayoutBackground)
                     .withPagerSlidingTabStrip(pagerTitleStripContainer)
-                    .withHeaderBackground(findViewById(R.id.headerBackground))
+                    .withHeaderBackground(headerBackground)
                     .withStatusBackground(findViewById(R.id.statusBackground))
                     .withLogo(logoContainer);
 
             MaterialViewPagerHelper.register((android.app.Activity) getContext(), new MaterialViewPagerAnimator(this));
-        }
+        }else{
+            View sample = LayoutInflater.from(getContext()).inflate(R.layout.tools_list_items, pagerTitleStripContainer, false);
 
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) sample.getLayoutParams();
+            int marginTop = Math.round(Utils.dpToPx(settings.headerHeight + 10, getContext()));
+            params.setMargins(0,marginTop,0,0);
+            super.setLayoutParams(params);
+
+            addView(sample);
+        }
+    }
+
+    private void initialiseHeights(){
+        if (headerBackground != null) {
+            headerBackground.setBackgroundColor(this.settings.color);
+
+            ViewGroup.LayoutParams layoutParams = headerBackground.getLayoutParams();
+            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight + 60, getContext());
+            headerBackground.setLayoutParams(layoutParams);
+        }
+        if (pagerTitleStripContainer != null) {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) pagerTitleStripContainer.getLayoutParams();
+            int marginTop = (int) Utils.dpToPx(this.settings.headerHeight - 40, getContext());
+            layoutParams.setMargins(0, marginTop, 0, 0);
+            pagerTitleStripContainer.setLayoutParams(layoutParams);
+        }
+        if (toolbarLayoutBackground != null) {
+            ViewGroup.LayoutParams layoutParams = toolbarLayoutBackground.getLayoutParams();
+            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight, getContext());
+            toolbarLayoutBackground.setLayoutParams(layoutParams);
+        }
     }
 
     public ViewPager getViewPager() {

@@ -1,7 +1,6 @@
 package com.github.florent37.materialviewpager.sample;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,12 +41,12 @@ public class TestListViewAdapter extends ArrayAdapter<Object> {
             switch (getItemViewType(position)) {
                 case TYPE_HEADER: {
                     convertView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.list_item_card_big, parent, false);
+                            .inflate(R.layout.tools_list_item_card_big, parent, false);
                 }
                 break;
                 case TYPE_CELL: {
                     convertView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.list_item_card_small, parent, false);
+                            .inflate(R.layout.tools_list_item_card_small, parent, false);
                 }
                 break;
             }

@@ -31,6 +31,7 @@ dependencies {
             'com.android.support:appcompat-v7:22.0.0',
             'com.android.support:support-v4:22.0.0',
             'com.android.support:recyclerview-v7:22.0.0',
+            'com.android.support:cardview-v7:22.0.0'
     )
 
     compile 'com.flaviofaria:kenburnsview:1.0.6'

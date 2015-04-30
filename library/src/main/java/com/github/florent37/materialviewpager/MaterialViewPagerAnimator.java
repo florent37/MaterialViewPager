@@ -61,25 +61,6 @@ public class MaterialViewPagerAnimator {
         this.scrollMax = settings.headerHeight; // + 50;
         this.scrollMaxDp = Utils.dpToPx(this.scrollMax, context);
 
-        if (this.mHeader.headerBackground != null) {
-            this.mHeader.headerBackground.setBackgroundColor(this.settings.color);
-
-            ViewGroup.LayoutParams layoutParams = this.mHeader.headerBackground.getLayoutParams();
-            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight + 60, context);
-            this.mHeader.headerBackground.setLayoutParams(layoutParams);
-        }
-        if (this.mHeader.mPagerSlidingTabStrip != null) {
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) this.mHeader.mPagerSlidingTabStrip.getLayoutParams();
-            int marginTop = (int) Utils.dpToPx(this.settings.headerHeight - 40, context);
-            layoutParams.setMargins(0, marginTop, 0, 0);
-            this.mHeader.mPagerSlidingTabStrip.setLayoutParams(layoutParams);
-        }
-        if (this.mHeader.toolbarLayoutBackground != null) {
-            ViewGroup.LayoutParams layoutParams = this.mHeader.toolbarLayoutBackground.getLayoutParams();
-            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight, context);
-            this.mHeader.toolbarLayoutBackground.setLayoutParams(layoutParams);
-        }
-
         mHeader.finalScale = 0.6f;
         //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
         elevation = dpToPx(4, context);
