@@ -54,8 +54,6 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
 
-        final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
-
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
             int oldPosition = -1;
@@ -80,6 +78,7 @@ public class MainActivity extends ActionBarActivity {
             public void setPrimaryItem(ViewGroup container, int position, Object object) {
                 super.setPrimaryItem(container, position, object);
 
+                //only if position changed
                 if(position == oldPosition)
                     return;
                 oldPosition = position;
@@ -106,9 +105,8 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 final int fadeDuration = 400;
-
-                MaterialViewPagerHelper.getAnimator(MainActivity.this).setColor(color, fadeDuration*2);
-                headerBackgroundImage.setImageUrl(imageUrl,fadeDuration);
+                mViewPager.setImageUrl(imageUrl,fadeDuration);
+                mViewPager.setColor(color,fadeDuration);
 
             }
 

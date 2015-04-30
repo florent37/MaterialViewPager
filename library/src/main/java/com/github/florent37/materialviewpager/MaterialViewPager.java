@@ -3,6 +3,7 @@ package com.github.florent37.materialviewpager;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -105,6 +106,30 @@ public class MaterialViewPager extends FrameLayout {
 
     public Toolbar getToolbar() {
         return mToolbar;
+    }
+
+    public void setImageUrl(String imageUrl, int fadeDuration){
+        if(imageUrl != null) {
+            final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
+            //if using MaterialViewPagerImageHeader
+            if (headerBackgroundImage != null) {
+                headerBackgroundImage.setImageUrl(imageUrl,fadeDuration);
+            }
+        }
+    }
+
+    public void setImageDrawable(Drawable drawable, int fadeDuration){
+        if(drawable != null) {
+            final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
+            //if using MaterialViewPagerImageHeader
+            if (headerBackgroundImage != null) {
+                headerBackgroundImage.setImageDrawable(drawable,fadeDuration);
+            }
+        }
+    }
+
+    public void setColor(int color, int fadeDuration){
+        MaterialViewPagerHelper.getAnimator(getContext()).setColor(color, fadeDuration*2);
     }
 
 }

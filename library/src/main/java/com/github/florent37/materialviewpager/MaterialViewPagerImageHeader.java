@@ -4,8 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -30,11 +30,11 @@ public class MaterialViewPagerImageHeader extends KenBurnsView {
         super(context, attrs, defStyle);
     }
 
-    public void setImageUrl(final String urlImage, final int fadeDuration){
+    public void setImageUrl(final String urlImage, final int fadeDuration) {
         final float alpha = getAlpha();
         final ImageView viewToAnimate = this;
 
-        final ObjectAnimator fadeOut = ObjectAnimator.ofFloat(viewToAnimate,"alpha",0).setDuration(fadeDuration);
+        final ObjectAnimator fadeOut = ObjectAnimator.ofFloat(viewToAnimate, "alpha", 0).setDuration(fadeDuration);
         fadeOut.setInterpolator(new DecelerateInterpolator());
         fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -44,7 +44,7 @@ public class MaterialViewPagerImageHeader extends KenBurnsView {
                         .centerCrop().fit().into(viewToAnimate, new Callback() {
                     @Override
                     public void onSuccess() {
-                        final ObjectAnimator fadeIn = ObjectAnimator.ofFloat(viewToAnimate,"alpha",alpha).setDuration(fadeDuration);
+                        final ObjectAnimator fadeIn = ObjectAnimator.ofFloat(viewToAnimate, "alpha", alpha).setDuration(fadeDuration);
                         fadeIn.setInterpolator(new AccelerateInterpolator());
                         fadeIn.start();
                     }
@@ -54,6 +54,26 @@ public class MaterialViewPagerImageHeader extends KenBurnsView {
 
                     }
                 });
+            }
+        });
+        fadeOut.start();
+    }
+
+    public void setImageDrawable(final Drawable drawable, final int fadeDuration) {
+        final float alpha = getAlpha();
+        final ImageView viewToAnimate = this;
+
+        final ObjectAnimator fadeOut = ObjectAnimator.ofFloat(viewToAnimate, "alpha", 0).setDuration(fadeDuration);
+        fadeOut.setInterpolator(new DecelerateInterpolator());
+        fadeOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                setImageDrawable(drawable);
+
+                final ObjectAnimator fadeIn = ObjectAnimator.ofFloat(viewToAnimate, "alpha", alpha).setDuration(fadeDuration);
+                fadeIn.setInterpolator(new AccelerateInterpolator());
+                fadeIn.start();
             }
         });
         fadeOut.start();
