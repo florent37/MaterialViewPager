@@ -103,12 +103,33 @@ mRecyclerView.setAdapter(mAdapter);
 MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 ```
 
+###ReyclerView.OnScrollListener
+
+If you already use ReyclerView.OnScrollListener (maybe for load more, or anything else)
+
+```java
+MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, myRecyclerViewOnScrollListener);
+```
+
+So myRecyclerViewOnScrollListener will be still notified
+
 ##ScrollView
 
 The ScrollView must be an [ObservableScrollView][android-observablescrollview]
 ```java
 MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
 ```
+
+###CallBacks
+If you already use ObservableScrollViewCallbacks (maybe for load more, or anything else)
+
+```java
+MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, myObservableScrollViewCallbacks);
+```
+
+So myObservableScrollViewCallbacks will be still notified
+
+###Layout
 
 And must include @layout/material_view_pager_placeholder as first child
 ```xml

@@ -68,11 +68,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="MaterialViewPager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="965" max-vertical-offset="2400">
+              <caret line="84" column="53" selection-start-line="84" selection-start-column="53" selection-end-line="84" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MaterialViewPagerAnimator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="5240" max-vertical-offset="5910">
+              <caret line="389" column="103" selection-start-line="389" selection-start-column="74" selection-end-line="389" selection-end-column="103" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19575857" vertical-offset="0" max-vertical-offset="4485">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.48939642" vertical-offset="2730" max-vertical-offset="4800">
+              <caret line="162" column="0" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -3249,7 +3269,11 @@
       <created>1430405804564</created>
       <updated>1430405804564</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="updated README">
+      <created>1430405843891</created>
+      <updated>1430405843891</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3381,6 +3405,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334" vertical-offset="165634" max-vertical-offset="306960">
           <caret line="11386" column="16" selection-start-line="11386" selection-start-column="16" selection-end-line="11386" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3584,22 +3609,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="945" max-vertical-offset="6375">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="2400">
-          <caret line="84" column="53" selection-start-line="84" selection-start-column="53" selection-end-line="84" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6385542" vertical-offset="80" max-vertical-offset="720">
@@ -3690,10 +3699,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.1111112" vertical-offset="0" max-vertical-offset="210">
           <caret line="2" column="31" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="31" />
-          <folding>
-            <element signature="e#167#203#0" expanded="true" />
-            <element signature="e#230#267#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3754,10 +3760,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5240" max-vertical-offset="5910">
+          <caret line="389" column="103" selection-start-line="389" selection-start-column="74" selection-end-line="389" selection-end-column="103" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="2400">
+          <caret line="84" column="53" selection-start-line="84" selection-start-column="53" selection-end-line="84" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19575857" vertical-offset="0" max-vertical-offset="4485">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.48939642" vertical-offset="2730" max-vertical-offset="4800">
+          <caret line="162" column="0" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
           <folding />
         </state>
       </provider>
