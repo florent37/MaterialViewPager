@@ -43,9 +43,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.github.florent37.materialviewpager.sample" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a43d61a-8a45-48cf-9ee8-e5cf094b311d" name="Default" comment="updated README">
+    <list default="true" id="3a43d61a-8a45-48cf-9ee8-e5cf094b311d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sample/src/main/res/layout/fragment_recyclerview.xml" afterPath="$PROJECT_DIR$/sample/src/main/res/layout/fragment_recyclerview.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sample/src/main/res/layout/header_logo.xml" afterPath="$PROJECT_DIR$/sample/src/main/res/layout/header_logo.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sample/src/main/res/layout/header_logo_2.xml" afterPath="$PROJECT_DIR$/sample/src/main/res/layout/header_logo_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/res/layout/material_view_pager_layout.xml" afterPath="$PROJECT_DIR$/library/src/main/res/layout/material_view_pager_layout.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MaterialViewPager.iws" />
@@ -69,31 +72,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MaterialViewPager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="965" max-vertical-offset="2400">
-              <caret line="84" column="53" selection-start-line="84" selection-start-column="53" selection-end-line="84" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MaterialViewPagerAnimator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5240" max-vertical-offset="5910">
-              <caret line="389" column="103" selection-start-line="389" selection-start-column="74" selection-end-line="389" selection-end-column="103" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.5171288" vertical-offset="2355" max-vertical-offset="4995">
-              <caret line="95" column="75" selection-start-line="95" selection-start-column="75" selection-end-line="95" selection-end-column="75" />
+            <state vertical-scroll-proportion="0.6362153" vertical-offset="4770" max-vertical-offset="6090">
+              <caret line="344" column="38" selection-start-line="344" selection-start-column="38" selection-end-line="344" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -102,70 +85,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fragment_recyclerview.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/fragment_recyclerview.xml">
+      <file leaf-file-name="activity_main.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.5555556" vertical-offset="0" max-vertical-offset="180">
-              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="6" selection-end-column="6" />
+            <state vertical-scroll-proportion="-8.888889" vertical-offset="0" max-vertical-offset="435">
+              <caret line="16" column="22" selection-start-line="16" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ListViewFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/fragment/ListViewFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
-              <caret line="54" column="39" selection-start-line="53" selection-start-column="8" selection-end-line="54" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fragment_scroll.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/fragment_scroll.xml">
+      <file leaf-file-name="material_view_pager_layout.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/library/src/main/res/layout/material_view_pager_layout.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.444445" vertical-offset="0" max-vertical-offset="615">
-              <caret line="35" column="1" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="73" />
+            <state vertical-scroll-proportion="-17.222221" vertical-offset="540" max-vertical-offset="1200">
+              <caret line="67" column="47" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fragment_webview.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/fragment_webview.xml">
+      <file leaf-file-name="header_logo.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/header_logo.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.5555556" vertical-offset="0" max-vertical-offset="300">
-              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="14" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebViewFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/fragment/WebViewFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="35" max-vertical-offset="750">
-              <caret line="36" column="41" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RecyclerViewFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/fragment/RecyclerViewFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
-              <caret line="50" column="43" selection-start-line="49" selection-start-column="8" selection-end-line="50" selection-end-column="43" />
+            <state vertical-scroll-proportion="-2.2222223" vertical-offset="0" max-vertical-offset="165">
+              <caret line="4" column="63" selection-start-line="4" selection-start-column="63" selection-end-line="4" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -2397,7 +2350,6 @@
         <option value="$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerImageHeader.java" />
         <option value="$PROJECT_DIR$/library/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/library/src/main/res/layout/tools_material_view_pager_pagertitlestrip.xml" />
-        <option value="$PROJECT_DIR$/library/src/main/res/layout/material_view_pager_layout.xml" />
         <option value="$PROJECT_DIR$/library/build.gradle" />
         <option value="$PROJECT_DIR$/library/src/main/res/layout/tools_list_item_card_big.xml" />
         <option value="$PROJECT_DIR$/library/src/main/res/layout/tools_list_item_card_small.xml" />
@@ -2406,15 +2358,16 @@
         <option value="$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerHeader.java" />
         <option value="$PROJECT_DIR$/sample/src/main/res/drawable/circle.xml" />
-        <option value="$PROJECT_DIR$/sample/src/main/res/layout/header_logo_2.xml" />
         <option value="$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/MainActivity.java" />
         <option value="$PROJECT_DIR$/library/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/sample/src/main/res/layout/header_logo.xml" />
         <option value="$PROJECT_DIR$/sample/src/main/res/layout/header_logo_full.xml" />
-        <option value="$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/fragment/WebViewFragment.java" />
         <option value="$PROJECT_DIR$/sample/src/main/res/layout/fragment_scroll.xml" />
         <option value="$PROJECT_DIR$/sample/src/main/res/layout/fragment_recyclerview.xml" />
+        <option value="$PROJECT_DIR$/library/src/main/res/layout/material_view_pager_layout.xml" />
+        <option value="$PROJECT_DIR$/sample/src/main/res/layout/header_logo.xml" />
+        <option value="$PROJECT_DIR$/sample/src/main/res/layout/header_logo_2.xml" />
+        <option value="$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -3304,7 +3257,11 @@
       <created>1430406447903</created>
       <updated>1430406447903</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="updated README">
+      <created>1430407045804</created>
+      <updated>1430407045804</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3574,17 +3531,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/res/layout/material_view_pager_layout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="1170">
-          <caret line="13" column="35" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/res/layout/tools_list_item_card_big.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -3627,17 +3573,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.09638554" vertical-offset="500" max-vertical-offset="915">
           <caret line="36" column="42" selection-start-line="34" selection-start-column="12" selection-end-line="36" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/header_logo_2.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5412371" vertical-offset="0" max-vertical-offset="388">
-          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -3690,17 +3625,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/header_logo.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.1111112" vertical-offset="0" max-vertical-offset="210">
-          <caret line="2" column="31" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/header_logo_full.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -3708,17 +3632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.4444447" vertical-offset="0" max-vertical-offset="210">
           <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.777778" vertical-offset="0" max-vertical-offset="435">
-          <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -3807,10 +3720,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/header_logo.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.2222223" vertical-offset="0" max-vertical-offset="165">
+          <caret line="4" column="63" selection-start-line="4" selection-start-column="63" selection-end-line="4" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/res/layout/material_view_pager_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.222221" vertical-offset="540" max-vertical-offset="1200">
+          <caret line="67" column="47" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/header_logo_2.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.2222223" vertical-offset="0" max-vertical-offset="285">
+          <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.888889" vertical-offset="0" max-vertical-offset="435">
+          <caret line="16" column="22" selection-start-line="16" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5171288" vertical-offset="2355" max-vertical-offset="4995">
-          <caret line="95" column="75" selection-start-line="95" selection-start-column="75" selection-end-line="95" selection-end-column="75" />
+        <state vertical-scroll-proportion="0.6362153" vertical-offset="4770" max-vertical-offset="6090">
+          <caret line="344" column="38" selection-start-line="344" selection-start-column="38" selection-end-line="344" selection-end-column="38" />
           <folding />
         </state>
       </provider>

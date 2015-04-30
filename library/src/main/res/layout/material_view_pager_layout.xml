@@ -54,6 +54,7 @@
             />
 
         <FrameLayout
+            android:fitsSystemWindows="true"
             android:id="@+id/pagerTitleStripContainer"
             android:layout_marginTop="160dp"
             android:layout_width="match_parent"
@@ -63,6 +64,7 @@
 
         <FrameLayout
             android:id="@+id/logoContainer"
+            android:fitsSystemWindows="true"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
