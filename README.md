@@ -22,6 +22,8 @@ compile ('com.github.florent37:materialviewpager:1.0.0@aar'){
 }
 ```
 
+[![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
+
 Dependencies
 --------
 
