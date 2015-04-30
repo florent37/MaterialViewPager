@@ -299,7 +299,7 @@ First choose your color and height
 
 ###Titlebar Logo
 
-[![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
+[![Video](http://share.gifyoutube.com/ygbqnA.gif)](http://youtu.be/82gvoUqXb_I)
 
 Your logo's layout must
 * layout_width="@dimen/materialviewpager_logoWidth"
