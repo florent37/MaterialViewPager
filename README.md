@@ -165,7 +165,7 @@ http://youtu.be/3ElFoqVKxag
 
 ###Sticky Toolbar
 
-[![Video](http://share.gifyoutube.com/yNWobl.gif)](http://youtu.be/3ElFoqVKxag)
+[![Video](http://share.gifyoutube.com/yo2oJn.gif)](http://youtu.be/3ElFoqVKxag)
 
 ```
 <com.github.florent37.materialviewpager.MaterialViewPager`
