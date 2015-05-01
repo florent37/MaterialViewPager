@@ -84,7 +84,7 @@ First choose your color and height
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager
         ...
-        app:viewpager_logo="@layout/header_logo"
+        app:viewpager_logo="@layout/header_logo" <-- look custom logo layout
         app:viewpager_logoMarginTop="100dp" <-- look at the preview
         ...
         />
