@@ -5,6 +5,8 @@ MaterialViewPager
 
 [![Video](http://share.gifyoutube.com/m8VjZJ.gif)](http://youtu.be/g6tTDVceM9E)
 
+[![Build Status](https://raw.githubusercontent.com/florent37/MaterialViewPager/master/screenshots/screenshot_2_small.png)](http://youtu.be/g6tTDVceM9E)
+
 #Download
 
 In your root build.gradle add
