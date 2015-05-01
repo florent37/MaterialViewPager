@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/headerBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:background="@color/colorPrimary"
+        tools:layout_height="250dp">
+
+        <FrameLayout
+            android:id="@+id/headerBackgroundContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:id="@+id/statusBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/toolbar_layout_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            tools:background="#3FFF"
+            android:title="Toolbar"
+            app:theme="@style/AppTheme.ActionBarTheme"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            android:minHeight="?attr/actionBarSize"
+            />
+
+        <FrameLayout
+            android:fitsSystemWindows="true"
+            android:id="@+id/pagerTitleStripContainer"
+            android:layout_marginTop="160dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:background="#3FFF"
+            />
+
+        <FrameLayout
+            android:id="@+id/logoContainer"
+            android:fitsSystemWindows="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
