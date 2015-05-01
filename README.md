@@ -3,7 +3,15 @@ MaterialViewPager
 
 [![Build Status](https://travis-ci.org/florent37/MaterialViewPager.svg)](https://travis-ci.org/florent37/MaterialViewPager)
 
+Material Design ViewPager easy to use library
+
 [![Build screen](https://raw.githubusercontent.com/florent37/MaterialViewPager/master/screenshots/screenshot_2_small.png)](http://youtu.be/g6tTDVceM9E)
+
+#Sample
+
+You can find a sample APK : [Link](https://github.com/florent37/MaterialViewPager/releases/download/0.0.3/sample-debug.apk)
+
+And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
 [![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
