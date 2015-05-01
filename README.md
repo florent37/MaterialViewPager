@@ -95,7 +95,6 @@ First choose your color and height
 [![Video](http://share.gifyoutube.com/ygbqnA.gif)](http://youtu.be/82gvoUqXb_I)
 
 Your logo's layout must
-* layout_width="@dimen/materialviewpager_logoWidth"
 * layout_height="@dimen/materialviewpager_logoHeight"
 
 **header_logo.xml**
