@@ -72,10 +72,10 @@ First choose your color and height
         android:id="@+id/materialViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        ...
         app:viewpager_color="@color/colorPrimary"
         app:viewpager_headerHeight="200dp"
-
+        ...
         />
 ```
 
