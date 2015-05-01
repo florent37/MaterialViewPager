@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/logo_white"
-    android:layout_width="wrap_content"
+    android:layout_width="100dp"
     android:layout_height="@dimen/materialviewpager_logoHeight"
     android:text="This is my logo"
-    android:textSize="28sp"
+    android:textSize="45sp"
+    android:background="@android:color/white"
     android:textColor="@android:color/white"/>

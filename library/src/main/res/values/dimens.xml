@@ -3,5 +3,4 @@
     <dimen name="cardMarginVertical">8dp</dimen>
 
     <dimen name="materialviewpager_logoHeight">35dp</dimen>
-    <dimen name="materialviewpager_logoWidth">200dp</dimen>
 </resources>
