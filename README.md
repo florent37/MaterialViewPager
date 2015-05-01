@@ -452,9 +452,6 @@ MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 * [KenBurnsView][kenburnsview] (from flavioarfaria)
 * [Material PagerSlidingTabStrip][pagerslidingtitlestrip] (from jpardogo, forked from astuetz)
 * [Android-Observablescrollview][android-observablescrollview] (from ksoichiro)
-* Android Support v7
-* Android Support v7 - RecyclerView
-* Android Support v7 - CardsView
 
 #Credits
 
