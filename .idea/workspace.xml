@@ -50,6 +50,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3a43d61a-8a45-48cf-9ee8-e5cf094b311d" name="Default" comment="updated README@">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MaterialViewPager.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -140,8 +141,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.111386135">
-              <caret line="3" column="123" selection-start-line="3" selection-start-column="123" selection-end-line="3" selection-end-column="123" />
+            <state vertical-scroll-proportion="0.2970297">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -4026,8 +4027,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.111386135">
-          <caret line="3" column="123" selection-start-line="3" selection-start-column="123" selection-end-line="3" selection-end-column="123" />
+        <state vertical-scroll-proportion="0.2970297">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
