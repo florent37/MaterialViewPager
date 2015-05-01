@@ -151,7 +151,7 @@ Your logo's layout must
 
 ###Hide Logo and Toolbar
 
-[![Video](http://share.gifyoutube.com/yXbozN.gif)](http://youtu.be/3ElFoqVKxag)
+[![Video](http://share.gifyoutube.com/y5V8JX.gif)](http://youtu.be/3ElFoqVKxag)
 
 http://youtu.be/3ElFoqVKxag
 
