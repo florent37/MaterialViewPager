@@ -3,7 +3,7 @@ MaterialViewPager
 
 [![Build Status](https://travis-ci.org/florent37/MaterialViewPager.svg)](https://travis-ci.org/florent37/MaterialViewPager)
 
-[![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
+[![Video](http://share.gifyoutube.com/m8VjZJ.gif)](http://youtu.be/g6tTDVceM9E)
 
 #Download
 
