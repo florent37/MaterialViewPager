@@ -179,9 +179,10 @@ Your logo's layout must
 
 You can set you own tab bar, by default I provided 2 implementations
 
+###Standard
+
 [![Video](http://share.gifyoutube.com/KdnoZX.gif)](http://youtu.be/VRinfxgewNE)
 
-###Standard
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
@@ -190,9 +191,10 @@ You can set you own tab bar, by default I provided 2 implementations
         />
 ```
 
+###News Stand
+
 [![Video](http://share.gifyoutube.com/KeboLp.gif)](http://youtu.be/MBzK2s7HU1A)
 
-###News Stand
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
