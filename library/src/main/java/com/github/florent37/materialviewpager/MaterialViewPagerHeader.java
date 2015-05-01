@@ -87,7 +87,6 @@ public class MaterialViewPagerHeader {
             @Override
             public boolean onPreDraw() {
                 finalTitleY = dpToPx(34f, context);
-                finalTitleX = dpToPx(18f, context);
                 originalTitleY = mLogo.getY();
                 originalTitleX = mLogo.getX();
 
@@ -95,6 +94,8 @@ public class MaterialViewPagerHeader {
                 finalTitleHeight = dpToPx(21, context);
 
                 finalScale = finalTitleHeight / originalTitleHeight ;
+
+                finalTitleX = dpToPx(52f, context) - (mLogo.getWidth()/2) *(1-finalScale);
 
                 mLogo.getViewTreeObserver().removeOnPreDrawListener(this);
                 return false;
