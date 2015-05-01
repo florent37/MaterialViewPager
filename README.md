@@ -110,7 +110,7 @@ Your logo's layout must
     android:src="@drawable/logo_white" />
 ```
 
-```
+```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
         app:viewpager_hideLogoWithFade="false"
@@ -141,7 +141,7 @@ Your logo's layout must
 </FrameLayout>
 ```
 
-```
+```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
         app:viewpager_hideLogoWithFade="true"
@@ -149,13 +149,13 @@ Your logo's layout must
         />
 ```
 
-###Hide Logo and Toolbar
+##Toolbar Animation
+
+##Hide Logo and Toolbar
 
 [![Video](http://share.gifyoutube.com/y5V8JX.gif)](http://youtu.be/3ElFoqVKxag)
 
-http://youtu.be/3ElFoqVKxag
-
-```
+```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
         app:hideToolbarAndTitle="true"
@@ -167,13 +167,74 @@ http://youtu.be/3ElFoqVKxag
 
 [![Video](http://share.gifyoutube.com/yo2oJn.gif)](http://youtu.be/3ElFoqVKxag)
 
-```
+```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
         app:hideToolbarAndTitle="false"
         ...
         />
 ```
+
+##Custom Tab Bar
+
+You can set you own tab bar, by default I provided 2 implementations
+
+[![Video](http://share.gifyoutube.com/KdnoZX.gif)](http://youtu.be/VRinfxgewNE)
+
+###Standard
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_standard"
+        ...
+        />
+```
+
+[![Video](http://share.gifyoutube.com/KeboLp.gif)](http://youtu.be/MBzK2s7HU1A)
+
+###News Stand
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_newstand"
+        ...
+        />
+```
+
+###Or create your own tab bar
+
+Create your own layout using a PagerSlidingTabStrip
+
+**my_tabs.xml**
+```xml
+<com.astuetz.PagerSlidingTabStrip
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/materialviewpager_pagerTitleStrip"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:pstsPaddingMiddle="true"
+    app:pstsDividerPadding="20dp"
+    app:pstsIndicatorColor="#FFF"
+    app:pstsIndicatorHeight="2dp"
+    app:pstsShouldExpand="true"
+    app:pstsTabPaddingLeftRight="10dp"
+    app:pstsTextAllCaps="true"
+    tools:background="#A333"
+     />
+```
+
+**Don't forget to give it id="@id/materialviewpager_pagerTitleStrip"**
+
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_pagerTitleStrip="@layout/my_tabs"
+        ...
+        />
+```
+
 
 #Toolbar
 
