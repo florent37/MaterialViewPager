@@ -101,7 +101,7 @@ Your logo's layout must
 ```xml
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/logo_white"
-    android:layout_width="@dimen/materialviewpager_logoWidth"
+    android:layout_width="200dp"
     android:layout_height="@dimen/materialviewpager_logoHeight"
     android:fitsSystemWindows="true"
     android:adjustViewBounds="true"
