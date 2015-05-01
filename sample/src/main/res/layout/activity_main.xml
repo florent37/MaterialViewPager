@@ -15,7 +15,7 @@
         app:viewpager_color="@color/colorPrimary"
         app:viewpager_headerHeight="200dp"
         app:viewpager_hideLogoWithFade="false"
-        app:viewpager_hideToolbarAndTitle="true"
+        app:viewpager_hideToolbarAndTitle="false"
         app:viewpager_enableToolbarElevation="true"
         />
 

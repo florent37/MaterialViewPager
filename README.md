@@ -151,6 +151,10 @@ Your logo's layout must
 
 ###Hide Logo and Toolbar
 
+[![Video](http://share.gifyoutube.com/yXbozN.gif)](http://youtu.be/3ElFoqVKxag)
+
+http://youtu.be/3ElFoqVKxag
+
 ```
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
@@ -160,6 +164,8 @@ Your logo's layout must
 ```
 
 ###Sticky Toolbar
+
+[![Video](http://share.gifyoutube.com/yNWobl.gif)](http://youtu.be/3ElFoqVKxag)
 
 ```
 <com.github.florent37.materialviewpager.MaterialViewPager`
