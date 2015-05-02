@@ -461,6 +461,7 @@ MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 
 - Fix issue when scroll down & scroll up multiples time while hideToolbarAndTitle="true"
 - Header image does not load every time
+- **Remove Webviews from Android SDK !!!**
 
 #Community
 
