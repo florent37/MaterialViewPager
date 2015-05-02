@@ -466,6 +466,8 @@ MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 
 Looking for contributors, feel free to fork !
 
+Tell me if you're using my library in your application, I'll share it in this README
+
 #Dependencies
 
 * [Picasso][picasso] (from Square)
