@@ -456,6 +456,16 @@ mListView.setAdapter(mAdapter);
 MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 ```
 
+
+#TODO
+
+- Fix issue when scroll down & scroll up multiples time while hideToolbarAndTitle="true"
+- Header image does not load every time
+
+#Community
+
+Looking for contributors, feel free to fork !
+
 #Dependencies
 
 * [Picasso][picasso] (from Square)
