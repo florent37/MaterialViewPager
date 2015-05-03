@@ -23,7 +23,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:cardview-v7:22.0.0'
 
-    //compile ('com.github.florent37:materialviewpager:0.0.1@aar'){
+    //compile ('com.github.florent37:materialviewpager:1.0.1@aar'){
     //    transitive=true
     //}
 
