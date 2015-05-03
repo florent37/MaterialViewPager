@@ -47,6 +47,7 @@ Add MaterialViewPager to your activity's layout
     app:viewpager_logoMarginTop="100dp"
     app:viewpager_color="@color/colorPrimary"
     app:viewpager_headerHeight="200dp"
+    app:viewpager_headerAlpha="1.0"
     app:viewpager_hideLogoWithFade="true"
     app:viewpager_hideToolbarAndTitle="true"
     app:viewpager_enableToolbarElevation="true"

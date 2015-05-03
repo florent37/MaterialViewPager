@@ -19,6 +19,9 @@ public class MaterialViewPagerSettings {
 
     protected int headerHeight;
     protected int color;
+
+    protected float headerAlpha;
+
     protected boolean hideToolbarAndTitle;
     protected boolean hideLogoWithFade;
     protected boolean enableToolbarElevation;
@@ -46,6 +49,9 @@ public class MaterialViewPagerSettings {
             {
                 headerHeight = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerHeight, 200);
                 headerHeight = Math.round(pxToDp(headerHeight,context));
+            }
+            {
+                headerAlpha = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_headerAlpha, 0.5f);
             }
             {
                 hideToolbarAndTitle = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideToolbarAndTitle, false);
