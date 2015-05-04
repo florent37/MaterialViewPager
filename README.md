@@ -20,15 +20,6 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 #Download
 
-In your root build.gradle add
-```groovy
-repositories {
-    maven {
-        url  "http://dl.bintray.com/florent37/maven"
-    }
-}
-```
-
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
 compile ('com.github.florent37:materialviewpager:1.0.1@aar'){
