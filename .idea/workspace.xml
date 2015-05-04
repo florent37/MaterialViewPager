@@ -131,21 +131,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5298013">
-              <caret line="102" column="31" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header_logo.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/header_logo.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.89403975">
+              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -165,7 +152,7 @@
         <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/res/values/colors.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="14" column="22" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -3490,12 +3477,6 @@
       <option name="number" value="Default" />
       <updated>1429895227150</updated>
     </task>
-    <task id="LOCAL-00005" summary="added viewpager_titlestrip custom">
-      <created>1430323281525</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1430323281525</updated>
-    </task>
     <task id="LOCAL-00006" summary="anim image">
       <created>1430331978257</created>
       <option name="number" value="00006" />
@@ -3784,7 +3765,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430769494315</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="updated README">
+      <created>1430769544949</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1430769544949</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3875,10 +3862,10 @@
     <MESSAGE value="can set any size of logo" />
     <MESSAGE value="modified module name" />
     <MESSAGE value="updated README added TODO &amp; Community" />
-    <MESSAGE value="updated README" />
     <MESSAGE value="updated README &amp; sent version 1.0.1 to jcenter" />
     <MESSAGE value="updated README, added style &amp; header_logo.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated README, added style &amp; header_logo.xml" />
+    <MESSAGE value="updated README" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4253,14 +4240,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/res/values/attrs.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4307,13 +4286,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5298013">
-          <caret line="102" column="31" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.89403975">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding />
         </state>
       </provider>

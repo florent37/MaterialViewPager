@@ -83,7 +83,6 @@ To get a beautiful screen and enable preview, you theme may follow
    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
    <item name="colorAccent">@color/accent_color</item>
 
-   <item name="android:statusBarColor" tools:targetApi="21">@color/statusBarColor</item>
    <item name="android:navigationBarColor" tools:targetApi="21">@color/navigationBarColor</item>
    <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="21">true</item>
 
