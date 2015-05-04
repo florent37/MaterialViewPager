@@ -131,8 +131,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.6225165">
-              <caret line="49" column="6" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.5298013">
+              <caret line="102" column="31" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -3490,12 +3490,6 @@
       <option name="number" value="Default" />
       <updated>1429895227150</updated>
     </task>
-    <task id="LOCAL-00004" summary="moved parameters to setting class">
-      <created>1430320877519</created>
-      <option name="number" value="00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1430320877519</updated>
-    </task>
     <task id="LOCAL-00005" summary="added viewpager_titlestrip custom">
       <created>1430323281525</created>
       <option name="number" value="00005" />
@@ -3784,7 +3778,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430683879758</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="updated README, added style &amp; header_logo.xml">
+      <created>1430769494314</created>
+      <option name="number" value="00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1430769494315</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3877,7 +3877,8 @@
     <MESSAGE value="updated README added TODO &amp; Community" />
     <MESSAGE value="updated README" />
     <MESSAGE value="updated README &amp; sent version 1.0.1 to jcenter" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated README &amp; sent version 1.0.1 to jcenter" />
+    <MESSAGE value="updated README, added style &amp; header_logo.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated README, added style &amp; header_logo.xml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4311,8 +4312,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.6225165">
-          <caret line="49" column="6" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.5298013">
+          <caret line="102" column="31" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="31" />
           <folding />
         </state>
       </provider>

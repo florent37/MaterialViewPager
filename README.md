@@ -58,7 +58,7 @@ with header_logo.xml
     android:textColor="@android:color/white"/>
 ```
 
-You will see on Android Studio Preview :
+You willsee on Android Studio Preview :
 
 ![alt preview](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/preview_small.png)
 
@@ -100,7 +100,7 @@ To get a beautiful screen and enable preview, you theme may follow
 </style>
 ```
 
-**Retrieve the MaterialViewPager**
+#Retrieve the MaterialViewPager
 
 You can use MaterialViewPager as an usual Android View, and get it by findViewById
 
