@@ -65,6 +65,9 @@ You will see on Android Studio Preview :
 To get a beautiful screen and enable preview, you theme may follow
 
 ```xml
+<style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light">
+</style>
+
 <style name="AppTheme" parent="AppBaseTheme">
 
    <item name="android:textColorPrimary">@android:color/white</item>
