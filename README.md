@@ -46,7 +46,7 @@ Add MaterialViewPager to your activity's layout
     />
 ```
 
-with header_logo.xml
+with **header_logo.xml**
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -58,7 +58,7 @@ with header_logo.xml
     android:textColor="@android:color/white"/>
 ```
 
-You willsee on Android Studio Preview :
+You will see on Android Studio Preview :
 
 ![alt preview](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/preview_small.png)
 
