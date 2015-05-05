@@ -42,7 +42,7 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    //displatch getItemCount to the actual adapter, add PLACEHOLDER_SIZE
+    //dispatch getItemCount to the actual adapter, add PLACEHOLDER_SIZE
     @Override
     public int getItemCount() {
         return mAdapter.getItemCount() + PLACEHOLDER_SIZE;
@@ -65,7 +65,7 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    //displatch onBindViewHolder on the actual mAdapter
+    //dispatch onBindViewHolder on the actual mAdapter
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {

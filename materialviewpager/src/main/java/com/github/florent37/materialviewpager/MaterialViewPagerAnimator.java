@@ -30,19 +30,36 @@ import static com.github.florent37.materialviewpager.Utils.dpToPx;
 
 /**
  * Created by florentchampigny on 24/04/15.
+ *
+ * Listen to Scrollable inside MaterialViewPager
+ * When notified scroll, dispatch the current scroll to other scrollable
+ *
+ * Note : didn't want to translate the MaterialViewPager or intercept Scroll,
+ * so added a ViewPager with scrollables containing a transparent placeholder on top
+ *
+ * When scroll, animate the MaterialViewPager Header (toolbar, logo, color ...)
  */
 public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
     private Context context;
+
+    //contains MaterialViewPager subviews references
     private MaterialViewPagerHeader mHeader;
 
+    //duration of translate header enter animation
     private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 600;
 
+    //reference to the current MaterialViewPager
     private MaterialViewPager materialViewPager;
 
+    //final toolbar layout elevation (if attr viewpager_enableToolbarElevation = true)
     public final float elevation;
+
+    //max scroll which will be dispatched for all scrollable
     public final float scrollMax;
+
+    // equals scrollMax in DP (saved to avoir convert to dp anytime I use it)
     public final float scrollMaxDp;
 
     private float lastYOffset = -1;
@@ -58,7 +75,8 @@ public class MaterialViewPagerAnimator {
         this.mHeader = materialViewPager.materialViewPagerHeader;
         this.context = mHeader.getContext();
 
-        this.scrollMax = settings.headerHeight; // + 50;
+        // initialise the scrollMax to headerHeight, so until the first cell touch the top of the screen
+        this.scrollMax = settings.headerHeight;
         this.scrollMaxDp = Utils.dpToPx(this.scrollMax, context);
 
         //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
