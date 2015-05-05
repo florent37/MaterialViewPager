@@ -331,10 +331,22 @@ public class MaterialViewPagerAnimator {
         return settings.headerHeight;
     }
 
+    //region register scrollables
+
+    /**
+     * Register a RecyclerView to the current MaterialViewPagerAnimator
+     * Listen to RecyclerView.OnScrollListener so give to $[onScrollListener] your RecyclerView.OnScrollListener if you already use one
+     * For loadmore or anything else
+     * @param recyclerView the scrollable
+     * @param onScrollListener use it if you want to get a callback of the RecyclerView
+     */
     public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
         if (recyclerView != null) {
-            scrollViewList.add(recyclerView);
-            yOffsets.put(recyclerView, 0);
+            scrollViewList.add(recyclerView); //add to the scrollable list
+            yOffsets.put(recyclerView, 0); //save the initial recyclerview's yOffset (0) into hashmap
+            //only necessary for recyclerview
+
+            //listen to scroll
             recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
                 @Override
@@ -353,13 +365,14 @@ public class MaterialViewPagerAnimator {
 
                     int scrollY = yOffsets.get(recyclerView);
 
+                    //if scrolled from dispatch, remove & return -> so skip
                     if (calledScrollList.contains(recyclerView)) {
                         calledScrollList.remove(recyclerView);
                         return;
                     }
 
                     scrollY += dy;
-                    yOffsets.put(recyclerView, scrollY);
+                    yOffsets.put(recyclerView, scrollY); //save the new offset
 
                     onMaterialScrolled(recyclerView, scrollY);
                 }
@@ -367,18 +380,28 @@ public class MaterialViewPagerAnimator {
         }
     }
 
+    /**
+     * Register a ScrollView to the current MaterialViewPagerAnimator
+     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
+     * For loadmore or anything else
+     * @param scrollView the scrollable
+     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
+     */
     public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (scrollView != null) {
-            scrollViewList.add(scrollView);
+            scrollViewList.add(scrollView);  //add to the scrollable list
             scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
                     if (observableScrollViewCallbacks != null)
                         observableScrollViewCallbacks.onScrollChanged(i, b, b2);
+
+                    //if scrolled from dispatch, remove & return -> so skip
                     if (calledScrollList.contains(scrollView)) {
                         calledScrollList.remove(scrollView);
                         return;
                     }
+
                     onMaterialScrolled(scrollView, i);
                 }
 
@@ -397,18 +420,28 @@ public class MaterialViewPagerAnimator {
         }
     }
 
+    /**
+     * Register a WebView to the current MaterialViewPagerAnimator
+     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
+     * For loadmore or anything else
+     * @param webView the scrollable
+     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
+     */
     public void registerWebView(final ObservableWebView webView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (webView != null) {
-            scrollViewList.add(webView);
+            scrollViewList.add(webView);  //add to the scrollable list
             webView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
                     if (observableScrollViewCallbacks != null)
                         observableScrollViewCallbacks.onScrollChanged(i, b, b2);
+
+                    //if scrolled from dispatch, remove & return -> so skip
                     if (calledScrollList.contains(webView)) {
                         calledScrollList.remove(webView);
                         return;
                     }
+
                     onMaterialScrolled(webView, i);
                 }
 
@@ -427,19 +460,29 @@ public class MaterialViewPagerAnimator {
         }
     }
 
+    /**
+     * Register a ListView to the current MaterialViewPagerAnimator
+     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
+     * For loadmore or anything else
+     * @param listView the scrollable
+     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
+     */
     @Deprecated
     public void registerListView(final ObservableListView listView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (listView != null) {
-            scrollViewList.add(listView);
+            scrollViewList.add(listView);  //add to the scrollable list
             listView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
                     if (observableScrollViewCallbacks != null)
                         observableScrollViewCallbacks.onScrollChanged(i, b, b2);
+
+                    //if scrolled from dispatch, remove & return -> so skip
                     if (calledScrollList.contains(listView)) {
                         calledScrollList.remove(listView);
                         return;
                     }
+
                     onMaterialScrolled(listView, i);
                 }
 
@@ -457,4 +500,6 @@ public class MaterialViewPagerAnimator {
             });
         }
     }
+
+    //endregion
 }
