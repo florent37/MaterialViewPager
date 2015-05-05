@@ -40,6 +40,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3a43d61a-8a45-48cf-9ee8-e5cf094b311d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java" afterPath="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/Utils.java" afterPath="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/Utils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MaterialViewPager.iws" />
@@ -138,14 +139,24 @@
       <file leaf-file-name="MaterialViewPagerAnimator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35410765">
-              <caret line="292" column="0" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
+            <state vertical-scroll-proportion="-2.7393768">
+              <caret line="206" column="22" selection-start-line="206" selection-start-column="22" selection-end-line="206" selection-end-column="22" />
               <folding>
-                <element signature="e#9840#10396#0" expanded="true" />
-                <element signature="e#10395#10396#0" expanded="true" />
-                <element signature="e#13279#13280#0" expanded="true" />
-                <element signature="e#13323#13324#0" expanded="true" />
+                <element signature="e#10331#10887#0" expanded="true" />
+                <element signature="e#10886#10887#0" expanded="true" />
+                <element signature="e#13035#13036#0" expanded="true" />
+                <element signature="e#13079#13080#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/Utils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="74" column="41" selection-start-line="74" selection-start-column="41" selection-end-line="74" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2473,10 +2484,10 @@
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerImageHeader.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerHeader.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerHeaderView.java" />
-        <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/Utils.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerSettings.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerHelper.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/adapter/RecyclerViewMaterialAdapter.java" />
+        <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/Utils.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java" />
       </list>
     </option>
@@ -3088,12 +3099,6 @@
       <option name="number" value="Default" />
       <updated>1429895227150</updated>
     </task>
-    <task id="LOCAL-00013" summary="updated README">
-      <created>1430401365431</created>
-      <option name="number" value="00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1430401365431</updated>
-    </task>
     <task id="LOCAL-00014" summary="updated README">
       <created>1430401567181</created>
       <option name="number" value="00014" />
@@ -3382,7 +3387,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430829438115</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="added some comments">
+      <created>1430830009163</created>
+      <option name="number" value="00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1430830009163</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3808,14 +3819,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63165075">
-          <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/fragment/WebViewFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5702592">
@@ -3912,15 +3915,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="74" column="41" selection-start-line="74" selection-start-column="41" selection-end-line="74" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35410765">
-          <caret line="292" column="0" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
+        <state vertical-scroll-proportion="-2.7393768">
+          <caret line="206" column="22" selection-start-line="206" selection-start-column="22" selection-end-line="206" selection-end-column="22" />
           <folding>
-            <element signature="e#9840#10396#0" expanded="true" />
-            <element signature="e#10395#10396#0" expanded="true" />
-            <element signature="e#13279#13280#0" expanded="true" />
-            <element signature="e#13323#13324#0" expanded="true" />
+            <element signature="e#10331#10887#0" expanded="true" />
+            <element signature="e#10886#10887#0" expanded="true" />
+            <element signature="e#13035#13036#0" expanded="true" />
+            <element signature="e#13079#13080#0" expanded="true" />
           </folding>
         </state>
       </provider>

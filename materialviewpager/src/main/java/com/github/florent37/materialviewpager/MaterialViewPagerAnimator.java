@@ -25,6 +25,10 @@ import java.util.List;
 
 import static com.github.florent37.materialviewpager.Utils.colorWithAlpha;
 import static com.github.florent37.materialviewpager.Utils.dpToPx;
+import static com.github.florent37.materialviewpager.Utils.minMax;
+import static com.github.florent37.materialviewpager.Utils.setBackgroundColor;
+import static com.github.florent37.materialviewpager.Utils.setElevation;
+import static com.github.florent37.materialviewpager.Utils.setScale;
 
 /**
  * Created by florentchampigny on 24/04/15.
@@ -77,6 +81,12 @@ public class MaterialViewPagerAnimator {
 
     //save all yOffsets of scrollables
     private HashMap<Object, Integer> yOffsets = new HashMap<>();
+
+    //the last headerYOffset during scroll
+    private float headerYOffset = Float.MAX_VALUE;
+
+    //the tmp headerAnimator (not null if animating, else null)
+    private ObjectAnimator headerAnimator;
 
     public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
@@ -291,6 +301,10 @@ public class MaterialViewPagerAnimator {
             );
     }
 
+    /**
+     * move the toolbarlayout (containing toolbar & tabs)
+     * following the current scroll
+     */
     private void followScrollToolbarLayout(float yOffset) {
         if (headerYOffset == Float.MAX_VALUE)
             headerYOffset = scrollMax;
@@ -301,6 +315,10 @@ public class MaterialViewPagerAnimator {
         }
     }
 
+    /**
+     * Animate enter toolbarlayout
+     * @param yOffset
+     */
     private void animateEnterToolbarLayout(float yOffset) {
         if (headerAnimator == null) {
             headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
@@ -308,39 +326,6 @@ public class MaterialViewPagerAnimator {
             headerYOffset = yOffset;
         }
     }
-
-    private float headerYOffset = Float.MAX_VALUE;
-    private ObjectAnimator headerAnimator;
-
-    private static void setElevation(float elevation, View... views) {
-        for (View view : views) {
-            if (view != null)
-                ViewCompat.setElevation(view, elevation);
-        }
-    }
-
-    private static void setBackgroundColor(int color, View... views) {
-        for (View view : views) {
-            if (view != null)
-                view.setBackgroundColor(color);
-        }
-    }
-
-    private static void setScale(float scale, View... views) {
-        for (View view : views) {
-            if (view != null) {
-                view.setScaleX(scale);
-                view.setScaleY(scale);
-            }
-        }
-    }
-
-    private static float minMax(float min, float value, float max) {
-        value = Math.min(value, max);
-        value = Math.max(min, value);
-        return value;
-    }
-
 
     public int getHeaderHeight() {
         return settings.headerHeight;
