@@ -40,13 +40,13 @@ Add MaterialViewPager to your activity's layout
     app:viewpager_color="@color/colorPrimary"
     app:viewpager_headerHeight="200dp"
     app:viewpager_headerAlpha="1.0"
-    app:viewpager_hideLogoWithFade="true"
+    app:viewpager_hideLogoWithFade="false"
     app:viewpager_hideToolbarAndTitle="true"
     app:viewpager_enableToolbarElevation="true"
     />
 ```
 
-with header_logo.xml
+with **header_logo.xml**
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -58,13 +58,16 @@ with header_logo.xml
     android:textColor="@android:color/white"/>
 ```
 
-You willsee on Android Studio Preview :
+You will see on Android Studio Preview :
 
 ![alt preview](https://raw.github.com/florent37/MaterialViewPager/master/screenshots/preview_small.png)
 
 To get a beautiful screen and enable preview, you theme may follow
 
 ```xml
+<style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light">
+</style>
+
 <style name="AppTheme" parent="AppBaseTheme">
 
    <item name="android:textColorPrimary">@android:color/white</item>
