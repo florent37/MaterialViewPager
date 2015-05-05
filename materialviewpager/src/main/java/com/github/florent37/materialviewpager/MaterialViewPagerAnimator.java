@@ -4,6 +4,8 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -247,7 +249,7 @@ public class MaterialViewPagerAnimator {
      * @param duration the transition color animation duration
      */
     public void setColor(int color, int duration) {
-        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", new int[]{settings.color, color});
+        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", settings.color, color);
         colorAnim.setEvaluator(new ArgbEvaluator());
         colorAnim.setDuration(duration);
         colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -264,6 +266,7 @@ public class MaterialViewPagerAnimator {
 
         //set the new color as MaterialViewPager's color
         settings.color = color;
+
     }
 
     public void setColorPercent(float percent) {
