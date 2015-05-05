@@ -40,6 +40,9 @@ import static com.github.florent37.materialviewpager.Utils.dpToPx;
 public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
+
+    private static final Boolean ENABLE_LOG = true;
+
     private Context context;
 
     //contains MaterialViewPager subviews references
@@ -155,7 +158,8 @@ public class MaterialViewPagerAnimator {
                 mHeader.headerBackground.setTranslationY(scrollTop / 1.5f);
         }
 
-        //Log.d("yOffset", "" + yOffset);
+        if(ENABLE_LOG)
+            Log.d("yOffset", "" + yOffset);
 
         //dispatch the new offset to all registered scrollables
         dispatchScrollOffset(source, minMax(0, yOffset, scrollMaxDp));
@@ -198,10 +202,12 @@ public class MaterialViewPagerAnimator {
                 boolean scrollUp = lastYOffset < yOffset;
 
                 if (scrollUp) {
-                    //Log.d(TAG, "scrollUp");
+                    if(ENABLE_LOG)
+                        Log.d(TAG, "scrollUp");
                     followScrollToolbarLayout(yOffset);
                 } else {
-                    //Log.d(TAG, "scrollDown");
+                    if(ENABLE_LOG)
+                        Log.d(TAG, "scrollDown");
                     if (yOffset > mHeader.toolbarLayout.getHeight()) {
                         animateEnterToolbarLayout(yOffset);
                     } else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
@@ -224,6 +230,12 @@ public class MaterialViewPagerAnimator {
         lastYOffset = yOffset;
     }
 
+    /**
+     * Change the color of the statusbackground, toolbar, toolbarlayout and pagertitlestrip
+     * With a color transition animation
+     * @param color the final color
+     * @param duration the transition color animation duration
+     */
     public void setColor(int color, int duration) {
         ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", new int[]{settings.color, color});
         colorAnim.setEvaluator(new ArgbEvaluator());
@@ -239,6 +251,8 @@ public class MaterialViewPagerAnimator {
             }
         });
         colorAnim.start();
+
+        //set the new color as MaterialViewPager's color
         settings.color = color;
     }
 
