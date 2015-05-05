@@ -17,22 +17,56 @@ import com.astuetz.PagerSlidingTabStrip;
 
 /**
  * Created by florentchampigny on 28/04/15.
+ *
+ * The main class of MaterialViewPager
+ * To use in an xml layout with attributes viewpager_*
+ *
+ * Display a preview with header, actual logo and fake cells
  */
 public class MaterialViewPager extends FrameLayout {
 
+    /**
+     * the layout containing the header
+     * default : add @layout/material_view_pager_default_header
+     * with viewpager_header you can set your own layout
+     */
     private ViewGroup headerBackgroundContainer;
+
+    /**
+     * the layout containing tabs
+     * default : add @layout/material_view_pager_pagertitlestrip_standard
+     * with viewpager_pagerTitleStrip you can set your own layout
+     */
     private ViewGroup pagerTitleStripContainer;
+
+    /**
+     * the layout containing logo
+     * default : empty
+     * with viewpager_logo you can set your own layout
+     */
     private ViewGroup logoContainer;
 
+    /**
+     * Contains all references to MatervialViewPager's header views
+     */
     protected MaterialViewPagerHeader materialViewPagerHeader;
 
+    //the child toolbar
     protected Toolbar mToolbar;
+
+    //the child viewpager
     protected ViewPager mViewPager;
 
+    //a view used to add placeholder color below the header
     protected View headerBackground;
+
+    //a view used to add fading color over the headerBackgroundContainer
     protected View toolbarLayoutBackground;
 
+    //Class containing the configuration of the MaterialViewPager
     protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
+
+    //region construct
 
     public MaterialViewPager(Context context) {
         super(context);
@@ -54,9 +88,13 @@ public class MaterialViewPager extends FrameLayout {
         settings.handleAttributes(context, attrs);
     }
 
+    //endregion
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+
+        //add @layout/material_view_pager_layout as child, containing all the MaterialViewPager views
         addView(LayoutInflater.from(getContext()).inflate(R.layout.material_view_pager_layout, this, false));
 
         headerBackgroundContainer = (ViewGroup) findViewById(R.id.headerBackgroundContainer);
@@ -66,11 +104,15 @@ public class MaterialViewPager extends FrameLayout {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
+
+        //inflate subviews defined in attributes
+
         if (settings.headerLayoutId != -1) {
             headerBackgroundContainer.addView(LayoutInflater.from(getContext()).inflate(settings.headerLayoutId, headerBackgroundContainer, false));
         }
 
         if (isInEditMode()) { //preview titlestrip
+            //add fake tabs on edit mode
             settings.pagerTitleStripId = R.layout.tools_material_view_pager_pagertitlestrip;
         }
         if (settings.pagerTitleStripId != -1) {
@@ -91,6 +133,7 @@ public class MaterialViewPager extends FrameLayout {
 
         initialiseHeights();
 
+        //construct the materialViewPagerHeader with subviews
         if (!isInEditMode()) {
             materialViewPagerHeader = MaterialViewPagerHeader
                     .withToolbar(mToolbar)
@@ -100,8 +143,12 @@ public class MaterialViewPager extends FrameLayout {
                     .withStatusBackground(findViewById(R.id.statusBackground))
                     .withLogo(logoContainer);
 
+            //and construct the MaterialViewPagerAnimator
+            //attach it to the activity to enable MaterialViewPagerHeaderView.setMaterialHeight();
             MaterialViewPagerHelper.register((android.app.Activity) getContext(), new MaterialViewPagerAnimator(this));
         }else{
+
+            //if in edit mode, add fake cardsviews
             View sample = LayoutInflater.from(getContext()).inflate(R.layout.tools_list_items, pagerTitleStripContainer, false);
 
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) sample.getLayoutParams();
@@ -134,18 +181,36 @@ public class MaterialViewPager extends FrameLayout {
         }
     }
 
+    /**
+     * Retrieve the displayed viewpager, don't forget to use
+     * getPagerTitleStrip().setAdapter(materialviewpager.getViewPager())
+     * after set an adapter
+     * @return the displayed viewpager
+     */
     public ViewPager getViewPager() {
         return mViewPager;
     }
 
+    /**
+     * Retrieve the displayed tabs
+     * @return the displayed tabs
+     */
     public PagerSlidingTabStrip getPagerTitleStrip() {
         return (PagerSlidingTabStrip) pagerTitleStripContainer.findViewById(R.id.materialviewpager_pagerTitleStrip);
     }
 
+    /**
+     * Retrieve the displayed toolbar
+     * @return the displayed toolbar
+     */
     public Toolbar getToolbar() {
         return mToolbar;
     }
 
+    /**
+     * change the header displayed image with a fade
+     * may remove Picasso
+     */
     public void setImageUrl(String imageUrl, int fadeDuration) {
         if (imageUrl != null) {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
@@ -157,6 +222,10 @@ public class MaterialViewPager extends FrameLayout {
         }
     }
 
+    /**
+     * change the header displayed image with a fade
+     * may remove Picasso
+     */
     public void setImageDrawable(Drawable drawable, int fadeDuration) {
         if (drawable != null) {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
@@ -168,6 +237,9 @@ public class MaterialViewPager extends FrameLayout {
         }
     }
 
+    /**
+     * Change the header color
+     */
     public void setColor(int color, int fadeDuration) {
         MaterialViewPagerHelper.getAnimator(getContext()).setColor(color, fadeDuration * 2);
     }
