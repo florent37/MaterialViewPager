@@ -10,6 +10,10 @@ import android.view.ViewTreeObserver;
 
 /**
  * Created by florentchampigny on 26/04/15.
+ * A placeholder view used to add a transparent padding on top of a Scroller
+ * RecyclerView : use RecyclerViewMaterialAdapter
+ * ListView : use ListViewMaterialAdapter (smoother if use RecyclerView)
+ * ScrollView : add a MaterialViewPagerHeaderView on top of your ScrollView (with LinearLayout vertical)
  */
 public class MaterialViewPagerHeaderView extends View {
     public MaterialViewPagerHeaderView(Context context) {
@@ -30,6 +34,10 @@ public class MaterialViewPagerHeaderView extends View {
     }
 
     private void setMaterialHeight() {
+        //get the MaterialViewPagerAnimator attached to this activity
+        //to retrieve the declared header height
+        //and set it as current view height (+10dp margin)
+
         MaterialViewPagerAnimator animator = MaterialViewPagerHelper.getAnimator(getContext());
         if (animator != null) {
             ViewGroup.LayoutParams params = getLayoutParams();
