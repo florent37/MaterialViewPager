@@ -9,10 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
@@ -30,13 +28,13 @@ import static com.github.florent37.materialviewpager.Utils.dpToPx;
 
 /**
  * Created by florentchampigny on 24/04/15.
- *
+ * <p/>
  * Listen to Scrollable inside MaterialViewPager
  * When notified scroll, dispatch the current scroll to other scrollable
- *
+ * <p/>
  * Note : didn't want to translate the MaterialViewPager or intercept Scroll,
  * so added a ViewPager with scrollables containing a transparent placeholder on top
- *
+ * <p/>
  * When scroll, animate the MaterialViewPager Header (toolbar, logo, color ...)
  */
 public class MaterialViewPagerAnimator {
@@ -62,10 +60,20 @@ public class MaterialViewPagerAnimator {
     // equals scrollMax in DP (saved to avoir convert to dp anytime I use it)
     public final float scrollMaxDp;
 
-    private float lastYOffset = -1;
-    private float lastPercent = 0;
+    private float lastYOffset = -1; //the current yOffset
+    private float lastPercent = 0; //the current Percent
 
+    //contains the attributes given to MaterialViewPager from layout
     private MaterialViewPagerSettings settings;
+
+    //list of all registered scrollers
+    private List<Object> scrollViewList = new ArrayList<>();
+
+    //temporary list of all called scrollers from dispatchScrollOffset
+    private List<Object> calledScrollList = new ArrayList<>();
+
+    //save all yOffsets of scrollables
+    private HashMap<Object, Integer> yOffsets = new HashMap<>();
 
     public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
@@ -77,58 +85,79 @@ public class MaterialViewPagerAnimator {
 
         // initialise the scrollMax to headerHeight, so until the first cell touch the top of the screen
         this.scrollMax = settings.headerHeight;
+        //save in into dp once
         this.scrollMaxDp = Utils.dpToPx(this.scrollMax, context);
 
         //heightMaxScrollToolbar = context.getResources().getDimension(R.dimen.material_viewpager_padding_top);
         elevation = dpToPx(4, context);
     }
 
+    /**
+     * When notified for scroll, dispatch it to all registered scrollables
+     *
+     * @param source
+     * @param yOffset
+     */
     private void dispatchScrollOffset(Object source, float yOffset) {
         if (scrollViewList != null) {
             for (Object scroll : scrollViewList) {
+
+                //do not re-scroll the source
                 if (scroll != null && scroll != source) {
+
+                    //add it to calledScrollList so will not be notified again on the scroll's OnScrollListeners
                     calledScrollList.add(scroll);
 
                     if (scroll instanceof RecyclerView) {
+                        //RecyclerView.scrollTo : UnsupportedOperationException
+                        //Moved to the RecyclerView.LayoutManager.scrollToPositionWithOffset
+                        //Have to be instanceOf RecyclerView.LayoutManager to work (so work with RecyclerView.GridLayoutManager)
                         RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
                         if (layoutManager instanceof LinearLayoutManager) {
                             LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
                             linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
                         }
-                    }
-                    else if (scroll instanceof ScrollView) {
+                    } else if (scroll instanceof ScrollView) {
                         ((ScrollView) scroll).scrollTo(0, (int) yOffset);
-                    }
-                    else if (scroll instanceof ListView) {
+                    } else if (scroll instanceof ListView) {
                         ((ListView) scroll).scrollTo(0, (int) yOffset);
-                    }
-                    else if (scroll instanceof WebView) {
+                    } else if (scroll instanceof WebView) {
                         ((WebView) scroll).scrollTo(0, (int) yOffset);
                     }
 
+                    //save the current yOffset of the scrollable on the yOffsets hashmap
                     yOffsets.put(scroll, (int) yOffset);
 
+                    //remove from calledScrollList to be notified for the next true scroll (from the user, not for dispatch)
                     calledScrollList.remove(scroll);
                 }
             }
         }
     }
 
+    /**
+     * Called when a scroller(RecyclerView/ListView,ScrollView,WebView) scrolled by the user
+     *
+     * @param source  the scroller
+     * @param yOffset the scroller current yOffset
+     */
     public void onMaterialScrolled(Object source, float yOffset) {
 
+        //only if yOffset changed
         if (yOffset == lastYOffset)
             return;
 
         float scrollTop = -yOffset;
 
-        { //parallax scroll of ImageView
+        {
+            //parallax scroll of the Background ImageView (the KenBurnsView)
             if (mHeader.headerBackground != null)
                 mHeader.headerBackground.setTranslationY(scrollTop / 1.5f);
         }
 
-        //yOffset = ;
-        Log.d("yOffset", "" + yOffset);
+        //Log.d("yOffset", "" + yOffset);
 
+        //dispatch the new offset to all registered scrollables
         dispatchScrollOffset(source, minMax(0, yOffset, scrollMaxDp));
 
         float percent = yOffset / scrollMax;
@@ -137,11 +166,9 @@ public class MaterialViewPagerAnimator {
         {
 
             {
-                // change color of
-                // toolbar & viewpager indicator &  statusBaground
+                // change color of toolbar & viewpager indicator &  statusBaground
                 setColorPercent(percent);
-                lastPercent = percent;
-
+                lastPercent = percent; //save the percent
             }
 
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
@@ -300,9 +327,10 @@ public class MaterialViewPagerAnimator {
         return value;
     }
 
-    private List<Object> scrollViewList = new ArrayList<>();
-    private List<Object> calledScrollList = new ArrayList<>();
-    private HashMap<Object, Integer> yOffsets = new HashMap<>();
+
+    public int getHeaderHeight() {
+        return settings.headerHeight;
+    }
 
     public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
         if (recyclerView != null) {
@@ -398,10 +426,6 @@ public class MaterialViewPagerAnimator {
                 }
             });
         }
-    }
-
-    public int getHeaderHeight() {
-        return settings.headerHeight;
     }
 
     @Deprecated
