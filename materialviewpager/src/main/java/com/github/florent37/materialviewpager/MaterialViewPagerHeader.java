@@ -11,6 +11,7 @@ import static com.github.florent37.materialviewpager.Utils.dpToPx;
 
 /**
  * Created by florentchampigny on 25/04/15.
+ * A class containing references to views inside MaterialViewPager's header
  */
 public class MaterialViewPagerHeader {
 
@@ -24,6 +25,8 @@ public class MaterialViewPagerHeader {
     protected View headerBackground;
     protected View statusBackground;
     protected View mLogo;
+
+    //positions used to animate views during scroll
 
     public float finalTabsY;
 
@@ -83,6 +86,8 @@ public class MaterialViewPagerHeader {
 
     public MaterialViewPagerHeader withLogo(View logo) {
         this.mLogo = logo;
+
+        //when logo get a height, initialise initial & final logo positions
         mLogo.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -93,8 +98,11 @@ public class MaterialViewPagerHeader {
                 originalTitleHeight = mLogo.getHeight();
                 finalTitleHeight = dpToPx(21, context);
 
+                //the final scale of the logo
                 finalScale = finalTitleHeight / originalTitleHeight ;
 
+                //(mLogo.getWidth()/2) *(1-finalScale) is the margin left added by the scale() on the logo
+                //when logo scaledown, the content stay in center, so we have to anually remove the left padding
                 finalTitleX = dpToPx(52f, context) - (mLogo.getWidth()/2) *(1-finalScale);
 
                 mLogo.getViewTreeObserver().removeOnPreDrawListener(this);
