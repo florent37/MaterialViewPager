@@ -15,6 +15,9 @@ public class Utils {
         return (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
     }
 
+    /**
+     * convert dp to px
+     */
     public static float dpToPx(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -22,6 +25,9 @@ public class Utils {
         return px;
     }
 
+    /**
+     * convert px to dp
+     */
     public static float pxToDp(float px, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -29,6 +35,9 @@ public class Utils {
         return dp;
     }
 
+    /*
+     * Create a color from [$color].RGB and then add an alpha with 255*[$percent]
+     */
     public static int colorWithAlpha(int color, float percent){
         int r = Color.red(color);
         int g = Color.green(color);

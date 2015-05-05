@@ -8,8 +8,13 @@ import static com.github.florent37.materialviewpager.Utils.pxToDp;
 
 /**
  * Created by florentchampigny on 29/04/15.
+ *
+ * Save attributes given to MaterialViewPager from layout
  */
 public class MaterialViewPagerSettings {
+
+    //attributes are protected and can be used by class from the same package
+    //com.github.florent37.materialviewpager
 
     protected int headerLayoutId;
     protected int pagerTitleStripId;
@@ -26,6 +31,11 @@ public class MaterialViewPagerSettings {
     protected boolean hideLogoWithFade;
     protected boolean enableToolbarElevation;
 
+    /**
+     * Retrieve attributes from the MaterialViewPager
+     * @param context
+     * @param attrs
+     */
     protected void handleAttributes(Context context, AttributeSet attrs){
         try {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaterialViewPager);
@@ -48,7 +58,7 @@ public class MaterialViewPagerSettings {
             }
             {
                 headerHeight = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerHeight, 200);
-                headerHeight = Math.round(pxToDp(headerHeight,context));
+                headerHeight = Math.round(pxToDp(headerHeight,context)); //convert to px
             }
             {
                 headerAlpha = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_headerAlpha, 0.5f);

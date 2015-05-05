@@ -19,16 +19,33 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by florentchampigny on 25/04/15.
+ *
+ * MaterialViewPagerHelper attach a MaterialViewPagerAnimator to an activity
+ * You can use MaterialViewPagerHelper to retrieve MaterialViewPagerAnimator from context
+ * Or register a scrollable to the current activity's MaterialViewPagerAnimator
  */
 public class MaterialViewPagerHelper {
 
     private static ConcurrentHashMap<Object, MaterialViewPagerAnimator> hashMap = new ConcurrentHashMap<>();
 
+    /**
+     * Register an MaterialViewPagerAnimator attached to an activity into the ConcurrentHashMap
+     * @param activity the context
+     * @param animator the current MaterialViewPagerAnimator
+     */
     public static void register(Activity activity, MaterialViewPagerAnimator animator) {
-        if (!hashMap.containsKey(activity))
+        if (!hashMap.containsKey(activity)) //only 1 MaterialViewPagerAnimator per activity
             hashMap.put(activity, animator);
     }
 
+    /**
+     * Register a RecyclerView to the current MaterialViewPagerAnimator
+     * Listen to RecyclerView.OnScrollListener so give to $[onScrollListener] your RecyclerView.OnScrollListener if you already use one
+     * For loadmore or anything else
+     * @param activity current context
+     * @param recyclerView the scrollable
+     * @param onScrollListener use it if you want to get a callback of the RecyclerView
+     */
     public static void registerRecyclerView(Activity activity, RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
         if (activity != null && hashMap.containsKey(activity)) {
             MaterialViewPagerAnimator animator = hashMap.get(activity);
@@ -38,6 +55,14 @@ public class MaterialViewPagerHelper {
         }
     }
 
+    /**
+     * Register a WebView to the current MaterialViewPagerAnimator
+     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
+     * For loadmore or anything else
+     * @param activity current context
+     * @param webView the scrollable
+     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
+     */
     public static void registerWebView(Activity activity, ObservableWebView webView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (activity != null && hashMap.containsKey(activity)) {
             MaterialViewPagerAnimator animator = hashMap.get(activity);
@@ -47,6 +72,14 @@ public class MaterialViewPagerHelper {
         }
     }
 
+    /**
+     * Register a ListView to the current MaterialViewPagerAnimator
+     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
+     * For loadmore or anything else
+     * @param activity current context
+     * @param listView the scrollable
+     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
+     */
     @Deprecated
     public static void registerListView(Activity activity, ObservableListView listView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (activity != null && hashMap.containsKey(activity)) {
@@ -57,6 +90,14 @@ public class MaterialViewPagerHelper {
         }
     }
 
+    /**
+     * Register a ScrollView to the current MaterialViewPagerAnimator
+     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
+     * For loadmore or anything else
+     * @param activity current context
+     * @param mScrollView the scrollable
+     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
+     */
     public static void registerScrollView(Activity activity, ObservableScrollView mScrollView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (activity != null && hashMap.containsKey(activity)) {
             MaterialViewPagerAnimator animator = hashMap.get(activity);
@@ -66,10 +107,25 @@ public class MaterialViewPagerHelper {
         }
     }
 
+    /**
+     * Retrieve the current MaterialViewPagerAnimator used in this context (Activity)
+     * @param context the context
+     * @return current MaterialViewPagerAnimator
+     */
     public static MaterialViewPagerAnimator getAnimator(Context context) {
         return hashMap.get(context);
     }
 
+    /**
+     * Have to be called from WebView.WebViewClient.onPageFinished
+     * ex : mWebView.setWebViewClient(new WebViewClient() { onPageFinished(WebView view, String url) { [HERE] }});
+     * Inject a header to a webview : add a margin-top="**dpx"
+     * Had to have a transparent background with a placeholder on top
+     * So inject js for placeholder and setLayerType(WebView.LAYER_TYPE_SOFTWARE, null); for transparency
+     * TODO : inject JavaScript for Pre-Lolipop with loadUrl("js:...")
+     * @param webView
+     * @param withAnimation if true, disapear with a fadein
+     */
     public static void injectHeader(final WebView webView, boolean withAnimation) {
         if (webView != null) {
 
@@ -81,9 +137,11 @@ public class MaterialViewPagerHelper {
                 webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
                 webSettings.setJavaScriptEnabled(true);
                 webSettings.setDomStorageEnabled(true);
+
+                //transparent background
                 webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
 
-                {
+                { //inject margin top
 
                     final int marginTop = animator.getHeaderHeight() + 10;
                     final String js = String.format("document.body.style.marginTop= \"%dpx\"", marginTop);
@@ -107,6 +165,10 @@ public class MaterialViewPagerHelper {
         }
     }
 
+    /**
+     * Prepare the webview, set Invisible & transparent background
+     * Must call injectHeader next
+     */
     public static void preLoadInjectHeader(WebView mWebView) {
         mWebView.setBackgroundColor(Color.TRANSPARENT);
         mWebView.setVisibility(View.INVISIBLE);
