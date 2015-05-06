@@ -78,6 +78,7 @@ To get a beautiful screen and enable preview, you theme may follow
 
    <item name="android:windowContentOverlay">@null</item>
    <item name="windowActionBar">false</item>
+   <item name="windowNoTitle">true</item>
 
    <!-- Toolbar Theme / Apply white arrow -->
    <item name="colorControlNormal">@android:color/white</item>
@@ -516,6 +517,13 @@ app:viewpager_headerAdditionalHeight="20dp"
 
 *parallaxHeaderFactor* Modify the speed of parallax header scroll (not the speed of KenBurns effect)
 *parallaxHeaderFactor* Set up the height of the header's layout displayed behind the first cards view
+
+##1.0.1
+
+Added attributes
+```java
+viewpager_headerAlpha="0.6"
+```
 
 #TODO
 
