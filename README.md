@@ -43,6 +43,8 @@ Add MaterialViewPager to your activity's layout
     app:viewpager_hideLogoWithFade="false"
     app:viewpager_hideToolbarAndTitle="true"
     app:viewpager_enableToolbarElevation="true"
+    app:viewpager_parallaxHeaderFactor="1.5"
+    app:viewpager_headerAdditionalHeight="20dp"
     />
 ```
 
@@ -502,11 +504,23 @@ mListView.setAdapter(mAdapter);
 MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 ```
 
+#CHANGELOG
+
+##1.0.2
+
+Added attributes
+```java
+app:viewpager_parallaxHeaderFactor="1.5"
+app:viewpager_headerAdditionalHeight="20dp"
+```
+
+*parallaxHeaderFactor* Modify the speed of parallax header scroll (not the speed of KenBurns effect)
+*parallaxHeaderFactor* Set up the height of the header's layout displayed behind the first cards view
 
 #TODO
 
-- Fix issue when scroll down & scroll up multiples time while hideToolbarAndTitle="true"
 - Header image does not load every time
+- Rapid scrolling results in varying Toolbar height
 - **Remove Webviews from Android SDK !!!**
 
 #Community
