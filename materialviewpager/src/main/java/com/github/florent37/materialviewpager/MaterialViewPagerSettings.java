@@ -22,6 +22,8 @@ public class MaterialViewPagerSettings {
     protected int logoLayoutId;
     protected int logoMarginTop;
 
+    protected int headerAdditionalHeight;
+
     protected int headerHeight;
     protected int color;
 
@@ -59,13 +61,17 @@ public class MaterialViewPagerSettings {
             }
             {
                 headerHeight = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerHeight, 200);
-                headerHeight = Math.round(pxToDp(headerHeight,context)); //convert to px
+                headerHeight = Math.round(pxToDp(headerHeight, context)); //convert to dp
+            }
+            {
+                headerAdditionalHeight = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerAdditionalHeight, 60);
             }
             {
                 headerAlpha = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_headerAlpha, 0.5f);
             }
             {
                 parallaxHeaderFactor = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_parallaxHeaderFactor, 1.5f);
+                parallaxHeaderFactor = Math.max(parallaxHeaderFactor,1); //min=1
             }
             {
                 hideToolbarAndTitle = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideToolbarAndTitle, false);

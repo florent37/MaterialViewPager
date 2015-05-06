@@ -13,6 +13,7 @@
         <attr name="viewpager_hideLogoWithFade" format="boolean"/>
         <attr name="viewpager_enableToolbarElevation" format="boolean"/>
         <attr name="viewpager_parallaxHeaderFactor" format="float"/>
+        <attr name="viewpager_headerAdditionalHeight" format="dimension"/>
 
     </declare-styleable>
 

@@ -165,12 +165,12 @@ public class MaterialViewPager extends FrameLayout {
             headerBackground.setBackgroundColor(this.settings.color);
 
             ViewGroup.LayoutParams layoutParams = headerBackground.getLayoutParams();
-            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight + 60, getContext());
+            layoutParams.height = (int) Utils.dpToPx(this.settings.headerHeight + settings.headerAdditionalHeight, getContext());
             headerBackground.setLayoutParams(layoutParams);
         }
         if (pagerTitleStripContainer != null) {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) pagerTitleStripContainer.getLayoutParams();
-            int marginTop = (int) Utils.dpToPx(this.settings.headerHeight - 40, getContext());
+            int marginTop = (int) Utils.dpToPx(this.settings.headerHeight - 50, getContext());
             layoutParams.setMargins(0, marginTop, 0, 0);
             pagerTitleStripContainer.setLayoutParams(layoutParams);
         }
