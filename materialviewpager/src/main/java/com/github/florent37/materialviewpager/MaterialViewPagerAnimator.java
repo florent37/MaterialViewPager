@@ -101,7 +101,7 @@ public class MaterialViewPagerAnimator {
         this.context = mHeader.getContext();
 
         // initialise the scrollMax to headerHeight, so until the first cell touch the top of the screen
-        this.scrollMax = settings.headerHeight;
+        this.scrollMax = settings.headerHeight - (56 + 24); //hardcoding status bar and toolbar heights, which is bad TODO fix
         //save in into dp once
         this.scrollMaxDp = Utils.dpToPx(this.scrollMax, context);
 
@@ -178,7 +178,7 @@ public class MaterialViewPagerAnimator {
         //dispatch the new offset to all registered scrollables
         dispatchScrollOffset(source, minMax(0, yOffset, scrollMaxDp));
 
-        float percent = yOffset / scrollMax;
+        float percent = yOffset / scrollMaxDp;
 
         percent = minMax(0, percent, 1);
         {
@@ -190,11 +190,9 @@ public class MaterialViewPagerAnimator {
             }
 
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
-                float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
-                if (newY >= mHeader.finalTabsY) {
-                    mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
-                    mHeader.toolbarLayoutBackground.setTranslationY(scrollTop);
-                }
+                float newTabsY = (scrollMaxDp) * -percent;
+                mHeader.mPagerSlidingTabStrip.setTranslationY(newTabsY);
+                mHeader.toolbarLayoutBackground.setTranslationY(newTabsY);
             }
 
             if (mHeader.mLogo != null) { //move the header logo to toolbar
@@ -318,7 +316,7 @@ public class MaterialViewPagerAnimator {
      */
     private void followScrollToolbarLayout(float yOffset) {
         if (headerYOffset == Float.MAX_VALUE)
-            headerYOffset = scrollMax;
+            headerYOffset = scrollMaxDp;
 
         float diffOffsetScrollMax = headerYOffset - yOffset;
         if (diffOffsetScrollMax <= 0) {
