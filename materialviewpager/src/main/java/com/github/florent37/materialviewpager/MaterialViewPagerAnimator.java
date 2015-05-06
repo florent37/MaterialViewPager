@@ -1,5 +1,7 @@
 package com.github.florent37.materialviewpager;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -221,10 +223,14 @@ public class MaterialViewPagerAnimator {
                     if(ENABLE_LOG)
                         Log.d(TAG, "scrollDown");
                     if (yOffset > mHeader.toolbarLayout.getHeight()) {
+
                         animateEnterToolbarLayout(yOffset);
+
+
                     } else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
                         if (headerAnimator != null) {
                             mHeader.toolbarLayout.setTranslationY(0);
+                            followScrollToolbarIsVisible = true;
                         } else {
                             headerYOffset = Float.MAX_VALUE;
                             followScrollToolbarLayout(yOffset);
@@ -304,6 +310,8 @@ public class MaterialViewPagerAnimator {
             );
     }
 
+    boolean followScrollToolbarIsVisible = false;
+
     /**
      * move the toolbarlayout (containing toolbar & tabs)
      * following the current scroll
@@ -316,6 +324,8 @@ public class MaterialViewPagerAnimator {
         if (diffOffsetScrollMax <= 0) {
             mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
         }
+
+        followScrollToolbarIsVisible = ( mHeader.toolbarLayout.getY() >= 0 );
     }
 
     /**
@@ -323,8 +333,21 @@ public class MaterialViewPagerAnimator {
      * @param yOffset
      */
     private void animateEnterToolbarLayout(float yOffset) {
+
+        if(!followScrollToolbarIsVisible && headerAnimator!= null){
+            headerAnimator.cancel();
+            headerAnimator = null;
+        }
+
         if (headerAnimator == null) {
             headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
+            headerAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    followScrollToolbarIsVisible = true;
+                }
+            });
             headerAnimator.start();
             headerYOffset = yOffset;
         }
