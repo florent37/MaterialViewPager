@@ -170,7 +170,7 @@ public class MaterialViewPager extends FrameLayout {
         }
         if (pagerTitleStripContainer != null) {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) pagerTitleStripContainer.getLayoutParams();
-            int marginTop = (int) Utils.dpToPx(this.settings.headerHeight - 50, getContext());
+            int marginTop = (int) Utils.dpToPx(this.settings.headerHeight - 40, getContext());
             layoutParams.setMargins(0, marginTop, 0, 0);
             pagerTitleStripContainer.setLayoutParams(layoutParams);
         }
