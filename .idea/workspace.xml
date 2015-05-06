@@ -40,7 +40,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3a43d61a-8a45-48cf-9ee8-e5cf094b311d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materialviewpager/materialviewpager.iml" afterPath="$PROJECT_DIR$/materialviewpager/materialviewpager.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MaterialViewPager.iws" />
@@ -132,8 +131,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48747152">
-              <caret line="80" column="34" selection-start-line="80" selection-start-column="34" selection-end-line="80" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.44419134">
+              <caret line="24" column="54" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -3220,12 +3219,6 @@
       <option name="number" value="Default" />
       <updated>1429895227150</updated>
     </task>
-    <task id="LOCAL-00023" summary="updated README">
-      <created>1430405693731</created>
-      <option name="number" value="00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1430405693731</updated>
-    </task>
     <task id="LOCAL-00024" summary="updated README">
       <created>1430405804564</created>
       <option name="number" value="00024" />
@@ -3514,7 +3507,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430926134521</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="updated README">
+      <created>1430926495151</created>
+      <option name="number" value="00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1430926495152</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3607,13 +3606,13 @@
     <MESSAGE value="updated README added TODO &amp; Community" />
     <MESSAGE value="updated README &amp; sent version 1.0.1 to jcenter" />
     <MESSAGE value="updated README, added style &amp; header_logo.xml" />
-    <MESSAGE value="updated README" />
     <MESSAGE value="added some comments" />
     <MESSAGE value="added attribute parallaxHeaderFactor" />
     <MESSAGE value="added attribute headerAdditionalHeight" />
     <MESSAGE value="fixed bug : now can scroll up &amp; scroll down multiple time and have multiple display animations" />
     <MESSAGE value="updated README &#10;added the new attributes" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated README &#10;added the new attributes" />
+    <MESSAGE value="updated README" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4057,8 +4056,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48747152">
-          <caret line="80" column="34" selection-start-line="80" selection-start-column="34" selection-end-line="80" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.44419134">
+          <caret line="24" column="54" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
           <folding />
         </state>
       </provider>
