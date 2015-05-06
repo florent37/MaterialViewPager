@@ -26,6 +26,7 @@ public class MaterialViewPagerSettings {
     protected int color;
 
     protected float headerAlpha;
+    protected float parallaxHeaderFactor;
 
     protected boolean hideToolbarAndTitle;
     protected boolean hideLogoWithFade;
@@ -62,6 +63,9 @@ public class MaterialViewPagerSettings {
             }
             {
                 headerAlpha = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_headerAlpha, 0.5f);
+            }
+            {
+                parallaxHeaderFactor = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_parallaxHeaderFactor, 1.5f);
             }
             {
                 hideToolbarAndTitle = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideToolbarAndTitle, false);

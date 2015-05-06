@@ -12,6 +12,8 @@
         <attr name="viewpager_hideToolbarAndTitle" format="boolean"/>
         <attr name="viewpager_hideLogoWithFade" format="boolean"/>
         <attr name="viewpager_enableToolbarElevation" format="boolean"/>
+        <attr name="viewpager_parallaxHeaderFactor" format="float"/>
+
     </declare-styleable>
 
 </resources>
