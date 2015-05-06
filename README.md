@@ -518,6 +518,9 @@ app:viewpager_headerAdditionalHeight="20dp"
 *parallaxHeaderFactor* Modify the speed of parallax header scroll (not the speed of KenBurns effect)
 *parallaxHeaderFactor* Set up the height of the header's layout displayed behind the first cards view
 
+Fixed issue when scroll down & scroll up multiples time while hideToolbarAndTitle="true"
+
+
 ##1.0.1
 
 Added attributes
