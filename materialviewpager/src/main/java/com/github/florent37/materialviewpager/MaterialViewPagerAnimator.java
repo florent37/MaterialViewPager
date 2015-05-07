@@ -168,8 +168,16 @@ public class MaterialViewPagerAnimator {
 
         {
             //parallax scroll of the Background ImageView (the KenBurnsView)
-            if (mHeader.headerBackground != null && settings.parallaxHeaderFactor != 0)
-                mHeader.headerBackground.setTranslationY(scrollTop / settings.parallaxHeaderFactor);
+            if (mHeader.headerBackground != null){
+
+                if(settings.parallaxHeaderFactor != 0)
+                    mHeader.headerBackground.setTranslationY(scrollTop / settings.parallaxHeaderFactor);
+
+                if(mHeader.headerBackground.getY()>=0)
+                    mHeader.headerBackground.setY(0);
+            }
+
+
         }
 
         if(ENABLE_LOG)

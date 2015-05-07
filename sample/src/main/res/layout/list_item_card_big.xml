@@ -9,13 +9,15 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="2dp"
         android:layout_marginBottom="@dimen/cardMarginVertical"
         android:layout_marginLeft="@dimen/cardMarginHorizontal"
         android:layout_marginRight="@dimen/cardMarginHorizontal"
         android:layout_marginTop="@dimen/cardMarginVertical"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
-        app:contentPadding="0dp" />
+        app:contentPadding="0dp">
+
+    </android.support.v7.widget.CardView>
 
 </FrameLayout>
