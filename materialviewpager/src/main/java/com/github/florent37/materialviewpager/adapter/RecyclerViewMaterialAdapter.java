@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.R;
 
-import java.util.List;
-
 /**
  * Created by florentchampigny on 24/04/15.
  * A RecyclerView.Adapter which inject a header to the actual RecyclerView.Adapter
@@ -26,6 +24,7 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Construct the RecyclerViewMaterialAdapter, which inject a header into an actual RecyclerView.Adapter
+     *
      * @param adapter The real RecyclerView.Adapter which displays content
      */
     public RecyclerViewMaterialAdapter(RecyclerView.Adapter adapter) {
@@ -34,7 +33,8 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * Construct the RecyclerViewMaterialAdapter, which inject a header into an actual RecyclerView.Adapter
-     * @param adapter The real RecyclerView.Adapter which displays content
+     *
+     * @param adapter         The real RecyclerView.Adapter which displays content
      * @param placeholderSize The number of placeholder items before real items, default is 1
      */
     public RecyclerViewMaterialAdapter(RecyclerView.Adapter adapter, int placeholderSize) {
@@ -44,12 +44,10 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        switch (position) {
-            case 0: //add the placeholder at the first position
-                return TYPE_PLACEHOLDER;
-            default:
-                return mAdapter.getItemViewType(position-mPlaceholderSize); //call getItemViewType on the adapter, less mPlaceholderSize
-        }
+        if (position < mPlaceholderSize)
+            return TYPE_PLACEHOLDER;
+        else
+            return mAdapter.getItemViewType(position - mPlaceholderSize); //call getItemViewType on the adapter, less mPlaceholderSize
     }
 
     //dispatch getItemCount to the actual adapter, add mPlaceholderSize
@@ -71,7 +69,7 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
                 };
             }
             default:
-                return mAdapter.onCreateViewHolder(parent,viewType);
+                return mAdapter.onCreateViewHolder(parent, viewType);
         }
     }
 
@@ -82,7 +80,7 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
             case TYPE_PLACEHOLDER:
                 break;
             default:
-                mAdapter.onBindViewHolder(holder,position-mPlaceholderSize);
+                mAdapter.onBindViewHolder(holder, position - mPlaceholderSize);
                 break;
         }
     }
