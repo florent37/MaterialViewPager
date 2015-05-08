@@ -22,7 +22,7 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.0.2@aar'){
+compile ('com.github.florent37:materialviewpager:1.0.3@aar'){
     transitive = true
 }
 ```
@@ -507,6 +507,15 @@ MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 
 #CHANGELOG
 
+##1.0.3
+
+Fixed :  Rapid scrolling results in varying Toolbar height
+
+RecyclerViewMaterialAdapter can handle a custom placeholder cells count (usefull for GridLayoutManager)
+```java
+public RecyclerViewMaterialAdapter(RecyclerView.Adapter adapter, int placeholderSize)
+```
+
 ##1.0.2
 
 Added attributes
@@ -531,7 +540,6 @@ viewpager_headerAlpha="0.6"
 #TODO
 
 - Header image does not load every time
-- Rapid scrolling results in varying Toolbar height
 - **Remove Webviews from Android SDK !!!**
 
 #Community
