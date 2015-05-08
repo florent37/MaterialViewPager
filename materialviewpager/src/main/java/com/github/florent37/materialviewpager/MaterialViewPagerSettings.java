@@ -25,6 +25,7 @@ public class MaterialViewPagerSettings {
     protected int headerAdditionalHeight;
 
     protected int headerHeight;
+    protected int headerHeightPx;
     protected int color;
 
     protected float headerAlpha;
@@ -60,8 +61,8 @@ public class MaterialViewPagerSettings {
                 color = styledAttrs.getColor(R.styleable.MaterialViewPager_viewpager_color, 0);
             }
             {
-                headerHeight = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerHeight, 200);
-                headerHeight = Math.round(pxToDp(headerHeight, context)); //convert to dp
+                headerHeightPx = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerHeight, 200);
+                headerHeight = Math.round(pxToDp(headerHeightPx, context)); //convert to dp
             }
             {
                 headerAdditionalHeight = styledAttrs.getDimensionPixelOffset(R.styleable.MaterialViewPager_viewpager_headerAdditionalHeight, 60);

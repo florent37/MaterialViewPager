@@ -6,13 +6,10 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.view.ViewCompat;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -49,7 +46,7 @@ public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
 
-    private static final Boolean ENABLE_LOG = true;
+    private static final Boolean ENABLE_LOG = false;
 
     private Context context;
 
@@ -168,19 +165,19 @@ public class MaterialViewPagerAnimator {
 
         {
             //parallax scroll of the Background ImageView (the KenBurnsView)
-            if (mHeader.headerBackground != null){
+            if (mHeader.headerBackground != null) {
 
-                if(settings.parallaxHeaderFactor != 0)
+                if (settings.parallaxHeaderFactor != 0)
                     mHeader.headerBackground.setTranslationY(scrollTop / settings.parallaxHeaderFactor);
 
-                if(mHeader.headerBackground.getY()>=0)
+                if (mHeader.headerBackground.getY() >= 0)
                     mHeader.headerBackground.setY(0);
             }
 
 
         }
 
-        if(ENABLE_LOG)
+        if (ENABLE_LOG)
             Log.d("yOffset", "" + yOffset);
 
         //dispatch the new offset to all registered scrollables
@@ -197,13 +194,28 @@ public class MaterialViewPagerAnimator {
                 lastPercent = percent; //save the percent
             }
 
+            mHeader.toolbarLayoutBackground.setBackgroundColor(Color.RED);
+
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
                 float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
-                if (newY >= mHeader.finalTabsY) {
+
+                Log.d(TAG, "" + scrollTop);
+
+
+                //mHeader.mPagerSlidingTabStrip.setTranslationY(mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY());
+                {
                     mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
                     mHeader.toolbarLayoutBackground.setTranslationY(scrollTop);
+
+                    if (mHeader.mPagerSlidingTabStrip.getY() < mHeader.getToolbar().getBottom()) {
+                        float ty = mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY();
+                        mHeader.mPagerSlidingTabStrip.setTranslationY(ty);
+                        mHeader.toolbarLayoutBackground.setTranslationY(ty);
+                    }
                 }
+
             }
+
 
             if (mHeader.mLogo != null) { //move the header logo to toolbar
 
@@ -224,11 +236,11 @@ public class MaterialViewPagerAnimator {
                 boolean scrollUp = lastYOffset < yOffset;
 
                 if (scrollUp) {
-                    if(ENABLE_LOG)
+                    if (ENABLE_LOG)
                         Log.d(TAG, "scrollUp");
                     followScrollToolbarLayout(yOffset);
                 } else {
-                    if(ENABLE_LOG)
+                    if (ENABLE_LOG)
                         Log.d(TAG, "scrollDown");
                     if (yOffset > mHeader.toolbarLayout.getHeight()) {
 
@@ -259,7 +271,8 @@ public class MaterialViewPagerAnimator {
     /**
      * Change the color of the statusbackground, toolbar, toolbarlayout and pagertitlestrip
      * With a color transition animation
-     * @param color the final color
+     *
+     * @param color    the final color
      * @param duration the transition color animation duration
      */
     public void setColor(int color, int duration) {
@@ -333,16 +346,17 @@ public class MaterialViewPagerAnimator {
             mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
         }
 
-        followScrollToolbarIsVisible = ( mHeader.toolbarLayout.getY() >= 0 );
+        followScrollToolbarIsVisible = (mHeader.toolbarLayout.getY() >= 0);
     }
 
     /**
      * Animate enter toolbarlayout
+     *
      * @param yOffset
      */
     private void animateEnterToolbarLayout(float yOffset) {
 
-        if(!followScrollToolbarIsVisible && headerAnimator!= null){
+        if (!followScrollToolbarIsVisible && headerAnimator != null) {
             headerAnimator.cancel();
             headerAnimator = null;
         }
@@ -371,7 +385,8 @@ public class MaterialViewPagerAnimator {
      * Register a RecyclerView to the current MaterialViewPagerAnimator
      * Listen to RecyclerView.OnScrollListener so give to $[onScrollListener] your RecyclerView.OnScrollListener if you already use one
      * For loadmore or anything else
-     * @param recyclerView the scrollable
+     *
+     * @param recyclerView     the scrollable
      * @param onScrollListener use it if you want to get a callback of the RecyclerView
      */
     public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
@@ -418,7 +433,8 @@ public class MaterialViewPagerAnimator {
      * Register a ScrollView to the current MaterialViewPagerAnimator
      * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
      * For loadmore or anything else
-     * @param scrollView the scrollable
+     *
+     * @param scrollView                    the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
     public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
@@ -458,7 +474,8 @@ public class MaterialViewPagerAnimator {
      * Register a WebView to the current MaterialViewPagerAnimator
      * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
      * For loadmore or anything else
-     * @param webView the scrollable
+     *
+     * @param webView                       the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
     public void registerWebView(final ObservableWebView webView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
@@ -498,7 +515,8 @@ public class MaterialViewPagerAnimator {
      * Register a ListView to the current MaterialViewPagerAnimator
      * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
      * For loadmore or anything else
-     * @param listView the scrollable
+     *
+     * @param listView                      the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
     @Deprecated
