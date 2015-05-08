@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -19,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by florentchampigny on 25/04/15.
- *
+ * <p/>
  * MaterialViewPagerHelper attach a MaterialViewPagerAnimator to an activity
  * You can use MaterialViewPagerHelper to retrieve MaterialViewPagerAnimator from context
  * Or register a scrollable to the current activity's MaterialViewPagerAnimator
@@ -30,20 +29,21 @@ public class MaterialViewPagerHelper {
 
     /**
      * Register an MaterialViewPagerAnimator attached to an activity into the ConcurrentHashMap
+     *
      * @param activity the context
      * @param animator the current MaterialViewPagerAnimator
      */
     public static void register(Activity activity, MaterialViewPagerAnimator animator) {
-        if (!hashMap.containsKey(activity)) //only 1 MaterialViewPagerAnimator per activity
-            hashMap.put(activity, animator);
+        hashMap.put(activity, animator);
     }
 
     /**
      * Register a RecyclerView to the current MaterialViewPagerAnimator
      * Listen to RecyclerView.OnScrollListener so give to $[onScrollListener] your RecyclerView.OnScrollListener if you already use one
      * For loadmore or anything else
-     * @param activity current context
-     * @param recyclerView the scrollable
+     *
+     * @param activity         current context
+     * @param recyclerView     the scrollable
      * @param onScrollListener use it if you want to get a callback of the RecyclerView
      */
     public static void registerRecyclerView(Activity activity, RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
@@ -59,8 +59,9 @@ public class MaterialViewPagerHelper {
      * Register a WebView to the current MaterialViewPagerAnimator
      * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
      * For loadmore or anything else
-     * @param activity current context
-     * @param webView the scrollable
+     *
+     * @param activity                      current context
+     * @param webView                       the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
     public static void registerWebView(Activity activity, ObservableWebView webView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
@@ -76,8 +77,9 @@ public class MaterialViewPagerHelper {
      * Register a ListView to the current MaterialViewPagerAnimator
      * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
      * For loadmore or anything else
-     * @param activity current context
-     * @param listView the scrollable
+     *
+     * @param activity                      current context
+     * @param listView                      the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
     @Deprecated
@@ -94,8 +96,9 @@ public class MaterialViewPagerHelper {
      * Register a ScrollView to the current MaterialViewPagerAnimator
      * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
      * For loadmore or anything else
-     * @param activity current context
-     * @param mScrollView the scrollable
+     *
+     * @param activity                      current context
+     * @param mScrollView                   the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
     public static void registerScrollView(Activity activity, ObservableScrollView mScrollView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
@@ -109,6 +112,7 @@ public class MaterialViewPagerHelper {
 
     /**
      * Retrieve the current MaterialViewPagerAnimator used in this context (Activity)
+     *
      * @param context the context
      * @return current MaterialViewPagerAnimator
      */
@@ -123,6 +127,7 @@ public class MaterialViewPagerHelper {
      * Had to have a transparent background with a placeholder on top
      * So inject js for placeholder and setLayerType(WebView.LAYER_TYPE_SOFTWARE, null); for transparency
      * TODO : inject JavaScript for Pre-Lolipop with loadUrl("js:...")
+     *
      * @param webView
      * @param withAnimation if true, disapear with a fadein
      */
