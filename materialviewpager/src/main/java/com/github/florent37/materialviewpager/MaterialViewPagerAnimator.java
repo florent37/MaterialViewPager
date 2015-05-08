@@ -194,8 +194,6 @@ public class MaterialViewPagerAnimator {
                 lastPercent = percent; //save the percent
             }
 
-            mHeader.toolbarLayoutBackground.setBackgroundColor(Color.RED);
-
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
                 float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
 
@@ -208,7 +206,7 @@ public class MaterialViewPagerAnimator {
                     mHeader.toolbarLayoutBackground.setTranslationY(scrollTop);
 
                     if (mHeader.mPagerSlidingTabStrip.getY() < mHeader.getToolbar().getBottom()) {
-                        float ty = mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY();
+                        float ty = mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getTop();
                         mHeader.mPagerSlidingTabStrip.setTranslationY(ty);
                         mHeader.toolbarLayoutBackground.setTranslationY(ty);
                     }
