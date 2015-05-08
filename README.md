@@ -12,7 +12,7 @@ Material Design ViewPager easy to use library
 
 #Sample
 
-You can find a sample APK : [Link](https://github.com/florent37/MaterialViewPager/releases/download/1.0.2/sample-debug.apk)
+You can find a sample APK : [Link](https://github.com/florent37/MaterialViewPager/releases/download/1.0.3/sample-debug.apk)
 
 And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
