@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.nineoldandroids.view.ViewHelper;
 
 import static com.github.florent37.materialviewpager.Utils.dpToPx;
 
@@ -92,8 +93,15 @@ public class MaterialViewPagerHeader {
             @Override
             public boolean onPreDraw() {
                 finalTitleY = dpToPx(34f, context);
-                originalTitleY = mLogo.getY();
-                originalTitleX = mLogo.getX();
+                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+
+                    originalTitleY = mLogo.getY();
+                    originalTitleX = mLogo.getX();
+                }else{
+
+                    originalTitleY = ViewHelper.getY(mLogo);
+                    originalTitleX = ViewHelper.getX(mLogo);
+                }
 
                 originalTitleHeight = mLogo.getHeight();
                 finalTitleHeight = dpToPx(21, context);

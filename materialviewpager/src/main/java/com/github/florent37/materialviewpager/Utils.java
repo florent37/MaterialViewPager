@@ -1,5 +1,6 @@
 package com.github.florent37.materialviewpager;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -7,6 +8,9 @@ import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+
+import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by florentchampigny on 24/04/15.
@@ -64,8 +68,14 @@ public class Utils {
     public static void setScale(float scale, View... views) {
         for (View view : views) {
             if (view != null) {
-                view.setScaleX(scale);
-                view.setScaleY(scale);
+                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+
+                    view.setScaleX(scale);
+                    view.setScaleY(scale);
+                }else{
+                    ViewHelper.setScaleX(view, scale);
+                    ViewHelper.setScaleY(view, scale);
+                }
             }
         }
     }
@@ -91,6 +101,23 @@ public class Utils {
         for (View view : views) {
             if (view != null)
                 view.setBackgroundColor(color);
+        }
+    }
+
+    /**
+     * modify the alpha of multiples views
+     * @param view
+     * @param alpha value
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static void setAlphaForView(View view, float alpha) {
+        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+            AlphaAnimation animation = new AlphaAnimation(alpha, alpha);
+            animation.setDuration(0);
+            animation.setFillAfter(true);
+            view.startAnimation(animation);
+        }else{
+            view.setAlpha(alpha);
         }
     }
 }

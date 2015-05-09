@@ -8,11 +8,11 @@ version = "1.0.3"
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 21
+        minSdkVersion 10
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -37,7 +37,8 @@ dependencies {
     compile 'com.flaviofaria:kenburnsview:1.0.6'
     compile 'com.jpardogo.materialtabstrip:library:1.0.9'
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.squareup.picasso:picasso:2.5.1'
 }
 
 
