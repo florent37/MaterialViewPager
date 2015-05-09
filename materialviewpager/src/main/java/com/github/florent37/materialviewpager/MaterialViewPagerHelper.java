@@ -144,18 +144,24 @@ public class MaterialViewPagerHelper {
                 webSettings.setDomStorageEnabled(true);
 
                 //transparent background
-                webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                    webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+                }
 
                 { //inject margin top
 
                     final int marginTop = animator.getHeaderHeight() + 10;
                     final String js = String.format("document.body.style.marginTop= \"%dpx\"", marginTop);
-                    webView.evaluateJavascript(js, null);
+                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                        webView.evaluateJavascript(js, null);
+                    }
                 }
 
                 {
                     final String js = "document.body.style.backround-color= white";
-                    webView.evaluateJavascript(js, null);
+                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                        webView.evaluateJavascript(js, null);
+                    }
                 }
 
                 if (withAnimation)
@@ -163,7 +169,11 @@ public class MaterialViewPagerHelper {
                         @Override
                         public void run() {
                             webView.setVisibility(View.VISIBLE);
-                            ObjectAnimator.ofFloat(webView, "alpha", 0, 1).start();
+                            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                                ObjectAnimator.ofFloat(webView, "alpha", 0, 1).start();
+                            }else{
+                                com.nineoldandroids.animation.ObjectAnimator.ofFloat(webView, "alpha", 0, 1).start();
+                            }
                         }
                     }, 400);
             }
