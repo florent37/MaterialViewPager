@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -14,6 +15,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.nineoldandroids.animation.ObjectAnimator;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -30,11 +32,16 @@ public class MaterialViewPagerHelper {
     /**
      * Register an MaterialViewPagerAnimator attached to an activity into the ConcurrentHashMap
      *
-     * @param activity the context
+     * @param context the context
      * @param animator the current MaterialViewPagerAnimator
      */
-    public static void register(Activity activity, MaterialViewPagerAnimator animator) {
-        hashMap.put(activity, animator);
+    public static void register(Context context, MaterialViewPagerAnimator animator) {
+        hashMap.put(context, animator);
+    }
+
+    public static void unregister(Context context) {
+        if(context != null)
+            hashMap.remove(context);
     }
 
     /**

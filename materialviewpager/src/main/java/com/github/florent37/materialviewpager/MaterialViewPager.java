@@ -91,6 +91,13 @@ public class MaterialViewPager extends FrameLayout {
 
     //endregion
 
+
+    @Override
+    protected void onDetachedFromWindow() {
+        MaterialViewPagerHelper.unregister(getContext());
+        super.onDetachedFromWindow();
+    }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -146,7 +153,7 @@ public class MaterialViewPager extends FrameLayout {
 
             //and construct the MaterialViewPagerAnimator
             //attach it to the activity to enable MaterialViewPagerHeaderView.setMaterialHeight();
-            MaterialViewPagerHelper.register((android.app.Activity) getContext(), new MaterialViewPagerAnimator(this));
+            MaterialViewPagerHelper.register(getContext(), new MaterialViewPagerAnimator(this));
         }else{
 
             //if in edit mode, add fake cardsviews
