@@ -1,12 +1,11 @@
 package com.github.florent37.materialviewpager;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +18,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,7 +87,7 @@ public class MaterialViewPagerAnimator {
     private float headerYOffset = Float.MAX_VALUE;
 
     //the tmp headerAnimator (not null if animating, else null)
-    private ObjectAnimator headerAnimator;
+    private com.nineoldandroids.animation.ObjectAnimator headerAnimator;
 
     public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
@@ -155,6 +155,7 @@ public class MaterialViewPagerAnimator {
      * @param source  the scroller
      * @param yOffset the scroller current yOffset
      */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onMaterialScrolled(Object source, float yOffset) {
 
         //only if yOffset changed
@@ -165,13 +166,24 @@ public class MaterialViewPagerAnimator {
 
         {
             //parallax scroll of the Background ImageView (the KenBurnsView)
-            if (mHeader.headerBackground != null) {
+            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                if (mHeader.headerBackground != null) {
 
-                if (settings.parallaxHeaderFactor != 0)
-                    mHeader.headerBackground.setTranslationY(scrollTop / settings.parallaxHeaderFactor);
+                    if (settings.parallaxHeaderFactor != 0)
+                        mHeader.headerBackground.setTranslationY(scrollTop / settings.parallaxHeaderFactor);
 
-                if (mHeader.headerBackground.getY() >= 0)
-                    mHeader.headerBackground.setY(0);
+                    if (mHeader.headerBackground.getY() >= 0)
+                        mHeader.headerBackground.setY(0);
+                }
+            } else {
+                if (mHeader.headerBackground != null) {
+
+                    if (settings.parallaxHeaderFactor != 0)
+                        ViewHelper.setTranslationY(mHeader.headerBackground, scrollTop / settings.parallaxHeaderFactor);
+
+                    if (ViewHelper.getY(mHeader.headerBackground) >= 0)
+                        ViewHelper.setY(mHeader.headerBackground, 0);
+                }
             }
 
 
@@ -195,20 +207,31 @@ public class MaterialViewPagerAnimator {
             }
 
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
-                float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
 
                 Log.d(TAG, "" + scrollTop);
 
 
                 //mHeader.mPagerSlidingTabStrip.setTranslationY(mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY());
                 {
-                    mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
-                    mHeader.toolbarLayoutBackground.setTranslationY(scrollTop);
+                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                        mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
+                        mHeader.toolbarLayoutBackground.setTranslationY(scrollTop);
 
-                    if (mHeader.mPagerSlidingTabStrip.getY() < mHeader.getToolbar().getBottom()) {
-                        float ty = mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getTop();
-                        mHeader.mPagerSlidingTabStrip.setTranslationY(ty);
-                        mHeader.toolbarLayoutBackground.setTranslationY(ty);
+                        if (mHeader.mPagerSlidingTabStrip.getY() < mHeader.getToolbar().getBottom()) {
+                            float ty = mHeader.getToolbar().getBottom() - mHeader.mPagerSlidingTabStrip.getTop();
+                            mHeader.mPagerSlidingTabStrip.setTranslationY(ty);
+                            mHeader.toolbarLayoutBackground.setTranslationY(ty);
+                        }
+                    } else {
+                        ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, scrollTop);
+                        ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, scrollTop);
+
+                        if (ViewHelper.getY(mHeader.mPagerSlidingTabStrip) < mHeader.getToolbar().getBottom()) {
+                            float ty = mHeader.getToolbar().getBottom() - mHeader.mPagerSlidingTabStrip.getTop();
+                            ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, ty);
+                            ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, ty);
+                        }
+
                     }
                 }
 
@@ -217,16 +240,31 @@ public class MaterialViewPagerAnimator {
 
             if (mHeader.mLogo != null) { //move the header logo to toolbar
 
-                if (settings.hideLogoWithFade) {
-                    mHeader.mLogo.setAlpha(1 - percent);
-                    mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                    if (settings.hideLogoWithFade) {
+                        mHeader.mLogo.setAlpha(1 - percent);
+                        mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    } else {
+                        mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                        mHeader.mLogo.setTranslationX((mHeader.finalTitleX - mHeader.originalTitleX) * percent);
+
+                        float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
+
+                        setScale(scale, mHeader.mLogo);
+                    }
                 } else {
-                    mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
-                    mHeader.mLogo.setTranslationX((mHeader.finalTitleX - mHeader.originalTitleX) * percent);
+                    if (settings.hideLogoWithFade) {
+                        ViewHelper.setAlpha(mHeader.mLogo, 1 - percent);
+                        ViewHelper.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    } else {
+                        ViewHelper.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                        ViewHelper.setTranslationY(mHeader.mLogo, (mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
-                    float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
+                        float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
 
-                    setScale(scale, mHeader.mLogo);
+                        setScale(scale, mHeader.mLogo);
+                    }
+
                 }
             }
 
@@ -247,7 +285,11 @@ public class MaterialViewPagerAnimator {
 
                     } else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
                         if (headerAnimator != null) {
-                            mHeader.toolbarLayout.setTranslationY(0);
+                            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                                mHeader.toolbarLayout.setTranslationY(0);
+                            }else{
+                                ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
+                            }
                             followScrollToolbarIsVisible = true;
                         } else {
                             headerYOffset = Float.MAX_VALUE;
@@ -273,21 +315,40 @@ public class MaterialViewPagerAnimator {
      * @param color    the final color
      * @param duration the transition color animation duration
      */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void setColor(int color, int duration) {
-        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", settings.color, color);
-        colorAnim.setEvaluator(new ArgbEvaluator());
-        colorAnim.setDuration(duration);
-        colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int colorAlpha = colorWithAlpha((Integer) animation.getAnimatedValue(), lastPercent);
-                mHeader.statusBackground.setBackgroundColor(colorAlpha);
-                mHeader.toolbar.setBackgroundColor(colorAlpha);
-                mHeader.toolbarLayoutBackground.setBackgroundColor(colorAlpha);
-                mHeader.mPagerSlidingTabStrip.setBackgroundColor(colorAlpha);
-            }
-        });
-        colorAnim.start();
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+            ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", settings.color, color);
+            colorAnim.setEvaluator(new ArgbEvaluator());
+            colorAnim.setDuration(duration);
+            colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int colorAlpha = colorWithAlpha((Integer) animation.getAnimatedValue(), lastPercent);
+                    mHeader.statusBackground.setBackgroundColor(colorAlpha);
+                    mHeader.toolbar.setBackgroundColor(colorAlpha);
+                    mHeader.toolbarLayoutBackground.setBackgroundColor(colorAlpha);
+                    mHeader.mPagerSlidingTabStrip.setBackgroundColor(colorAlpha);
+                }
+            });
+            colorAnim.start();
+        } else {
+            com.nineoldandroids.animation.ValueAnimator colorAnim = com.nineoldandroids.animation.ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", settings.color, color);
+            colorAnim.setEvaluator(new com.nineoldandroids.animation.ArgbEvaluator());
+            colorAnim.setDuration(duration);
+            colorAnim.addUpdateListener(new com.nineoldandroids.animation.ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(com.nineoldandroids.animation.ValueAnimator animation) {
+                    int colorAlpha = colorWithAlpha((Integer) animation.getAnimatedValue(), lastPercent);
+                    mHeader.statusBackground.setBackgroundColor(colorAlpha);
+                    mHeader.toolbar.setBackgroundColor(colorAlpha);
+                    mHeader.toolbarLayoutBackground.setBackgroundColor(colorAlpha);
+                    mHeader.mPagerSlidingTabStrip.setBackgroundColor(colorAlpha);
+                }
+            });
+            colorAnim.start();
+        }
 
         //set the new color as MaterialViewPager's color
         settings.color = color;
@@ -341,10 +402,14 @@ public class MaterialViewPagerAnimator {
 
         float diffOffsetScrollMax = headerYOffset - yOffset;
         if (diffOffsetScrollMax <= 0) {
-            mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
+            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+                mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
+                followScrollToolbarIsVisible = (mHeader.toolbarLayout.getY() >= 0);
+            } else {
+                ViewHelper.setTranslationY(mHeader.toolbarLayout, diffOffsetScrollMax);
+                followScrollToolbarIsVisible = (ViewHelper.getY(mHeader.toolbarLayout) >= 0);
+            }
         }
-
-        followScrollToolbarIsVisible = (mHeader.toolbarLayout.getY() >= 0);
     }
 
     /**
@@ -360,10 +425,10 @@ public class MaterialViewPagerAnimator {
         }
 
         if (headerAnimator == null) {
-            headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
-            headerAnimator.addListener(new AnimatorListenerAdapter() {
+            headerAnimator = com.nineoldandroids.animation.ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
+            headerAnimator.addListener(new com.nineoldandroids.animation.AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationEnd(Animator animation) {
+                public void onAnimationEnd(com.nineoldandroids.animation.Animator animation) {
                     super.onAnimationEnd(animation);
                     followScrollToolbarIsVisible = true;
                 }
@@ -387,7 +452,8 @@ public class MaterialViewPagerAnimator {
      * @param recyclerView     the scrollable
      * @param onScrollListener use it if you want to get a callback of the RecyclerView
      */
-    public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
+    public void registerRecyclerView(final RecyclerView recyclerView,
+                                     final RecyclerView.OnScrollListener onScrollListener) {
         if (recyclerView != null) {
             scrollViewList.add(recyclerView); //add to the scrollable list
             yOffsets.put(recyclerView, 0); //save the initial recyclerview's yOffset (0) into hashmap
@@ -435,7 +501,8 @@ public class MaterialViewPagerAnimator {
      * @param scrollView                    the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
-    public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
+    public void registerScrollView(final ObservableScrollView scrollView,
+                                   final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (scrollView != null) {
             scrollViewList.add(scrollView);  //add to the scrollable list
             scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
@@ -476,7 +543,8 @@ public class MaterialViewPagerAnimator {
      * @param webView                       the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
-    public void registerWebView(final ObservableWebView webView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
+    public void registerWebView(final ObservableWebView webView,
+                                final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (webView != null) {
             scrollViewList.add(webView);  //add to the scrollable list
             webView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
@@ -518,7 +586,8 @@ public class MaterialViewPagerAnimator {
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
     @Deprecated
-    public void registerListView(final ObservableListView listView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
+    public void registerListView(final ObservableListView listView,
+                                 final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (listView != null) {
             scrollViewList.add(listView);  //add to the scrollable list
             listView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {

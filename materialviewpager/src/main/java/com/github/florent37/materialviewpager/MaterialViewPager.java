@@ -216,7 +216,7 @@ public class MaterialViewPager extends FrameLayout {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
             //if using MaterialViewPagerImageHeader
             if (headerBackgroundImage != null) {
-                headerBackgroundImage.setAlpha(settings.headerAlpha);
+                Utils.setAlphaForView(headerBackgroundImage, settings.headerAlpha);
                 headerBackgroundImage.setImageUrl(imageUrl, fadeDuration);
             }
         }
@@ -231,7 +231,7 @@ public class MaterialViewPager extends FrameLayout {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
             //if using MaterialViewPagerImageHeader
             if (headerBackgroundImage != null) {
-                headerBackgroundImage.setAlpha(settings.headerAlpha);
+                Utils.setAlphaForView(headerBackgroundImage, settings.headerAlpha);
                 headerBackgroundImage.setImageDrawable(drawable, fadeDuration);
             }
         }
