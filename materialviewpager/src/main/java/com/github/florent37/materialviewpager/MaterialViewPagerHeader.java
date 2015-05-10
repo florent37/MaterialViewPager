@@ -5,8 +5,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.astuetz.PagerSlidingTabStrip;
-
 import static com.github.florent37.materialviewpager.Utils.dpToPx;
 
 /**

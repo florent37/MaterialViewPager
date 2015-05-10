@@ -8,33 +8,25 @@ import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.nineoldandroids.view.ViewHelper;
+
 /**
  * Created by florentchampigny on 24/04/15.
  */
 public class Utils {
 
-    public static boolean isLolipop(){
-        return (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-    }
-
     /**
      * convert dp to px
      */
     public static float dpToPx(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * (metrics.densityDpi / 160f);
-        return px;
+        return dp * context.getResources().getDisplayMetrics().density;
     }
 
     /**
      * convert px to dp
      */
     public static float pxToDp(float px, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / (metrics.densityDpi / 160f);
-        return dp;
+        return px / context.getResources().getDisplayMetrics().density;
     }
 
     /*
@@ -64,8 +56,8 @@ public class Utils {
     public static void setScale(float scale, View... views) {
         for (View view : views) {
             if (view != null) {
-                view.setScaleX(scale);
-                view.setScaleY(scale);
+                ViewHelper.setScaleX(view,scale);
+                ViewHelper.setScaleY(view,scale);
             }
         }
     }

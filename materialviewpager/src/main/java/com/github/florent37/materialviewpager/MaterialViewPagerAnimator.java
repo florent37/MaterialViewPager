@@ -1,15 +1,10 @@
 package com.github.florent37.materialviewpager;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -19,6 +14,12 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ArgbEvaluator;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -168,10 +169,10 @@ public class MaterialViewPagerAnimator {
             if (mHeader.headerBackground != null) {
 
                 if (settings.parallaxHeaderFactor != 0)
-                    mHeader.headerBackground.setTranslationY(scrollTop / settings.parallaxHeaderFactor);
+                    ViewHelper.setTranslationY(mHeader.headerBackground,scrollTop / settings.parallaxHeaderFactor);
 
-                if (mHeader.headerBackground.getY() >= 0)
-                    mHeader.headerBackground.setY(0);
+                if (ViewHelper.getY(mHeader.headerBackground) >= 0)
+                    ViewHelper.setY(mHeader.headerBackground,0);
             }
 
 
@@ -195,20 +196,21 @@ public class MaterialViewPagerAnimator {
             }
 
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
-                float newY = mHeader.mPagerSlidingTabStrip.getY() + scrollTop;
+                float newY = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) + scrollTop;
 
-                Log.d(TAG, "" + scrollTop);
+                if(ENABLE_LOG)
+                    Log.d(TAG, "" + scrollTop);
 
 
                 //mHeader.mPagerSlidingTabStrip.setTranslationY(mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY());
                 {
-                    mHeader.mPagerSlidingTabStrip.setTranslationY(scrollTop);
-                    mHeader.toolbarLayoutBackground.setTranslationY(scrollTop);
+                    ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip,scrollTop);
+                    ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground,scrollTop);
 
-                    if (mHeader.mPagerSlidingTabStrip.getY() < mHeader.getToolbar().getBottom()) {
-                        float ty = mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getTop();
-                        mHeader.mPagerSlidingTabStrip.setTranslationY(ty);
-                        mHeader.toolbarLayoutBackground.setTranslationY(ty);
+                    if (ViewHelper.getY(mHeader.mPagerSlidingTabStrip) < mHeader.getToolbar().getBottom()) {
+                        float ty = mHeader.getToolbar().getBottom() - mHeader.mPagerSlidingTabStrip.getTop();
+                        ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip,ty);
+                        ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground,ty);
                     }
                 }
 
@@ -218,11 +220,11 @@ public class MaterialViewPagerAnimator {
             if (mHeader.mLogo != null) { //move the header logo to toolbar
 
                 if (settings.hideLogoWithFade) {
-                    mHeader.mLogo.setAlpha(1 - percent);
-                    mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    ViewHelper.setAlpha(mHeader.mLogo,1 - percent);
+                    ViewHelper.setTranslationY(mHeader.mLogo,(mHeader.finalTitleY - mHeader.originalTitleY) * percent);
                 } else {
-                    mHeader.mLogo.setTranslationY((mHeader.finalTitleY - mHeader.originalTitleY) * percent);
-                    mHeader.mLogo.setTranslationX((mHeader.finalTitleX - mHeader.originalTitleX) * percent);
+                    ViewHelper.setTranslationY(mHeader.mLogo,(mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    ViewHelper.setTranslationX(mHeader.mLogo,(mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
                     float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
 
@@ -247,7 +249,7 @@ public class MaterialViewPagerAnimator {
 
                     } else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
                         if (headerAnimator != null) {
-                            mHeader.toolbarLayout.setTranslationY(0);
+                            ViewHelper.setTranslationY(mHeader.toolbarLayout,0);
                             followScrollToolbarIsVisible = true;
                         } else {
                             headerYOffset = Float.MAX_VALUE;
@@ -341,10 +343,10 @@ public class MaterialViewPagerAnimator {
 
         float diffOffsetScrollMax = headerYOffset - yOffset;
         if (diffOffsetScrollMax <= 0) {
-            mHeader.toolbarLayout.setTranslationY(diffOffsetScrollMax);
+            ViewHelper.setTranslationY(mHeader.toolbarLayout,diffOffsetScrollMax);
         }
 
-        followScrollToolbarIsVisible = (mHeader.toolbarLayout.getY() >= 0);
+        followScrollToolbarIsVisible = (ViewHelper.getY(mHeader.toolbarLayout) >= 0);
     }
 
     /**

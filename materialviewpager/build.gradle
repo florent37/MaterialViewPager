@@ -11,7 +11,7 @@ android {
     buildToolsVersion "21.1.1"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 10
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -33,6 +33,8 @@ dependencies {
             'com.android.support:recyclerview-v7:22.0.0',
             'com.android.support:cardview-v7:22.0.0'
     )
+
+    compile 'com.nineoldandroids:library:2.4.0'
 
     compile 'com.flaviofaria:kenburnsview:1.0.6'
     compile 'com.jpardogo.materialtabstrip:library:1.0.9'

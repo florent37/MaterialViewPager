@@ -1,6 +1,5 @@
 package com.github.florent37.materialviewpager;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -13,6 +12,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import java.util.concurrent.ConcurrentHashMap;
 
