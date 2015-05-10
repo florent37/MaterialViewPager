@@ -19,20 +19,14 @@ public class Utils {
      * convert dp to px
      */
     public static float dpToPx(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * (metrics.densityDpi / 160f);
-        return px;
+        return dp * context.getResources().getDisplayMetrics().density;
     }
 
     /**
      * convert px to dp
      */
     public static float pxToDp(float px, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / (metrics.densityDpi / 160f);
-        return dp;
+        return px / context.getResources().getDisplayMetrics().density;
     }
 
     /*
