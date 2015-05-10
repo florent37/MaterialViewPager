@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by florentchampigny on 28/04/15.
@@ -216,7 +217,7 @@ public class MaterialViewPager extends FrameLayout {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
             //if using MaterialViewPagerImageHeader
             if (headerBackgroundImage != null) {
-                headerBackgroundImage.setAlpha(settings.headerAlpha);
+                ViewHelper.setAlpha(headerBackgroundImage,settings.headerAlpha);
                 headerBackgroundImage.setImageUrl(imageUrl, fadeDuration);
             }
         }
@@ -231,7 +232,7 @@ public class MaterialViewPager extends FrameLayout {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
             //if using MaterialViewPagerImageHeader
             if (headerBackgroundImage != null) {
-                headerBackgroundImage.setAlpha(settings.headerAlpha);
+                ViewHelper.setAlpha(headerBackgroundImage,settings.headerAlpha);
                 headerBackgroundImage.setImageDrawable(drawable, fadeDuration);
             }
         }

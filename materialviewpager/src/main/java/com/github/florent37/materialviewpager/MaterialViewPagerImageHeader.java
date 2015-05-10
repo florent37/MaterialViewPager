@@ -1,8 +1,5 @@
 package com.github.florent37.materialviewpager;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -11,6 +8,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
