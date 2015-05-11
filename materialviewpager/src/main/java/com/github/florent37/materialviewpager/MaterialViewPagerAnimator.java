@@ -1,10 +1,10 @@
 package com.github.florent37.materialviewpager;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -88,7 +88,7 @@ public class MaterialViewPagerAnimator {
     private float headerYOffset = Float.MAX_VALUE;
 
     //the tmp headerAnimator (not null if animating, else null)
-    private ObjectAnimator headerAnimator;
+    private Object headerAnimator;
 
     public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
@@ -169,10 +169,10 @@ public class MaterialViewPagerAnimator {
             if (mHeader.headerBackground != null) {
 
                 if (settings.parallaxHeaderFactor != 0)
-                    ViewHelper.setTranslationY(mHeader.headerBackground,scrollTop / settings.parallaxHeaderFactor);
+                    ViewHelper.setTranslationY(mHeader.headerBackground, scrollTop / settings.parallaxHeaderFactor);
 
                 if (ViewHelper.getY(mHeader.headerBackground) >= 0)
-                    ViewHelper.setY(mHeader.headerBackground,0);
+                    ViewHelper.setY(mHeader.headerBackground, 0);
             }
 
 
@@ -198,19 +198,19 @@ public class MaterialViewPagerAnimator {
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
                 float newY = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) + scrollTop;
 
-                if(ENABLE_LOG)
+                if (ENABLE_LOG)
                     Log.d(TAG, "" + scrollTop);
 
 
                 //mHeader.mPagerSlidingTabStrip.setTranslationY(mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY());
                 {
-                    ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip,scrollTop);
-                    ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground,scrollTop);
+                    ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, scrollTop);
+                    ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, scrollTop);
 
                     if (ViewHelper.getY(mHeader.mPagerSlidingTabStrip) < mHeader.getToolbar().getBottom()) {
                         float ty = mHeader.getToolbar().getBottom() - mHeader.mPagerSlidingTabStrip.getTop();
-                        ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip,ty);
-                        ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground,ty);
+                        ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, ty);
+                        ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, ty);
                     }
                 }
 
@@ -220,11 +220,11 @@ public class MaterialViewPagerAnimator {
             if (mHeader.mLogo != null) { //move the header logo to toolbar
 
                 if (settings.hideLogoWithFade) {
-                    ViewHelper.setAlpha(mHeader.mLogo,1 - percent);
-                    ViewHelper.setTranslationY(mHeader.mLogo,(mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    ViewHelper.setAlpha(mHeader.mLogo, 1 - percent);
+                    ViewHelper.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
                 } else {
-                    ViewHelper.setTranslationY(mHeader.mLogo,(mHeader.finalTitleY - mHeader.originalTitleY) * percent);
-                    ViewHelper.setTranslationX(mHeader.mLogo,(mHeader.finalTitleX - mHeader.originalTitleX) * percent);
+                    ViewHelper.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    ViewHelper.setTranslationX(mHeader.mLogo, (mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
                     float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
 
@@ -249,7 +249,7 @@ public class MaterialViewPagerAnimator {
 
                     } else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
                         if (headerAnimator != null) {
-                            ViewHelper.setTranslationY(mHeader.toolbarLayout,0);
+                            ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
                             followScrollToolbarIsVisible = true;
                         } else {
                             headerYOffset = Float.MAX_VALUE;
@@ -261,7 +261,10 @@ public class MaterialViewPagerAnimator {
         }
 
         if (headerAnimator != null && percent < 1) {
-            headerAnimator.cancel();
+            if (headerAnimator instanceof ObjectAnimator)
+                ((ObjectAnimator) headerAnimator).cancel();
+            else if (headerAnimator instanceof android.animation.ObjectAnimator)
+                ((android.animation.ObjectAnimator) headerAnimator).cancel();
             headerAnimator = null;
         }
 
@@ -343,7 +346,7 @@ public class MaterialViewPagerAnimator {
 
         float diffOffsetScrollMax = headerYOffset - yOffset;
         if (diffOffsetScrollMax <= 0) {
-            ViewHelper.setTranslationY(mHeader.toolbarLayout,diffOffsetScrollMax);
+            ViewHelper.setTranslationY(mHeader.toolbarLayout, diffOffsetScrollMax);
         }
 
         followScrollToolbarIsVisible = (ViewHelper.getY(mHeader.toolbarLayout) >= 0);
@@ -355,22 +358,36 @@ public class MaterialViewPagerAnimator {
      * @param yOffset
      */
     private void animateEnterToolbarLayout(float yOffset) {
-
         if (!followScrollToolbarIsVisible && headerAnimator != null) {
-            headerAnimator.cancel();
+            if (headerAnimator instanceof ObjectAnimator)
+                ((ObjectAnimator) headerAnimator).cancel();
+            else if (headerAnimator instanceof android.animation.ObjectAnimator)
+                ((android.animation.ObjectAnimator) headerAnimator).cancel();
             headerAnimator = null;
         }
 
         if (headerAnimator == null) {
-            headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
-            headerAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    followScrollToolbarIsVisible = true;
-                }
-            });
-            headerAnimator.start();
+            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+                headerAnimator = android.animation.ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
+                ((android.animation.ObjectAnimator) headerAnimator).addListener(new android.animation.AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(android.animation.Animator animation) {
+                        super.onAnimationEnd(animation);
+                        followScrollToolbarIsVisible = true;
+                    }
+                });
+                ((android.animation.ObjectAnimator) headerAnimator).start();
+            } else {
+                headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
+                ((ObjectAnimator) headerAnimator).addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        followScrollToolbarIsVisible = true;
+                    }
+                });
+                ((ObjectAnimator) headerAnimator).start();
+            }
             headerYOffset = yOffset;
         }
     }
