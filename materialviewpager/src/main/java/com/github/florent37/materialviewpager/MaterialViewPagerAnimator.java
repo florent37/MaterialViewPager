@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -457,7 +458,8 @@ public class MaterialViewPagerAnimator {
     public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (scrollView != null) {
             scrollViewList.add(scrollView);  //add to the scrollable list
-            scrollView.setTouchInterceptionViewGroup((ViewGroup) scrollView.getParent().getParent());
+            if(scrollView.getParent() != null && scrollView.getParent().getParent() != null && scrollView.getParent().getParent() instanceof ViewGroup)
+                scrollView.setTouchInterceptionViewGroup((ViewGroup) scrollView.getParent().getParent());
             scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
@@ -541,7 +543,8 @@ public class MaterialViewPagerAnimator {
     public void registerListView(final ObservableListView listView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (listView != null) {
             scrollViewList.add(listView);  //add to the scrollable list
-            listView.setTouchInterceptionViewGroup((ViewGroup) listView.getParent().getParent());
+            if(listView.getParent() != null && listView.getParent().getParent() != null && listView.getParent().getParent() instanceof ViewGroup)
+                listView.setTouchInterceptionViewGroup((ViewGroup) listView.getParent().getParent());
             listView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
