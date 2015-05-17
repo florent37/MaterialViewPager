@@ -40,8 +40,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a43d61a-8a45-48cf-9ee8-e5cf094b311d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/MainActivity.java" afterPath="$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java" afterPath="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materialviewpager/build.gradle" afterPath="$PROJECT_DIR$/materialviewpager/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materialviewpager/materialviewpager.iml" afterPath="$PROJECT_DIR$/materialviewpager/materialviewpager.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MaterialViewPager.iws" />
@@ -164,11 +165,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MaterialViewPagerAnimator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MaterialViewPagerAnimator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33255813">
+            <state vertical-scroll-proportion="0.0">
               <caret line="461" column="103" selection-start-line="461" selection-start-column="69" selection-end-line="461" selection-end-column="103" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sample/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="22" column="52" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -188,7 +199,20 @@
         <entry file="file://$PROJECT_DIR$/materialviewpager/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.794702">
+              <caret line="24" column="56" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -834,9 +858,9 @@
                 <option name="name" value="preDexRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.github.florent37:materialviewpager:1.0.3.2" />
+                <option name="description" value="Prepare com.github.florent37:materialviewpager:1.0.3.3" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComGithubFlorent37Materialviewpager1032Library" />
+                <option name="name" value="prepareComGithubFlorent37Materialviewpager1033Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Uninstalls the Debug build." />
@@ -1763,9 +1787,9 @@
                 <option name="name" value="prepareComAndroidSupportSupportV42200Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.github.florent37:materialviewpager:1.0.3.2" />
+                <option name="description" value="Prepare com.github.florent37:materialviewpager:1.0.3.3" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/sample" />
-                <option name="name" value="prepareComGithubFlorent37Materialviewpager1032Library" />
+                <option name="name" value="prepareComGithubFlorent37Materialviewpager1033Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.github.ksoichiro:android-observablescrollview:1.5.0" />
@@ -1880,7 +1904,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="5723921125000" />
+        <entry key="$PROJECT_DIR$" value="5727457438000" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2538,16 +2562,16 @@
         <option value="$PROJECT_DIR$/materialviewpager/src/main/res/layout/material_view_pager_layout.xml" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerSettings.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/adapter/RecyclerViewMaterialAdapter.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerHeader.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerImageHeader.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/Utils.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPager.java" />
         <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerHelper.java" />
-        <option value="$PROJECT_DIR$/materialviewpager/build.gradle" />
         <option value="$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java" />
         <option value="$PROJECT_DIR$/sample/src/main/java/com/github/florent37/materialviewpager/sample/MainActivity.java" />
+        <option value="$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java" />
+        <option value="$PROJECT_DIR$/materialviewpager/build.gradle" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -3606,9 +3630,9 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298292" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998565" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3981603" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3981603" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41787124" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298292" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -3968,30 +3992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sample/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.6">
-          <caret line="22" column="52" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/materialviewpager/build/intermediates/manifests/tmp/manifestMerger332039098108959936.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.4">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="54" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerImageHeader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4079,14 +4079,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/materialviewpager/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -4108,8 +4100,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/materialviewpager/src/main/java/com/github/florent37/materialviewpager/MaterialViewPagerAnimator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33255813">
+        <state vertical-scroll-proportion="0.0">
           <caret line="461" column="103" selection-start-line="461" selection-start-column="69" selection-end-line="461" selection-end-column="103" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sample/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="52" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/materialviewpager/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.794702">
+          <caret line="24" column="56" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
           <folding />
         </state>
       </provider>
