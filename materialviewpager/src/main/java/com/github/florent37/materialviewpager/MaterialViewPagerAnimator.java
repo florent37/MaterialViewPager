@@ -457,6 +457,7 @@ public class MaterialViewPagerAnimator {
     public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (scrollView != null) {
             scrollViewList.add(scrollView);  //add to the scrollable list
+            scrollView.setTouchInterceptionViewGroup((ViewGroup) scrollView.getParent().getParent());
             scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
@@ -540,6 +541,7 @@ public class MaterialViewPagerAnimator {
     public void registerListView(final ObservableListView listView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (listView != null) {
             scrollViewList.add(listView);  //add to the scrollable list
+            listView.setTouchInterceptionViewGroup((ViewGroup) listView.getParent().getParent());
             listView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
