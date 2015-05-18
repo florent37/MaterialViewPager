@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -252,4 +254,58 @@ public class MaterialViewPager extends FrameLayout {
         MaterialViewPagerHelper.getAnimator(getContext()).setColor(color, fadeDuration * 2);
     }
 
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+
+        SavedState ss = new SavedState(superState);
+        //end
+        ss.settings = this.settings;
+        ss.yOffset = MaterialViewPagerHelper.getAnimator(getContext()).lastYOffset;
+
+        return ss;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        this.settings = ss.settings;
+        MaterialViewPagerAnimator animator = new MaterialViewPagerAnimator(this);
+        animator.restoreScroll(ss.yOffset);
+        MaterialViewPagerHelper.register(getContext(),animator);
+    }
+
+    static class SavedState extends BaseSavedState {
+        public MaterialViewPagerSettings settings;
+        public float yOffset;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.settings = in.readParcelable(MaterialViewPagerSettings.class.getClassLoader());
+            this.yOffset = in.readFloat();
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeParcelable(this.settings, flags);
+            out.writeFloat(this.yOffset);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
+    }
 }
