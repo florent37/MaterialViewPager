@@ -2,8 +2,6 @@ package com.github.florent37.materialviewpager;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -46,7 +44,7 @@ import static com.github.florent37.materialviewpager.Utils.setScale;
  * <p/>
  * When scroll, animate the MaterialViewPager Header (toolbar, logo, color ...)
  */
-public class MaterialViewPagerAnimator{
+public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
 
@@ -122,43 +120,48 @@ public class MaterialViewPagerAnimator{
 
                 //do not re-scroll the source
                 if (scroll != null && scroll != source) {
-
-                    //add it to calledScrollList so will not be notified again on the scroll's OnScrollListeners
-                    calledScrollList.add(scroll);
-
-                    if (scroll instanceof RecyclerView) {
-                        //RecyclerView.scrollTo : UnsupportedOperationException
-                        //Moved to the RecyclerView.LayoutManager.scrollToPositionWithOffset
-                        //Have to be instanceOf RecyclerView.LayoutManager to work (so work with RecyclerView.GridLayoutManager)
-                        RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
-                        if (layoutManager instanceof LinearLayoutManager) {
-                            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-                            linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
-                        }
-                    } else if (scroll instanceof ScrollView) {
-                        ((ScrollView) scroll).scrollTo(0, (int) yOffset);
-                    } else if (scroll instanceof ListView) {
-                        ((ListView) scroll).scrollTo(0, (int) yOffset);
-                    } else if (scroll instanceof WebView) {
-                        ((WebView) scroll).scrollTo(0, (int) yOffset);
-                    }
-
-                    //save the current yOffset of the scrollable on the yOffsets hashmap
-                    yOffsets.put(scroll, (int) yOffset);
-
-                    //remove from calledScrollList to be notified for the next true scroll (from the user, not for dispatch)
-                    calledScrollList.remove(scroll);
+                    setScrollOffset(scroll, yOffset);
                 }
             }
         }
     }
 
-    boolean restored;
-    float restoredSkipValue;
+    /**
+     * When notified for scroll, dispatch it to all registered scrollables
+     *
+     * @param object
+     * @param yOffset
+     */
+    private void setScrollOffset(Object scroll, float yOffset) {
+        //do not re-scroll the source
+        if (scroll != null && yOffset >=0) {
 
-    public void restoreScroll(float scroll){
-        onMaterialScrolled(null, scroll);
-        restored = true;
+            //add it to calledScrollList so will not be notified again on the scroll's OnScrollListeners
+            calledScrollList.add(scroll);
+
+            if (scroll instanceof RecyclerView) {
+                //RecyclerView.scrollTo : UnsupportedOperationException
+                //Moved to the RecyclerView.LayoutManager.scrollToPositionWithOffset
+                //Have to be instanceOf RecyclerView.LayoutManager to work (so work with RecyclerView.GridLayoutManager)
+                RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
+                if (layoutManager instanceof LinearLayoutManager) {
+                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
+                    linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
+                }
+            } else if (scroll instanceof ScrollView) {
+                ((ScrollView) scroll).scrollTo(0, (int) yOffset);
+            } else if (scroll instanceof ListView) {
+                ((ListView) scroll).scrollTo(0, (int) yOffset);
+            } else if (scroll instanceof WebView) {
+                ((WebView) scroll).scrollTo(0, (int) yOffset);
+            }
+
+            //save the current yOffset of the scrollable on the yOffsets hashmap
+            yOffsets.put(scroll, (int) yOffset);
+
+            //remove from calledScrollList to be notified for the next true scroll (from the user, not for dispatch)
+            calledScrollList.remove(scroll);
+        }
     }
 
     /**
@@ -171,13 +174,6 @@ public class MaterialViewPagerAnimator{
 
         //only if yOffset changed
         if (yOffset == lastYOffset)
-            return;
-
-        if(restored){
-            restoredSkipValue = yOffset;
-            restored = false;
-        }
-        if(restoredSkipValue == yOffset)
             return;
 
         float scrollTop = -yOffset;
@@ -312,6 +308,8 @@ public class MaterialViewPagerAnimator{
         });
         colorAnim.start();
 
+        mHeader.headerBackground.setBackgroundColor(settings.color);
+
         //set the new color as MaterialViewPager's color
         settings.color = color;
 
@@ -352,7 +350,7 @@ public class MaterialViewPagerAnimator{
             );
     }
 
-    boolean followScrollToolbarIsVisible = false;
+boolean followScrollToolbarIsVisible = false;
 
     /**
      * move the toolbarlayout (containing toolbar & tabs)
@@ -461,14 +459,7 @@ public class MaterialViewPagerAnimator{
                     onMaterialScrolled(recyclerView, scrollY);
                 }
             });
-
-            recyclerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    float y = recyclerView.getScrollY();
-                    onMaterialScrolled(recyclerView, y);
-                }
-            });
+            this.setScrollOffset(recyclerView, lastYOffset);
         }
     }
 
@@ -482,9 +473,9 @@ public class MaterialViewPagerAnimator{
      */
     public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (scrollView != null) {
-            if(scrollView.getParent() != null && scrollView.getParent().getParent() != null && scrollView.getParent().getParent() instanceof ViewGroup)
-            scrollViewList.add(scrollView);  //add to the scrollable list
-                scrollView.setTouchInterceptionViewGroup((ViewGroup) scrollView.getParent().getParent());
+            if (scrollView.getParent() != null && scrollView.getParent().getParent() != null && scrollView.getParent().getParent() instanceof ViewGroup)
+                scrollViewList.add(scrollView);  //add to the scrollable list
+            scrollView.setTouchInterceptionViewGroup((ViewGroup) scrollView.getParent().getParent());
             scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
@@ -513,13 +504,7 @@ public class MaterialViewPagerAnimator{
                 }
             });
 
-            scrollView.post(new Runnable() {
-                @Override
-                public void run() {
-                    float y = scrollView.getCurrentScrollY();
-                    onMaterialScrolled(scrollView,y);
-                }
-            });
+            this.setScrollOffset(scrollView,lastYOffset);
         }
     }
 
@@ -533,8 +518,8 @@ public class MaterialViewPagerAnimator{
      */
     public void registerWebView(final ObservableWebView webView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (webView != null) {
-            if(scrollViewList.isEmpty())
-                onMaterialScrolled(webView,webView.getCurrentScrollY());
+            if (scrollViewList.isEmpty())
+                onMaterialScrolled(webView, webView.getCurrentScrollY());
             scrollViewList.add(webView);  //add to the scrollable list
             webView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
@@ -577,9 +562,9 @@ public class MaterialViewPagerAnimator{
     @Deprecated
     public void registerListView(final ObservableListView listView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (listView != null) {
-            if(listView.getParent() != null && listView.getParent().getParent() != null && listView.getParent().getParent() instanceof ViewGroup)
-            scrollViewList.add(listView);  //add to the scrollable list
-                listView.setTouchInterceptionViewGroup((ViewGroup) listView.getParent().getParent());
+            if (listView.getParent() != null && listView.getParent().getParent() != null && listView.getParent().getParent() instanceof ViewGroup)
+                scrollViewList.add(listView);  //add to the scrollable list
+            listView.setTouchInterceptionViewGroup((ViewGroup) listView.getParent().getParent());
             listView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
                 public void onScrollChanged(int i, boolean b, boolean b2) {
@@ -611,4 +596,8 @@ public class MaterialViewPagerAnimator{
     }
 
     //endregion
+
+    public void restoreScroll(float scroll) {
+        onMaterialScrolled(null, scroll);
+    }
 }
