@@ -180,7 +180,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.60402685">
-              <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+              <caret line="18" column="48" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -3053,12 +3053,6 @@
       <option name="number" value="Default" />
       <updated>1429895227150</updated>
     </task>
-    <task id="LOCAL-00034" summary="updated README">
-      <created>1430428775518</created>
-      <option name="number" value="00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1430428775518</updated>
-    </task>
     <task id="LOCAL-00035" summary="updated README">
       <created>1430428970928</created>
       <option name="number" value="00035" />
@@ -3347,7 +3341,13 @@
       <option name="project" value="LOCAL" />
       <updated>1432218744528</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="updated README">
+      <created>1432220497663</created>
+      <option name="number" value="00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1432220497663</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3877,7 +3877,7 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.60402685">
-          <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+          <caret line="18" column="48" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="48" />
           <folding />
         </state>
       </provider>
