@@ -20,10 +20,10 @@ import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by florentchampigny on 28/04/15.
- *
+ * <p/>
  * The main class of MaterialViewPager
  * To use in an xml layout with attributes viewpager_*
- *
+ * <p/>
  * Display a preview with header, actual logo and fake cells
  */
 public class MaterialViewPager extends FrameLayout {
@@ -156,21 +156,21 @@ public class MaterialViewPager extends FrameLayout {
             //and construct the MaterialViewPagerAnimator
             //attach it to the activity to enable MaterialViewPagerHeaderView.setMaterialHeight();
             MaterialViewPagerHelper.register(getContext(), new MaterialViewPagerAnimator(this));
-        }else{
+        } else {
 
             //if in edit mode, add fake cardsviews
             View sample = LayoutInflater.from(getContext()).inflate(R.layout.tools_list_items, pagerTitleStripContainer, false);
 
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) sample.getLayoutParams();
             int marginTop = Math.round(Utils.dpToPx(settings.headerHeight + 10, getContext()));
-            params.setMargins(0,marginTop,0,0);
+            params.setMargins(0, marginTop, 0, 0);
             super.setLayoutParams(params);
 
             addView(sample);
         }
     }
 
-    private void initialiseHeights(){
+    private void initialiseHeights() {
         if (headerBackground != null) {
             headerBackground.setBackgroundColor(this.settings.color);
 
@@ -195,6 +195,7 @@ public class MaterialViewPager extends FrameLayout {
      * Retrieve the displayed viewpager, don't forget to use
      * getPagerTitleStrip().setAdapter(materialviewpager.getViewPager())
      * after set an adapter
+     *
      * @return the displayed viewpager
      */
     public ViewPager getViewPager() {
@@ -203,6 +204,7 @@ public class MaterialViewPager extends FrameLayout {
 
     /**
      * Retrieve the displayed tabs
+     *
      * @return the displayed tabs
      */
     public PagerSlidingTabStrip getPagerTitleStrip() {
@@ -211,6 +213,7 @@ public class MaterialViewPager extends FrameLayout {
 
     /**
      * Retrieve the displayed toolbar
+     *
      * @return the displayed toolbar
      */
     public Toolbar getToolbar() {
@@ -226,7 +229,7 @@ public class MaterialViewPager extends FrameLayout {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
             //if using MaterialViewPagerImageHeader
             if (headerBackgroundImage != null) {
-                ViewHelper.setAlpha(headerBackgroundImage,settings.headerAlpha);
+                ViewHelper.setAlpha(headerBackgroundImage, settings.headerAlpha);
                 headerBackgroundImage.setImageUrl(imageUrl, fadeDuration);
             }
         }
@@ -241,7 +244,7 @@ public class MaterialViewPager extends FrameLayout {
             final MaterialViewPagerImageHeader headerBackgroundImage = (MaterialViewPagerImageHeader) findViewById(R.id.materialviewpager_imageHeader);
             //if using MaterialViewPagerImageHeader
             if (headerBackgroundImage != null) {
-                ViewHelper.setAlpha(headerBackgroundImage,settings.headerAlpha);
+                ViewHelper.setAlpha(headerBackgroundImage, settings.headerAlpha);
                 headerBackgroundImage.setImageDrawable(drawable, fadeDuration);
             }
         }
@@ -270,10 +273,14 @@ public class MaterialViewPager extends FrameLayout {
     protected void onRestoreInstanceState(Parcelable state) {
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
+
         this.settings = ss.settings;
-        MaterialViewPagerAnimator animator = new MaterialViewPagerAnimator(this);
-        animator.restoreScroll(ss.yOffset);
-        MaterialViewPagerHelper.register(getContext(),animator);
+        if (headerBackground != null)
+            headerBackground.setBackgroundColor(this.settings.color);
+
+        MaterialViewPagerAnimator animator = MaterialViewPagerHelper.getAnimator(this.getContext());
+        animator.restoreScroll(ss.yOffset, ss.settings);
+        MaterialViewPagerHelper.register(getContext(), animator);
     }
 
     static class SavedState extends BaseSavedState {
@@ -303,6 +310,7 @@ public class MaterialViewPager extends FrameLayout {
                     public SavedState createFromParcel(Parcel in) {
                         return new SavedState(in);
                     }
+
                     public SavedState[] newArray(int size) {
                         return new SavedState[size];
                     }
