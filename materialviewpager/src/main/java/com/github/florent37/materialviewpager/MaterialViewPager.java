@@ -279,7 +279,9 @@ public class MaterialViewPager extends FrameLayout {
             headerBackground.setBackgroundColor(this.settings.color);
 
         MaterialViewPagerAnimator animator = MaterialViewPagerHelper.getAnimator(this.getContext());
-        animator.restoreScroll(ss.yOffset, ss.settings);
+
+        //-1*ss.yOffset restore to 0
+        animator.restoreScroll(-1*ss.yOffset, ss.settings);
         MaterialViewPagerHelper.register(getContext(), animator);
     }
 

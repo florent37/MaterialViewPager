@@ -547,6 +547,8 @@ public class MaterialViewPagerAnimator {
                         observableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
                 }
             });
+
+            this.setScrollOffset(webView, lastYOffset);
         }
     }
 
@@ -591,6 +593,8 @@ public class MaterialViewPagerAnimator {
                         observableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
                 }
             });
+
+            this.setScrollOffset(listView, lastYOffset);
         }
     }
 
