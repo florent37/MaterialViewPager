@@ -493,18 +493,6 @@ mWebView.loadUrl("http://...");
 MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
 ```
 
-##[Deprecated] ListView
-
-*Smoother if using RecyclerView !*
-
-The ListView must be an [ObservableListView][android-observablescrollview]
-
-```java
-mAdapter = new ListViewMaterialAdapter(new ***Adapter(getActivity(),mList));
-mListView.setAdapter(mAdapter);
-MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
-```
-
 #CHANGELOG
 
 ##1.0.4
