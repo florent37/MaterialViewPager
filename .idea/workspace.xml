@@ -34,11 +34,8 @@
       </layout>
     </layouts>
   </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a43d61a-8a45-48cf-9ee8-e5cf094b311d" name="Default" comment="fixed color&amp;color change">
+    <list default="true" id="3a43d61a-8a45-48cf-9ee8-e5cf094b311d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -182,8 +179,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="9.395973">
-              <caret line="280" column="33" selection-start-line="280" selection-start-column="33" selection-end-line="280" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.60402685">
+              <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -3056,12 +3053,6 @@
       <option name="number" value="Default" />
       <updated>1429895227150</updated>
     </task>
-    <task id="LOCAL-00033" summary="updated README">
-      <created>1430409450522</created>
-      <option name="number" value="00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1430409450522</updated>
-    </task>
     <task id="LOCAL-00034" summary="updated README">
       <created>1430428775518</created>
       <option name="number" value="00034" />
@@ -3350,7 +3341,13 @@
       <option name="project" value="LOCAL" />
       <updated>1432217987421</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="updated README">
+      <created>1432218744528</created>
+      <option name="number" value="00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1432218744528</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3448,14 +3445,14 @@
     <MESSAGE value="added attribute headerAdditionalHeight" />
     <MESSAGE value="fixed bug : now can scroll up &amp; scroll down multiple time and have multiple display animations" />
     <MESSAGE value="updated README &#10;added the new attributes" />
-    <MESSAGE value="updated README" />
     <MESSAGE value="nineold android" />
     <MESSAGE value="fixed memory leak" />
     <MESSAGE value="fixed bug due to nineold" />
     <MESSAGE value="orientation changed" />
     <MESSAGE value="fixed color change" />
     <MESSAGE value="fixed color&amp;color change" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed color&amp;color change" />
+    <MESSAGE value="updated README" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3879,8 +3876,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="9.395973">
-          <caret line="280" column="33" selection-start-line="280" selection-start-column="33" selection-end-line="280" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.60402685">
+          <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
           <folding />
         </state>
       </provider>
