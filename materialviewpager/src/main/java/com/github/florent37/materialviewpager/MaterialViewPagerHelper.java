@@ -81,25 +81,6 @@ public class MaterialViewPagerHelper {
     }
 
     /**
-     * Register a ListView to the current MaterialViewPagerAnimator
-     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
-     * For loadmore or anything else
-     *
-     * @param activity                      current context
-     * @param listView                      the scrollable
-     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
-     */
-    @Deprecated
-    public static void registerListView(Activity activity, ObservableListView listView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
-        if (activity != null && hashMap.containsKey(activity)) {
-            MaterialViewPagerAnimator animator = hashMap.get(activity);
-            if (animator != null) {
-                animator.registerListView(listView, observableScrollViewCallbacks);
-            }
-        }
-    }
-
-    /**
      * Register a ScrollView to the current MaterialViewPagerAnimator
      * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
      * For loadmore or anything else

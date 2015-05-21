@@ -10,7 +10,6 @@ import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
@@ -549,52 +548,6 @@ public class MaterialViewPagerAnimator {
             });
 
             this.setScrollOffset(webView, lastYOffset);
-        }
-    }
-
-    /**
-     * Register a ListView to the current MaterialViewPagerAnimator
-     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
-     * For loadmore or anything else
-     *
-     * @param listView                      the scrollable
-     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
-     */
-    @Deprecated
-    public void registerListView(final ObservableListView listView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
-        if (listView != null) {
-            if (listView.getParent() != null && listView.getParent().getParent() != null && listView.getParent().getParent() instanceof ViewGroup)
-                listView.setTouchInterceptionViewGroup((ViewGroup) listView.getParent().getParent());
-            scrollViewList.add(listView);  //add to the scrollable list
-            listView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
-                @Override
-                public void onScrollChanged(int i, boolean b, boolean b2) {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onScrollChanged(i, b, b2);
-
-                    //if scrolled from dispatch, remove & return -> so skip
-                    if (calledScrollList.contains(listView)) {
-                        calledScrollList.remove(listView);
-                        return;
-                    }
-
-                    onMaterialScrolled(listView, i);
-                }
-
-                @Override
-                public void onDownMotionEvent() {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onDownMotionEvent();
-                }
-
-                @Override
-                public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
-                }
-            });
-
-            this.setScrollOffset(listView, lastYOffset);
         }
     }
 

@@ -8,16 +8,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
-import com.github.florent37.materialviewpager.MaterialViewPagerImageHeader;
-import com.github.florent37.materialviewpager.sample.fragment.ListViewFragment;
 import com.github.florent37.materialviewpager.sample.fragment.RecyclerViewFragment;
 import com.github.florent37.materialviewpager.sample.fragment.ScrollFragment;
-import com.github.florent37.materialviewpager.sample.fragment.WebViewFragment;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -67,8 +62,6 @@ public class MainActivity extends ActionBarActivity {
                     case 1:
                         return ScrollFragment.newInstance();
                     //case 2:
-                    //    return ListViewFragment.newInstance();
-                    //case 3:
                     //    return WebViewFragment.newInstance();
                     default:
                         return RecyclerViewFragment.newInstance();
@@ -80,13 +73,13 @@ public class MainActivity extends ActionBarActivity {
                 super.setPrimaryItem(container, position, object);
 
                 //only if position changed
-                if(position == oldPosition)
+                if (position == oldPosition)
                     return;
                 oldPosition = position;
 
                 int color = 0;
                 String imageUrl = "";
-                switch (position){
+                switch (position) {
                     case 0:
                         imageUrl = "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg";
                         color = getResources().getColor(R.color.blue);
@@ -106,8 +99,8 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 final int fadeDuration = 400;
-                mViewPager.setImageUrl(imageUrl,fadeDuration);
-                mViewPager.setColor(color,fadeDuration);
+                mViewPager.setImageUrl(imageUrl, fadeDuration);
+                mViewPager.setColor(color, fadeDuration);
 
             }
 
@@ -118,7 +111,7 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         return "Selection";
                     case 1:

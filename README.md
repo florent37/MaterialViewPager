@@ -22,7 +22,7 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.0.3.3@aar'){
+compile ('com.github.florent37:materialviewpager:1.0.4@aar'){
     transitive = true
 }
 ```
@@ -506,6 +506,14 @@ MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 ```
 
 #CHANGELOG
+
+##1.0.4
+Fixed :
+
+- Orientation changed
+- Memory Leak
+- Android >2.3 with NineOldAndroid
+- Removed ListView usage
 
 ##1.0.3
 
