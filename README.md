@@ -16,7 +16,7 @@ You can find a sample APK : [Link](https://github.com/florent37/MaterialViewPage
 
 And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
-[![Video](http://share.gifyoutube.com/KroLAw.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
+[![Video](http://i.giphy.com/xTiTnmEsdqa7IZaMXS.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
 #Download
 
@@ -491,18 +491,6 @@ mWebView.setWebViewClient(new WebViewClient() {
 mWebView.loadUrl("http://...");
 
 MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
-```
-
-##[Deprecated] ListView
-
-*Smoother if using RecyclerView !*
-
-The ListView must be an [ObservableListView][android-observablescrollview]
-
-```java
-mAdapter = new ListViewMaterialAdapter(new ***Adapter(getActivity(),mList));
-mListView.setAdapter(mAdapter);
-MaterialViewPagerHelper.registerListView(getActivity(), mListView, null);
 ```
 
 #CHANGELOG
