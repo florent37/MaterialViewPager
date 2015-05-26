@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -140,6 +141,9 @@ public class MaterialViewPagerAnimator {
                 if (layoutManager instanceof LinearLayoutManager) {
                     LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
                     linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
+                }else if(layoutManager instanceof StaggeredGridLayoutManager){
+                    StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+                    staggeredGridLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
                 }
             } else if (scroll instanceof ScrollView) {
                 ((ScrollView) scroll).scrollTo(0, (int) yOffset);
@@ -404,11 +408,8 @@ public class MaterialViewPagerAnimator {
     protected boolean isNewYOffset(int yOffset){
         if(lastYOffset == -1)
             return true;
-        else if(lastYOffset == 0){
+        else
             return yOffset != lastYOffset;
-        }else{
-            return yOffset != 0 && yOffset != lastYOffset;
-        }
     }
 
     //region register scrollables
@@ -430,6 +431,8 @@ public class MaterialViewPagerAnimator {
             //listen to scroll
             recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
+                boolean firstZeroPassed;
+
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
@@ -448,6 +451,12 @@ public class MaterialViewPagerAnimator {
 
                     yOffset += dy;
                     yOffsets.put(recyclerView, yOffset); //save the new offset
+
+                    //first time you get 0, don't share it to others scrolls
+                    if(yOffset == 0 && !firstZeroPassed){
+                        firstZeroPassed = true;
+                        return;
+                    }
 
                     //only if yOffset changed
                     if (isNewYOffset(yOffset))
@@ -478,10 +487,19 @@ public class MaterialViewPagerAnimator {
             if (scrollView.getParent() != null && scrollView.getParent().getParent() != null && scrollView.getParent().getParent() instanceof ViewGroup)
                 scrollView.setTouchInterceptionViewGroup((ViewGroup) scrollView.getParent().getParent());
             scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+
+                boolean firstZeroPassed;
+
                 @Override
                 public void onScrollChanged(int yOffset, boolean b, boolean b2) {
                     if (observableScrollViewCallbacks != null)
                         observableScrollViewCallbacks.onScrollChanged(yOffset, b, b2);
+
+                    //first time you get 0, don't share it to others scrolls
+                    if(yOffset == 0 && !firstZeroPassed){
+                        firstZeroPassed = true;
+                        return;
+                    }
 
                     //only if yOffset changed
                     if (isNewYOffset(yOffset))
