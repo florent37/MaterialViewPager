@@ -47,8 +47,7 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             tools:background="#3FFF"
-            android:title="Toolbar"
-            app:theme="@style/AppTheme.ActionBarTheme"
+            android:theme="@style/AppTheme.ActionBarTheme"
             app:navigationIcon="?attr/homeAsUpIndicator"
             android:minHeight="?attr/actionBarSize"
             />
