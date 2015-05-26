@@ -78,9 +78,6 @@ public class MaterialViewPagerAnimator {
     //list of all registered scrollers
     protected List<Object> scrollViewList = new ArrayList<>();
 
-    //temporary list of all called scrollers from dispatchScrollOffset
-    protected List<Object> calledScrollList = new ArrayList<>();
-
     //save all yOffsets of scrollables
     protected HashMap<Object, Integer> yOffsets = new HashMap<>();
 
@@ -135,9 +132,6 @@ public class MaterialViewPagerAnimator {
         //do not re-scroll the source
         if (scroll != null && yOffset >= 0) {
 
-            //add it to calledScrollList so will not be notified again on the scroll's OnScrollListeners
-            calledScrollList.add(scroll);
-
             if (scroll instanceof RecyclerView) {
                 //RecyclerView.scrollTo : UnsupportedOperationException
                 //Moved to the RecyclerView.LayoutManager.scrollToPositionWithOffset
@@ -157,9 +151,6 @@ public class MaterialViewPagerAnimator {
 
             //save the current yOffset of the scrollable on the yOffsets hashmap
             yOffsets.put(scroll, (int) yOffset);
-
-            //remove from calledScrollList to be notified for the next true scroll (from the user, not for dispatch)
-            calledScrollList.remove(scroll);
         }
     }
 
@@ -216,7 +207,7 @@ public class MaterialViewPagerAnimator {
 
 
                 //mHeader.mPagerSlidingTabStrip.setTranslationY(mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY());
-                {
+                if(scrollTop <= 0){
                     ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, scrollTop);
                     ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, scrollTop);
 
@@ -410,6 +401,16 @@ public class MaterialViewPagerAnimator {
         return this.settings.headerHeight;
     }
 
+    protected boolean isNewYOffset(int yOffset){
+        if(lastYOffset == -1)
+            return true;
+        else if(lastYOffset == 0){
+            return yOffset != lastYOffset;
+        }else{
+            return yOffset != 0 && yOffset != lastYOffset;
+        }
+    }
+
     //region register scrollables
 
     /**
@@ -443,21 +444,23 @@ public class MaterialViewPagerAnimator {
                     if (onScrollListener != null)
                         onScrollListener.onScrolled(recyclerView, dx, dy);
 
-                    int scrollY = yOffsets.get(recyclerView);
+                    int yOffset = yOffsets.get(recyclerView);
 
-                    //if scrolled from dispatch, remove & return -> so skip
-                    if (calledScrollList.contains(recyclerView)) {
-                        calledScrollList.remove(recyclerView);
-                        return;
-                    }
+                    yOffset += dy;
+                    yOffsets.put(recyclerView, yOffset); //save the new offset
 
-                    scrollY += dy;
-                    yOffsets.put(recyclerView, scrollY); //save the new offset
-
-                    onMaterialScrolled(recyclerView, scrollY);
+                    //only if yOffset changed
+                    if (isNewYOffset(yOffset))
+                        onMaterialScrolled(recyclerView, yOffset);
                 }
             });
-            this.setScrollOffset(recyclerView, lastYOffset);
+
+            recyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    setScrollOffset(recyclerView, lastYOffset);
+                }
+            });
         }
     }
 
@@ -476,17 +479,13 @@ public class MaterialViewPagerAnimator {
                 scrollView.setTouchInterceptionViewGroup((ViewGroup) scrollView.getParent().getParent());
             scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
-                public void onScrollChanged(int i, boolean b, boolean b2) {
+                public void onScrollChanged(int yOffset, boolean b, boolean b2) {
                     if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onScrollChanged(i, b, b2);
+                        observableScrollViewCallbacks.onScrollChanged(yOffset, b, b2);
 
-                    //if scrolled from dispatch, remove & return -> so skip
-                    if (calledScrollList.contains(scrollView)) {
-                        calledScrollList.remove(scrollView);
-                        return;
-                    }
-
-                    onMaterialScrolled(scrollView, i);
+                    //only if yOffset changed
+                    if (isNewYOffset(yOffset))
+                        onMaterialScrolled(scrollView, yOffset);
                 }
 
                 @Override
@@ -502,7 +501,12 @@ public class MaterialViewPagerAnimator {
                 }
             });
 
-            this.setScrollOffset(scrollView, lastYOffset);
+            scrollView.post(new Runnable() {
+                @Override
+                public void run() {
+                    setScrollOffset(scrollView, lastYOffset);
+                }
+            });
         }
     }
 
@@ -521,17 +525,12 @@ public class MaterialViewPagerAnimator {
             scrollViewList.add(webView);  //add to the scrollable list
             webView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
                 @Override
-                public void onScrollChanged(int i, boolean b, boolean b2) {
+                public void onScrollChanged(int yOffset, boolean b, boolean b2) {
                     if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onScrollChanged(i, b, b2);
+                        observableScrollViewCallbacks.onScrollChanged(yOffset, b, b2);
 
-                    //if scrolled from dispatch, remove & return -> so skip
-                    if (calledScrollList.contains(webView)) {
-                        calledScrollList.remove(webView);
-                        return;
-                    }
-
-                    onMaterialScrolled(webView, i);
+                    if (isNewYOffset(yOffset))
+                        onMaterialScrolled(webView, yOffset);
                 }
 
                 @Override
@@ -547,7 +546,7 @@ public class MaterialViewPagerAnimator {
                 }
             });
 
-            this.setScrollOffset(webView, lastYOffset);
+            this.setScrollOffset(webView, -lastYOffset);
         }
     }
 

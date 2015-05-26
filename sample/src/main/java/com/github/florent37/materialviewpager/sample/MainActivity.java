@@ -56,16 +56,16 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public Fragment getItem(int position) {
-                switch (position) {
-                    //case 0:
-                    //    return RecyclerViewFragment.newInstance();
-                    case 1:
-                        return ScrollFragment.newInstance();
-                    //case 2:
-                    //    return WebViewFragment.newInstance();
-                    default:
-                        return RecyclerViewFragment.newInstance();
-                }
+                 switch (position % 4) {
+                     //case 0:
+                     //    return RecyclerViewFragment.newInstance();
+                     case 1:
+                         return RecyclerViewFragment.newInstance();
+                     //case 2:
+                     //    return WebViewFragment.newInstance();
+                     default:
+                         return ScrollFragment.newInstance();
+                 }
             }
 
             @Override
@@ -79,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
 
                 int color = 0;
                 String imageUrl = "";
-                switch (position) {
+                switch (position % 4) {
                     case 0:
                         imageUrl = "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg";
                         color = getResources().getColor(R.color.blue);
@@ -106,12 +106,12 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public int getCount() {
-                return 4;
+                return 100;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                switch (position) {
+                switch (position % 4) {
                     case 0:
                         return "Selection";
                     case 1:
@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
                 return "";
             }
         });
-        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+        //mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
         mViewPager.getViewPager().setCurrentItem(1);
