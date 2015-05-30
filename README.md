@@ -217,7 +217,7 @@ Your logo's layout must
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
-        app:hideToolbarAndTitle="true"
+        app:viewpager_hideToolbarAndTitle="true"
         ...
         />
 ```
@@ -229,7 +229,7 @@ Your logo's layout must
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
-        app:hideToolbarAndTitle="false"
+        app:viewpager_hideToolbarAndTitle="false"
         ...
         />
 ```
