@@ -281,8 +281,12 @@ public class MaterialViewPager extends FrameLayout {
         MaterialViewPagerAnimator animator = MaterialViewPagerHelper.getAnimator(this.getContext());
 
         //-1*ss.yOffset restore to 0
-        animator.restoreScroll(-1*ss.yOffset, ss.settings);
+        animator.restoreScroll(-1 * ss.yOffset, ss.settings);
         MaterialViewPagerHelper.register(getContext(), animator);
+    }
+
+    public ViewGroup getHeaderBackgroundContainer() {
+        return headerBackgroundContainer;
     }
 
     static class SavedState extends BaseSavedState {
