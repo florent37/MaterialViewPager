@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/headerBackground"
@@ -21,8 +21,7 @@
         <View
             android:id="@+id/statusBackground"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 
@@ -34,7 +33,8 @@
     <RelativeLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <View
             android:id="@+id/toolbar_layout_background"
@@ -46,27 +46,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            tools:background="#3FFF"
-            android:theme="@style/AppTheme.ActionBarTheme"
-            app:navigationIcon="?attr/homeAsUpIndicator"
             android:minHeight="?attr/actionBarSize"
-            />
+            android:theme="@style/MVP_AppTheme.ActionBarTheme"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            tools:background="#3FFF" />
 
         <FrameLayout
-            android:fitsSystemWindows="true"
             android:id="@+id/pagerTitleStripContainer"
-            android:layout_marginTop="160dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            tools:background="#3FFF"
-            />
+            android:layout_marginTop="160dp"
+            android:fitsSystemWindows="true"
+            tools:background="#3FFF" />
 
         <FrameLayout
             android:id="@+id/logoContainer"
-            android:fitsSystemWindows="true"
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#BB0"
+            android:fitsSystemWindows="true" />
 
     </RelativeLayout>
 

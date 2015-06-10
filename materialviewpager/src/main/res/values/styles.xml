@@ -1,14 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 
-    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="MVP_AppBaseTheme" parent="@style/Theme.AppCompat.Light">
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="MVP_AppTheme" parent="MVP_AppBaseTheme">
 
         <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="drawerArrowStyle">@style/MVP_DrawerArrowStyle</item>
         <item name="android:windowTranslucentStatus" tools:targetApi="21">true</item>
 
         <item name="android:windowContentOverlay">@null</item>
@@ -16,7 +16,7 @@
 
         <!-- Toolbar Theme / Apply white arrow -->
         <item name="colorControlNormal">@android:color/white</item>
-        <item name="actionBarTheme">@style/AppTheme.ActionBarTheme</item>
+        <item name="actionBarTheme">@style/MVP_AppTheme.ActionBarTheme</item>
 
         <!-- Material Theme -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -29,12 +29,12 @@
 
     </style>
 
-    <style name="AppTheme.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+    <style name="MVP_AppTheme.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <!-- White arrow -->
         <item name="colorControlNormal">@android:color/white</item>
     </style>
 
-    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+    <style name="MVP_DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@color/drawerArrowColor</item>
     </style>

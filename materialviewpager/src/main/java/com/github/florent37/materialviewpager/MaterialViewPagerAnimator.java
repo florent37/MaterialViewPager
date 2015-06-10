@@ -235,7 +235,6 @@ public class MaterialViewPagerAnimator {
                     ViewHelper.setTranslationX(mHeader.mLogo, (mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
                     float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
-
                     setScale(scale, mHeader.mLogo);
                 }
             }

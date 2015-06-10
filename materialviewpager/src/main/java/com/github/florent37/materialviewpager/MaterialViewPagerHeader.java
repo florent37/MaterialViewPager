@@ -91,7 +91,6 @@ public class MaterialViewPagerHeader {
         mLogo.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                finalTitleY = dpToPx(34f, context);
                 originalTitleY = ViewHelper.getY(mLogo);
                 originalTitleX = ViewHelper.getX(mLogo);
 
@@ -100,6 +99,8 @@ public class MaterialViewPagerHeader {
 
                 //the final scale of the logo
                 finalScale = finalTitleHeight / originalTitleHeight ;
+
+                finalTitleY = toolbar.getHeight()/2 - finalTitleHeight/2 - (1-finalScale)*finalTitleHeight;
 
                 //(mLogo.getWidth()/2) *(1-finalScale) is the margin left added by the scale() on the logo
                 //when logo scaledown, the content stay in center, so we have to anually remove the left padding

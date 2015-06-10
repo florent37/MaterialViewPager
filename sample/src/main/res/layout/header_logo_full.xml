@@ -3,7 +3,6 @@
     android:id="@+id/logo_white"
     android:layout_width="200dp"
     android:layout_height="@dimen/materialviewpager_logoHeight"
-    android:fitsSystemWindows="true"
     android:adjustViewBounds="true"
     android:layout_centerHorizontal="true"
     android:src="@android:color/white" />
