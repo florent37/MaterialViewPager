@@ -300,69 +300,45 @@ Create your own layout using a PagerSlidingTabStrip
 
 [![Video](http://share.gifyoutube.com/yABkgW.gif)](http://youtu.be/90gKwEL1j2I )
 
-Simply listen to the ViewPager Page Change and modify the header's **color and image**
+Simply add a listen to the ViewPager
 
 ```java
-//it's a sample ViewPagerAdapter
-mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-
-            int oldPosition = -1;
-
+mViewPager.setMaterialViewPagerListener(new MaterialViewPager.MaterialViewPagerListener() {
             @Override
-            public Fragment getItem(int position) {
-                return RecyclerViewFragment.newInstance();
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return "Tab "+position;
-            }
-
-            //called when the current page has changed
-            @Override
-            public void setPrimaryItem(ViewGroup container, int position, Object object) {
-                super.setPrimaryItem(container, position, object);
-
-                //only if position changed
-                if(position == oldPosition)
-                    return;
-                oldPosition = position;
-
-                int color = 0;
-                String imageUrl = "";
-                switch (position){
+            public HeaderDesign getHeaderDesign(int page) {
+                switch (page) {
                     case 0:
-                        imageUrl = "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg";
-                        color = getResources().getColor(R.color.blue);
-                        break;
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.blue,
+                                "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg");
                     case 1:
-                        imageUrl = "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg";
-                        color = getResources().getColor(R.color.green);
-                        break;
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.green,
+                                "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
                     case 2:
-                        imageUrl = "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg";
-                        color = getResources().getColor(R.color.cyan);
-                        break;
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.cyan,
+                                "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
                     case 3:
-                        imageUrl = "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg";
-                        color = getResources().getColor(R.color.red);
-                        break;
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.red,
+                                "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
                 }
 
-                final int fadeDuration = 400;
+                //execute others actions if needed (ex : modify your header logo)
 
-                //change header's color and image
-                mViewPager.setImageUrl(imageUrl,fadeDuration);
-                mViewPager.setColor(color,fadeDuration);
-
+                return null;
             }
-
         });
+```
+
+Available
+
+```java
+HeaderDesign.fromColorAndUrl(Color.BLUE,"http:...);
+HeaderDesign.fromColorResAndUrl(R.color.blue,"http:...);
+HeaderDesign.fromColorAndDrawable(Color.BLUE,myDrawable);
+HeaderDesign.fromColorResAndDrawable(R.color.blue,myDrawable);
 ```
 
 #Toolbar
@@ -494,6 +470,12 @@ MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
 ```
 
 #CHANGELOG
+
+##1.0.5
+- smoother toolbar scrolling
+- fixed bug with fitSystemWindow
+- added HeaderDesign to modify the header color & image
+- added displayToolbarWhenSwipe attribute
 
 ##1.0.4
 Fixed :

@@ -108,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
                                 R.color.red,
                                 "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
                 }
+
+                //execute others actions if needed (ex : modify your header logo)
+
                 return null;
             }
         });
