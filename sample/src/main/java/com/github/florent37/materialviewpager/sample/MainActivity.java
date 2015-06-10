@@ -5,16 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.HeaderDesign;
 import com.github.florent37.materialviewpager.sample.fragment.RecyclerViewFragment;
 import com.github.florent37.materialviewpager.sample.fragment.ScrollFragment;
-import com.github.florent37.materialviewpager.sample.fragment.WebViewFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,56 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
-            int oldPosition = -1;
-
             @Override
             public Fragment getItem(int position) {
-                 switch (position % 4) {
-                     //case 0:
-                     //    return RecyclerViewFragment.newInstance();
-                     case 1:
-                         return RecyclerViewFragment.newInstance();
-                     //case 2:
-                     //    return WebViewFragment.newInstance();
-                     default:
-                         return ScrollFragment.newInstance();
-                 }
-            }
-
-            @Override
-            public void setPrimaryItem(ViewGroup container, int position, Object object) {
-                super.setPrimaryItem(container, position, object);
-
-                //only if position changed
-                if (position == oldPosition)
-                    return;
-                oldPosition = position;
-
-                int color = 0;
-                String imageUrl = "";
                 switch (position % 4) {
-                    case 0:
-                        imageUrl = "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg";
-                        color = getResources().getColor(R.color.blue);
-                        break;
+                    //case 0:
+                    //    return RecyclerViewFragment.newInstance();
                     case 1:
-                        imageUrl = "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg";
-                        color = getResources().getColor(R.color.green);
-                        break;
-                    case 2:
-                        imageUrl = "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg";
-                        color = getResources().getColor(R.color.cyan);
-                        break;
-                    case 3:
-                        imageUrl = "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg";
-                        color = getResources().getColor(R.color.red);
-                        break;
+                        return RecyclerViewFragment.newInstance();
+                    //case 2:
+                    //    return WebViewFragment.newInstance();
+                    default:
+                        return ScrollFragment.newInstance();
                 }
-
-                final int fadeDuration = 400;
-                mViewPager.setImageUrl(imageUrl, fadeDuration);
-                mViewPager.setColor(color, fadeDuration);
-
             }
 
             @Override
@@ -126,6 +86,32 @@ public class MainActivity extends AppCompatActivity {
                 return "";
             }
         });
+
+        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.MaterialViewPagerListener() {
+            @Override
+            public HeaderDesign getHeaderDesign(int page) {
+                switch (page) {
+                    case 0:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.blue,
+                                "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg");
+                    case 1:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.green,
+                                "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
+                    case 2:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.cyan,
+                                "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
+                    case 3:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.red,
+                                "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
+                }
+                return null;
+            }
+        });
+
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 

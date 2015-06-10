@@ -69,6 +69,8 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
     //Class containing the configuration of the MaterialViewPager
     protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
 
+    protected MaterialViewPagerListener listener;
+
     //region construct
 
     public MaterialViewPager(Context context) {
@@ -97,6 +99,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
     @Override
     protected void onDetachedFromWindow() {
         MaterialViewPagerHelper.unregister(getContext());
+        listener = null;
         super.onDetachedFromWindow();
     }
 
@@ -292,14 +295,43 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
     //region ViewPagerOnPageListener
 
+    int lastPosition = 0;
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        if(positionOffset>=0.5){
+            onPageSelected(position+1);
+        }else if(positionOffset<=-0.5){
+            onPageSelected(position-1);
+        }else{
+            onPageSelected(position);
+        }
     }
 
     @Override
     public void onPageSelected(int position) {
+        if(position == lastPosition || listener == null)
+            return;
 
+        HeaderDesign headerDesign = listener.getHeaderDesign(position);
+        if(headerDesign == null)
+            return;
+
+        int fadeDuration = 400;
+        int color = headerDesign.getColor();
+        if(headerDesign.getColorRes() != 0){
+            color = getContext().getResources().getColor(headerDesign.getColorRes());
+        }
+
+        if(headerDesign.getDrawable() != null){
+            setImageDrawable(headerDesign.getDrawable(), fadeDuration);
+        }else{
+            setImageUrl(headerDesign.getImageUrl(), fadeDuration);
+        }
+
+        setColor(color, fadeDuration);
+
+        lastPosition = position;
     }
 
     @Override
@@ -343,5 +375,13 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
                         return new SavedState[size];
                     }
                 };
+    }
+
+    public void setMaterialViewPagerListener(MaterialViewPagerListener listener){
+        this.listener = listener;
+    }
+
+    public interface MaterialViewPagerListener{
+        HeaderDesign getHeaderDesign(int page);
     }
 }
