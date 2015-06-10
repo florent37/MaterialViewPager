@@ -444,7 +444,7 @@ public class MaterialViewPagerAnimator {
             //only necessary for recyclerview
 
             //listen to scroll
-            recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
                 boolean firstZeroPassed;
 
