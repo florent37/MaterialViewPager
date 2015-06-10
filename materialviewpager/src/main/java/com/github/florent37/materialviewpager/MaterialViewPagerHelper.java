@@ -4,18 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.nineoldandroids.animation.ObjectAnimator;
 
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -32,7 +29,7 @@ public class MaterialViewPagerHelper {
     /**
      * Register an MaterialViewPagerAnimator attached to an activity into the ConcurrentHashMap
      *
-     * @param context the context
+     * @param context  the context
      * @param animator the current MaterialViewPagerAnimator
      */
     public static void register(Context context, MaterialViewPagerAnimator animator) {
@@ -40,7 +37,7 @@ public class MaterialViewPagerHelper {
     }
 
     public static void unregister(Context context) {
-        if(context != null)
+        if (context != null)
             hashMap.remove(context);
     }
 
@@ -108,6 +105,14 @@ public class MaterialViewPagerHelper {
         return hashMap.get(context);
     }
 
+    private static void webViewLoadJS(WebView webView, String js){
+        if (android.os.Build.VERSION.SDK_INT >= 19) {
+            webView.evaluateJavascript(js, null);
+        }else{
+            webView.loadUrl("javascript: " + js);
+        }
+    }
+
     /**
      * Have to be called from WebView.WebViewClient.onPageFinished
      * ex : mWebView.setWebViewClient(new WebViewClient() { onPageFinished(WebView view, String url) { [HERE] }});
@@ -131,19 +136,20 @@ public class MaterialViewPagerHelper {
                 webSettings.setJavaScriptEnabled(true);
                 webSettings.setDomStorageEnabled(true);
 
-                //transparent background
-                webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+                if (android.os.Build.VERSION.SDK_INT >= 11) {
+                    //transparent background
+                    webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+                }
 
                 { //inject margin top
-
                     final int marginTop = animator.getHeaderHeight() + 10;
                     final String js = String.format("document.body.style.marginTop= \"%dpx\"", marginTop);
-                    webView.evaluateJavascript(js, null);
+                    webViewLoadJS(webView, js);
                 }
 
                 {
                     final String js = "document.body.style.backround-color= white";
-                    webView.evaluateJavascript(js, null);
+                    webViewLoadJS(webView,js);
                 }
 
                 if (withAnimation)

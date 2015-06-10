@@ -213,7 +213,7 @@ public class MaterialViewPagerAnimator {
                 //mHeader.mPagerSlidingTabStrip.setTranslationY(mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY());
                 if(scrollTop <= 0){
                     ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, scrollTop);
-                    //ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, scrollTop);
+                    ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, scrollTop);
 
                     //when
                     if (ViewHelper.getY(mHeader.mPagerSlidingTabStrip) < mHeader.getToolbar().getBottom()) {

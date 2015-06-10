@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.sample.fragment.RecyclerViewFragment;
 import com.github.florent37.materialviewpager.sample.fragment.ScrollFragment;
+import com.github.florent37.materialviewpager.sample.fragment.WebViewFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
                      //    return RecyclerViewFragment.newInstance();
                      case 1:
                          return RecyclerViewFragment.newInstance();
-                     //case 2:
-                     //    return WebViewFragment.newInstance();
+                     case 2:
+                         return WebViewFragment.newInstance();
                      default:
                          return ScrollFragment.newInstance();
                  }
