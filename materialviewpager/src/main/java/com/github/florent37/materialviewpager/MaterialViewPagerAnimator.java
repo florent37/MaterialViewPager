@@ -333,7 +333,7 @@ public class MaterialViewPagerAnimator {
             );
         }
 
-        if (this.settings.enableToolbarElevation)
+        if (this.settings.enableToolbarElevation && toolbarJoinsTabs())
             setElevation(
                     (percent == 1) ? elevation : 0,
                     mHeader.toolbar,
@@ -343,8 +343,11 @@ public class MaterialViewPagerAnimator {
             );
     }
 
-    boolean followScrollToolbarIsVisible = false;
+    private boolean toolbarJoinsTabs() {
+        return (mHeader.toolbar.getBottom() == mHeader.mPagerSlidingTabStrip.getTop() + ViewHelper.getTranslationY(mHeader.mPagerSlidingTabStrip));
+    }
 
+    boolean followScrollToolbarIsVisible = false;
     float firstScrollValue = Float.MIN_VALUE;
 
     /**
@@ -352,14 +355,14 @@ public class MaterialViewPagerAnimator {
      * following the current scroll
      */
     private void followScrollToolbarLayout(float yOffset) {
-        if(mHeader.toolbar.getBottom() == 0)
+        if (mHeader.toolbar.getBottom() == 0)
             return;
 
-        if (mHeader.toolbar.getBottom() == mHeader.mPagerSlidingTabStrip.getTop() + ViewHelper.getTranslationY(mHeader.mPagerSlidingTabStrip)) {
-            if(firstScrollValue == Float.MIN_VALUE)
+        if (toolbarJoinsTabs()) {
+            if (firstScrollValue == Float.MIN_VALUE)
                 firstScrollValue = yOffset;
-            ViewHelper.setTranslationY(mHeader.toolbarLayout, firstScrollValue-yOffset);
-        }else{
+            ViewHelper.setTranslationY(mHeader.toolbarLayout, firstScrollValue - yOffset);
+        } else {
             ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
         }
 
