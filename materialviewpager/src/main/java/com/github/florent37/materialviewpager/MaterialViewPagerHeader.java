@@ -1,9 +1,11 @@
 package com.github.florent37.materialviewpager;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 
 import com.nineoldandroids.view.ViewHelper;
 
@@ -84,11 +86,20 @@ public class MaterialViewPagerHeader {
         return this;
     }
 
+    public int getStatusBarHeight(Context context){
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     public MaterialViewPagerHeader withLogo(View logo) {
         this.mLogo = logo;
 
         //when logo get a height, initialise initial & final logo positions
-        mLogo.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+        toolbar.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 originalTitleY = ViewHelper.getY(mLogo);
@@ -98,15 +109,15 @@ public class MaterialViewPagerHeader {
                 finalTitleHeight = dpToPx(21, context);
 
                 //the final scale of the logo
-                finalScale = finalTitleHeight / originalTitleHeight ;
+                finalScale = finalTitleHeight / originalTitleHeight;
 
-                finalTitleY = toolbar.getHeight()/2 - finalTitleHeight/2 - (1-finalScale)*finalTitleHeight;
+                finalTitleY = (toolbar.getPaddingTop() + toolbar.getHeight()) / 2 - finalTitleHeight / 2 - (1 - finalScale) * finalTitleHeight;
 
                 //(mLogo.getWidth()/2) *(1-finalScale) is the margin left added by the scale() on the logo
                 //when logo scaledown, the content stay in center, so we have to anually remove the left padding
-                finalTitleX = dpToPx(52f, context) - (mLogo.getWidth()/2) *(1-finalScale);
+                finalTitleX = dpToPx(52f, context) - (mLogo.getWidth() / 2) * (1 - finalScale);
 
-                mLogo.getViewTreeObserver().removeOnPreDrawListener(this);
+                toolbarLayout.getViewTreeObserver().removeOnPreDrawListener(this);
                 return false;
             }
         });

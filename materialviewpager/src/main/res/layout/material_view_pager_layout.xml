@@ -33,8 +33,7 @@
     <RelativeLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/toolbar_layout_background"
@@ -63,9 +62,8 @@
             android:id="@+id/logoContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="#BB0"
-            android:fitsSystemWindows="true" />
+            android:fitsSystemWindows="true"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
