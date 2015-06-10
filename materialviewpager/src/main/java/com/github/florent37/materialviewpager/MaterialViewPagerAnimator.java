@@ -141,7 +141,7 @@ public class MaterialViewPagerAnimator {
                 if (layoutManager instanceof LinearLayoutManager) {
                     LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
                     linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
-                }else if(layoutManager instanceof StaggeredGridLayoutManager){
+                } else if (layoutManager instanceof StaggeredGridLayoutManager) {
                     StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
                     staggeredGridLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
                 }
@@ -211,7 +211,7 @@ public class MaterialViewPagerAnimator {
 
 
                 //mHeader.mPagerSlidingTabStrip.setTranslationY(mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY());
-                if(scrollTop <= 0){
+                if (scrollTop <= 0) {
                     ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, scrollTop);
                     ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, scrollTop);
 
@@ -255,7 +255,7 @@ public class MaterialViewPagerAnimator {
                         animateEnterToolbarLayout(yOffset);
 
 
-                    } else if (yOffset <= mHeader.toolbarLayout.getHeight()) {
+                    } else {
                         if (headerAnimator != null) {
                             ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
                             followScrollToolbarIsVisible = true;
@@ -345,17 +345,22 @@ public class MaterialViewPagerAnimator {
 
     boolean followScrollToolbarIsVisible = false;
 
+    float firstScrollValue = Float.MIN_VALUE;
+
     /**
      * move the toolbarlayout (containing toolbar & tabs)
      * following the current scroll
      */
     private void followScrollToolbarLayout(float yOffset) {
-        if (headerYOffset == Float.MAX_VALUE)
-            headerYOffset = scrollMax;
+        if(mHeader.toolbar.getBottom() == 0)
+            return;
 
-        float diffOffsetScrollMax = headerYOffset - yOffset;
-        if (diffOffsetScrollMax <= 0) {
-            ViewHelper.setTranslationY(mHeader.toolbarLayout, diffOffsetScrollMax);
+        if (mHeader.toolbar.getBottom() == mHeader.mPagerSlidingTabStrip.getTop() + ViewHelper.getTranslationY(mHeader.mPagerSlidingTabStrip)) {
+            if(firstScrollValue == Float.MIN_VALUE)
+                firstScrollValue = yOffset;
+            ViewHelper.setTranslationY(mHeader.toolbarLayout, firstScrollValue-yOffset);
+        }else{
+            ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
         }
 
         followScrollToolbarIsVisible = (ViewHelper.getY(mHeader.toolbarLayout) >= 0);
@@ -405,8 +410,8 @@ public class MaterialViewPagerAnimator {
         return this.settings.headerHeight;
     }
 
-    protected boolean isNewYOffset(int yOffset){
-        if(lastYOffset == -1)
+    protected boolean isNewYOffset(int yOffset) {
+        if (lastYOffset == -1)
             return true;
         else
             return yOffset != lastYOffset;
@@ -453,7 +458,7 @@ public class MaterialViewPagerAnimator {
                     yOffsets.put(recyclerView, yOffset); //save the new offset
 
                     //first time you get 0, don't share it to others scrolls
-                    if(yOffset == 0 && !firstZeroPassed){
+                    if (yOffset == 0 && !firstZeroPassed) {
                         firstZeroPassed = true;
                         return;
                     }
@@ -496,7 +501,7 @@ public class MaterialViewPagerAnimator {
                         observableScrollViewCallbacks.onScrollChanged(yOffset, b, b2);
 
                     //first time you get 0, don't share it to others scrolls
-                    if(yOffset == 0 && !firstZeroPassed){
+                    if (yOffset == 0 && !firstZeroPassed) {
                         firstZeroPassed = true;
                         return;
                     }
@@ -570,7 +575,7 @@ public class MaterialViewPagerAnimator {
 
     //endregion
 
-    public void restoreScroll(float scroll,MaterialViewPagerSettings settings) {
+    public void restoreScroll(float scroll, MaterialViewPagerSettings settings) {
         this.settings = settings;
         onMaterialScrolled(null, scroll);
     }
