@@ -1,18 +1,18 @@
+apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.library'
-
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.ben-manes.versions'
 
-version = "1.0.4.2"
-
+version = "1.0.4.3"
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.0"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -28,17 +28,17 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile (
-            'com.android.support:appcompat-v7:22.0.0',
-            'com.android.support:support-v4:22.0.0',
-            'com.android.support:recyclerview-v7:22.0.0',
-            'com.android.support:cardview-v7:22.0.0'
+            'com.android.support:appcompat-v7:22.2.0',
+            'com.android.support:support-v4:22.2.0',
+            'com.android.support:recyclerview-v7:22.2.0',
+            'com.android.support:cardview-v7:22.2.0'
     )
 
     compile 'com.nineoldandroids:library:2.4.0'
 
     compile 'com.flaviofaria:kenburnsview:1.0.6'
-    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
-    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+    compile 'com.jpardogo.materialtabstrip:library:1.1.0'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
 
