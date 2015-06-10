@@ -244,26 +244,9 @@ public class MaterialViewPagerAnimator {
                 boolean scrollUp = lastYOffset < yOffset;
 
                 if (scrollUp) {
-                    if (ENABLE_LOG)
-                        Log.d(TAG, "scrollUp");
-                    followScrollToolbarLayout(yOffset);
+                    scrollUp(yOffset);
                 } else {
-                    if (ENABLE_LOG)
-                        Log.d(TAG, "scrollDown");
-                    if (yOffset > mHeader.toolbarLayout.getHeight()) {
-
-                        animateEnterToolbarLayout(yOffset);
-
-
-                    } else {
-                        if (headerAnimator != null) {
-                            ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
-                            followScrollToolbarIsVisible = true;
-                        } else {
-                            headerYOffset = Float.MAX_VALUE;
-                            followScrollToolbarLayout(yOffset);
-                        }
-                    }
+                    scrollDown(yOffset);
                 }
             }
         }
@@ -277,6 +260,30 @@ public class MaterialViewPagerAnimator {
         }
 
         lastYOffset = yOffset;
+    }
+
+    private void scrollUp(float yOffset){
+        if (ENABLE_LOG)
+            Log.d(TAG, "scrollUp");
+        followScrollToolbarLayout(yOffset);
+    }
+
+    private void scrollDown(float yOffset){
+        if (ENABLE_LOG)
+            Log.d(TAG, "scrollDown");
+        if (yOffset > mHeader.toolbarLayout.getHeight()) {
+
+            animateEnterToolbarLayout(yOffset);
+
+        } else {
+            if (headerAnimator != null) {
+                ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
+                followScrollToolbarIsVisible = true;
+            } else {
+                headerYOffset = Float.MAX_VALUE;
+                followScrollToolbarLayout(yOffset);
+            }
+        }
     }
 
     /**
@@ -581,5 +588,9 @@ public class MaterialViewPagerAnimator {
     public void restoreScroll(float scroll, MaterialViewPagerSettings settings) {
         this.settings = settings;
         onMaterialScrolled(null, scroll);
+    }
+
+    public void onViewPagerPageChanged() {
+        scrollDown(lastYOffset);
     }
 }

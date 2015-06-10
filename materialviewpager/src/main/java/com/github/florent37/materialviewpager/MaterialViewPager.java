@@ -26,7 +26,7 @@ import com.nineoldandroids.view.ViewHelper;
  * <p/>
  * Display a preview with header, actual logo and fake cells
  */
-public class MaterialViewPager extends FrameLayout {
+public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageChangeListener {
 
     /**
      * the layout containing the header
@@ -114,6 +114,7 @@ public class MaterialViewPager extends FrameLayout {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
+        mViewPager.addOnPageChangeListener(this);
 
         //inflate subviews defined in attributes
 
@@ -288,6 +289,27 @@ public class MaterialViewPager extends FrameLayout {
     public ViewGroup getHeaderBackgroundContainer() {
         return headerBackgroundContainer;
     }
+
+    //region ViewPagerOnPageListener
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        if(settings.displayToolbarWhenSwipe){
+            MaterialViewPagerHelper.getAnimator(getContext()).onViewPagerPageChanged();
+        }
+    }
+
+    //endregion
 
     static class SavedState extends BaseSavedState {
         public MaterialViewPagerSettings settings;

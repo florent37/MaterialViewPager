@@ -44,6 +44,7 @@ Add MaterialViewPager to your activity's layout
     app:viewpager_enableToolbarElevation="true"
     app:viewpager_parallaxHeaderFactor="1.5"
     app:viewpager_headerAdditionalHeight="20dp"
+    app:viewpager_displayToolbarWhenSwipe="true"
     />
 ```
 

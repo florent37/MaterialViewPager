@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
                      //    return RecyclerViewFragment.newInstance();
                      case 1:
                          return RecyclerViewFragment.newInstance();
-                     case 2:
-                         return WebViewFragment.newInstance();
+                     //case 2:
+                     //    return WebViewFragment.newInstance();
                      default:
                          return ScrollFragment.newInstance();
                  }
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public int getCount() {
-                return 100;
+                return 4;
             }
 
             @Override
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 return "";
             }
         });
-        //mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
         mViewPager.getViewPager().setCurrentItem(1);
