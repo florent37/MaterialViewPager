@@ -16,6 +16,7 @@
         <attr name="viewpager_headerAdditionalHeight" format="dimension"/>
         <attr name="viewpager_displayToolbarWhenSwipe" format="boolean"/>
         <attr name="viewpager_transparentToolbar" format="boolean"/>
+        <attr name="viewpager_animatedHeaderImage" format="boolean"/>
 
     </declare-styleable>
 

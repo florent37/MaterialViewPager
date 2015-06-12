@@ -38,6 +38,7 @@ public class MaterialViewPagerSettings implements Parcelable {
     protected boolean enableToolbarElevation;
     protected boolean displayToolbarWhenSwipe;
     protected boolean toolbarTransparent;
+    protected boolean animatedHeaderImage;
 
     /**
      * Retrieve attributes from the MaterialViewPager
@@ -49,8 +50,6 @@ public class MaterialViewPagerSettings implements Parcelable {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaterialViewPager);
             {
                 headerLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_header, -1);
-                if(headerLayoutId == -1)
-                    headerLayoutId = R.layout.material_view_pager_default_header;
             }
             {
                 pagerTitleStripId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_pagerTitleStrip, -1);
@@ -90,6 +89,9 @@ public class MaterialViewPagerSettings implements Parcelable {
             }
             {
                 toolbarTransparent = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_transparentToolbar, false);
+            }
+            {
+                animatedHeaderImage = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_animatedHeaderImage, true);
             }
             styledAttrs.recycle();
         } catch (Exception e) {
