@@ -286,7 +286,7 @@ public class MaterialViewPagerAnimator {
     private void scrollDown(float yOffset) {
         if (ENABLE_LOG)
             Log.d(TAG, "scrollDown");
-        if (yOffset > mHeader.toolbarLayout.getHeight()) {
+        if (yOffset > mHeader.toolbarLayout.getHeight() * 1.5f) {
             animateEnterToolbarLayout(yOffset);
         } else {
             if (headerAnimator != null) {
