@@ -19,6 +19,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ArgbEvaluator;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.TypeEvaluator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -48,7 +49,7 @@ public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
 
-    private static final Boolean ENABLE_LOG = false;
+    private static final Boolean ENABLE_LOG = true;
 
     private Context context;
 
@@ -87,6 +88,10 @@ public class MaterialViewPagerAnimator {
 
     //the tmp headerAnimator (not null if animating, else null)
     private Object headerAnimator;
+
+    boolean followScrollToolbarIsVisible = false;
+    float firstScrollValue = Float.MIN_VALUE;
+    boolean justToolbarAnimated = false;
 
     public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
@@ -197,11 +202,20 @@ public class MaterialViewPagerAnimator {
         percent = minMax(0, percent, 1);
         {
 
-            {
+            if (!settings.toolbarTransparent) {
                 // change color of toolbar & viewpager indicator &  statusBaground
                 setColorPercent(percent);
-                lastPercent = percent; //save the percent
+            }else{
+                if (justToolbarAnimated){
+                    if(toolbarJoinsTabs())
+                        setColorPercent(1);
+                    else if(lastPercent != percent){
+                        animateColorPercent(0, 200);
+                    }
+                }
             }
+
+            lastPercent = percent; //save the percent
 
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
                 //float newY = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) + scrollTop;
@@ -262,22 +276,20 @@ public class MaterialViewPagerAnimator {
         lastYOffset = yOffset;
     }
 
-    private void scrollUp(float yOffset){
+    private void scrollUp(float yOffset) {
         if (ENABLE_LOG)
             Log.d(TAG, "scrollUp");
+
         followScrollToolbarLayout(yOffset);
     }
 
-    private void scrollDown(float yOffset){
+    private void scrollDown(float yOffset) {
         if (ENABLE_LOG)
             Log.d(TAG, "scrollDown");
         if (yOffset > mHeader.toolbarLayout.getHeight()) {
-
             animateEnterToolbarLayout(yOffset);
-
         } else {
             if (headerAnimator != null) {
-                ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
                 followScrollToolbarIsVisible = true;
             } else {
                 headerYOffset = Float.MAX_VALUE;
@@ -313,6 +325,18 @@ public class MaterialViewPagerAnimator {
         //set the new color as MaterialViewPager's color
         this.settings.color = color;
 
+    }
+
+    public void animateColorPercent(float percent,int duration) {
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(lastPercent,percent);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                setColorPercent((float)animation.getAnimatedValue());
+            }
+        });
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
     }
 
     public void setColorPercent(float percent) {
@@ -354,9 +378,6 @@ public class MaterialViewPagerAnimator {
         return (mHeader.toolbar.getBottom() == mHeader.mPagerSlidingTabStrip.getTop() + ViewHelper.getTranslationY(mHeader.mPagerSlidingTabStrip));
     }
 
-    boolean followScrollToolbarIsVisible = false;
-    float firstScrollValue = Float.MIN_VALUE;
-
     /**
      * move the toolbarlayout (containing toolbar & tabs)
      * following the current scroll
@@ -368,9 +389,16 @@ public class MaterialViewPagerAnimator {
         if (toolbarJoinsTabs()) {
             if (firstScrollValue == Float.MIN_VALUE)
                 firstScrollValue = yOffset;
-            ViewHelper.setTranslationY(mHeader.toolbarLayout, firstScrollValue - yOffset);
+
+            float translationY = firstScrollValue - yOffset;
+
+            if(ENABLE_LOG)
+                Log.d(TAG,"translationY "+translationY);
+
+            ViewHelper.setTranslationY(mHeader.toolbarLayout, translationY);
         } else {
             ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
+            justToolbarAnimated = false;
         }
 
         followScrollToolbarIsVisible = (ViewHelper.getY(mHeader.toolbarLayout) >= 0);
@@ -398,6 +426,8 @@ public class MaterialViewPagerAnimator {
                     public void onAnimationEnd(android.animation.Animator animation) {
                         super.onAnimationEnd(animation);
                         followScrollToolbarIsVisible = true;
+                        firstScrollValue = Float.MIN_VALUE;
+                        justToolbarAnimated = true;
                     }
                 });
                 ((android.animation.ObjectAnimator) headerAnimator).start();
@@ -408,6 +438,8 @@ public class MaterialViewPagerAnimator {
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         followScrollToolbarIsVisible = true;
+                        firstScrollValue = Float.MIN_VALUE;
+                        justToolbarAnimated = true;
                     }
                 });
                 ((ObjectAnimator) headerAnimator).start();

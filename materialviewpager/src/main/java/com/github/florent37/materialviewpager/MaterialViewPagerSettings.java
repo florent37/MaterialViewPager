@@ -37,6 +37,7 @@ public class MaterialViewPagerSettings implements Parcelable {
     protected boolean hideLogoWithFade;
     protected boolean enableToolbarElevation;
     protected boolean displayToolbarWhenSwipe;
+    protected boolean toolbarTransparent;
 
     /**
      * Retrieve attributes from the MaterialViewPager
@@ -86,6 +87,9 @@ public class MaterialViewPagerSettings implements Parcelable {
             }
             {
                 displayToolbarWhenSwipe = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_displayToolbarWhenSwipe, false);
+            }
+            {
+                toolbarTransparent = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_transparentToolbar, false);
             }
             styledAttrs.recycle();
         } catch (Exception e) {
