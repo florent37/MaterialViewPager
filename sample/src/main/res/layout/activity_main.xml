@@ -23,6 +23,7 @@
         app:viewpager_displayToolbarWhenSwipe="true"
         app:viewpager_transparentToolbar="true"
         app:viewpager_animatedHeaderImage="true"
+
         />
 
     <include layout="@layout/drawer" />

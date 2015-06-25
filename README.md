@@ -21,7 +21,7 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.0.5@aar'){
+compile ('com.github.florent37:materialviewpager:1.0.5.2@aar'){
     transitive = true
 }
 ```
@@ -45,6 +45,8 @@ Add MaterialViewPager to your activity's layout
     app:viewpager_parallaxHeaderFactor="1.5"
     app:viewpager_headerAdditionalHeight="20dp"
     app:viewpager_displayToolbarWhenSwipe="true"
+    app:viewpager_transparentToolbar="true"
+    app:viewpager_animatedHeaderImage="true"
     />
 ```
 
@@ -230,6 +232,50 @@ Your logo's layout must
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
         app:viewpager_hideToolbarAndTitle="false"
+        ...
+        />
+```
+
+###Transparent Toolbar
+
+[![Video](http://share.gifyoutube.com/ywbP8k.gif)](https://youtu.be/jUVO2cozQHQ)
+
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_transparentToolbar="true"
+        ...
+        />
+```
+
+##Header Layout
+
+You can replace the header
+
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_header="@layout/myHeader"
+        ...
+        />
+```
+
+###Moving Header
+
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_animatedHeaderImage="true"
+        ...
+        />
+```
+
+###Static Header
+
+```xml
+<com.github.florent37.materialviewpager.MaterialViewPager`
+        ...
+        app:viewpager_animatedHeaderImage="false"
         ...
         />
 ```
@@ -443,33 +489,11 @@ And must include @layout/material_view_pager_placeholder as first child
 </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 ```
 
-##[Killed for less...] WebView
-
-The WebView must be an [ObservableWebView][android-observablescrollview]
-```java
-
-//must be called before loadUrl()
-MaterialViewPagerHelper.preLoadInjectHeader(mWebView);
-
-//have to inject header when WebView page loaded
-mWebView.setWebViewClient(new WebViewClient() {
-    @Override
-    public void onPageFinished(WebView view, String url) {
-        MaterialViewPagerHelper.injectHeader(mWebView, true);
-    }
-    @Override
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        view.loadUrl(url);
-        return true;
-    }
-});
-
-mWebView.loadUrl("http://...");
-
-MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
-```
-
 #CHANGELOG
+
+##1.0.5.2
+- added attribute transparentToolbar
+- added attribute animatedHeaderImage
 
 ##1.0.5
 - smoother toolbar scrolling
