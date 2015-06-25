@@ -262,6 +262,8 @@ You can replace the header
 
 ###Moving Header
 
+Or use the default header, with a KenBurns animation
+
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
         ...
@@ -271,6 +273,8 @@ You can replace the header
 ```
 
 ###Static Header
+
+Or simply use an ImageView as header
 
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager`
