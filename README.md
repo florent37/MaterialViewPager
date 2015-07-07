@@ -21,7 +21,7 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.0.5.2@aar'){
+compile ('com.github.florent37:materialviewpager:1.0.6@aar'){
     transitive = true
 }
 ```
@@ -495,9 +495,11 @@ And must include @layout/material_view_pager_placeholder as first child
 
 #CHANGELOG
 
-##1.0.5.2
+##1.0.6
 - added attribute transparentToolbar
 - added attribute animatedHeaderImage
+- fixed bug when page is too small to scroll
+- modified HeaderDesign implementation
 
 ##1.0.5
 - smoother toolbar scrolling

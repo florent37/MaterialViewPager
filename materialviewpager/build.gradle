@@ -4,7 +4,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.ben-manes.versions'
 
-version = "1.0.5.3"
+version = "1.0.6"
 
 android {
     compileSdkVersion 22
@@ -106,13 +106,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-task jar(type: Jar) {
-    //from android.sourceSets.main.java
-    from 'build/intermediates/classes/release/'
-}
-
 artifacts {
-    archives jar
     archives javadocJar
     archives sourcesJar
 }
