@@ -1,17 +1,11 @@
 package com.github.florent37.materialviewpager;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Build;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.ListView;
-import android.widget.ScrollView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
@@ -142,7 +136,7 @@ public class MaterialViewPagerAnimator {
         //do not re-scroll the source
         if (scroll != null && yOffset >= 0) {
 
-            scrollTo(scroll,yOffset);
+            scrollTo(scroll, yOffset);
 
             //save the current yOffset of the scrollable on the yOffsets hashmap
             yOffsets.put(scroll, (int) yOffset);
@@ -612,7 +606,7 @@ public class MaterialViewPagerAnimator {
         scrollDown(lastYOffset);
 
         View visibleView = getTheVisibileView(scrollViewList);
-        if(!canScroll(visibleView)){
+        if (!canScroll(visibleView)) {
             followScrollToolbarLayout(0);
             onMaterialScrolled(visibleView, 0);
         }

@@ -8,9 +8,34 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 1
+        versionCode 2
         versionName "1.0"
     }
+
+    File signFile = project.file('keyInfos.properties')
+    if (signFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signFile))
+        signingConfigs {
+            release {
+                storeFile file(project.file(properties['keystore.filename']))
+                storePassword properties['keystore.password']
+                keyAlias properties['keystore.alias']
+                keyPassword properties['keystore.password']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+
+            if (signFile.exists())
+                signingConfig signingConfigs.release
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -24,9 +49,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:cardview-v7:22.2.0'
 
-    compile ('com.github.florent37:materialviewpager:1.0.6@aar'){
-        transitive=true
-    }
+    //compile ('com.github.florent37:materialviewpager:1.0.6@aar'){
+    //    transitive=true
+    //}
 
     compile project(':materialviewpager')
 }

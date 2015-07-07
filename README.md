@@ -11,6 +11,10 @@ Material Design ViewPager easy to use library
 
 #Sample
 
+<a href="https://play.google.com/store/apps/details?id=com.github.florent37.materialviewpager.sample">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
+
 You can find a sample APK : [Link](https://github.com/florent37/MaterialViewPager/releases/download/1.0.3/sample-debug.apk)
 
 And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.com/watch?v=r95Tt6AS18c)
