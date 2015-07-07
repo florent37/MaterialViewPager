@@ -1,14 +1,20 @@
 package com.github.florent37.materialviewpager;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.Build;
+import android.graphics.Rect;
 import android.support.v4.view.ViewCompat;
-import android.util.DisplayMetrics;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.nineoldandroids.view.ViewHelper;
+
+import java.util.List;
 
 /**
  * Created by florentchampigny on 24/04/15.
@@ -32,13 +38,13 @@ public class Utils {
     /*
      * Create a color from [$color].RGB and then add an alpha with 255*[$percent]
      */
-    public static int colorWithAlpha(int color, float percent){
+    public static int colorWithAlpha(int color, float percent) {
         int r = Color.red(color);
         int g = Color.green(color);
         int b = Color.blue(color);
-        int alpha = Math.round(percent*255);
+        int alpha = Math.round(percent * 255);
 
-        return Color.argb(alpha,r,g,b);
+        return Color.argb(alpha, r, g, b);
     }
 
     public static float minMax(float min, float value, float max) {
@@ -50,20 +56,22 @@ public class Utils {
 
     /**
      * modify the scale of multiples views
+     *
      * @param scale the new scale
      * @param views
      */
     public static void setScale(float scale, View... views) {
         for (View view : views) {
             if (view != null) {
-                ViewHelper.setScaleX(view,scale);
-                ViewHelper.setScaleY(view,scale);
+                ViewHelper.setScaleX(view, scale);
+                ViewHelper.setScaleY(view, scale);
             }
         }
     }
 
     /**
      * modify the elevation of multiples views
+     *
      * @param elevation the new elevation
      * @param views
      */
@@ -76,6 +84,7 @@ public class Utils {
 
     /**
      * modify the backgroundcolor of multiples views
+     *
      * @param color the new backgroundcolor
      * @param views
      */
@@ -84,5 +93,58 @@ public class Utils {
             if (view != null)
                 view.setBackgroundColor(color);
         }
+    }
+
+    public static boolean canScroll(View view) {
+        if(view instanceof ScrollView) {
+            ScrollView scrollView = (ScrollView)view;
+            View child = scrollView.getChildAt(0);
+            if (child != null) {
+                int childHeight = child.getHeight();
+                return scrollView.getHeight() < childHeight + scrollView.getPaddingTop() + scrollView.getPaddingBottom();
+            }
+            return false;
+        }else if (view instanceof RecyclerView) {
+
+        }
+        return true;
+    }
+
+    public static void scrollTo(Object scroll, float yOffset){
+        if (scroll instanceof RecyclerView) {
+            //RecyclerView.scrollTo : UnsupportedOperationException
+            //Moved to the RecyclerView.LayoutManager.scrollToPositionWithOffset
+            //Have to be instanceOf RecyclerView.LayoutManager to work (so work with RecyclerView.GridLayoutManager)
+            RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
+            if (layoutManager instanceof LinearLayoutManager) {
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
+                linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
+            } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+                StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+                staggeredGridLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
+            }
+        } else if (scroll instanceof ScrollView) {
+            ((ScrollView) scroll).scrollTo(0, (int) yOffset);
+        } else if (scroll instanceof ListView) {
+            ((ListView) scroll).scrollTo(0, (int) yOffset);
+        } else if (scroll instanceof WebView) {
+            ((WebView) scroll).scrollTo(0, (int) yOffset);
+        }
+    }
+
+    public static View getTheVisibileView(List<View> viewList) {
+        Rect scrollBounds = new Rect();
+
+        int listSize = viewList.size();
+        for (int i = 0; i < listSize; ++i) {
+            View view = viewList.get(i);
+            if (view != null) {
+                view.getHitRect(scrollBounds);
+                if (view.getLocalVisibleRect(scrollBounds)) {
+                    return view;
+                }
+            }
+        }
+        return null;
     }
 }

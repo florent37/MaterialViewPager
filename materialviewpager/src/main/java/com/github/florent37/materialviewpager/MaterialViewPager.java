@@ -72,7 +72,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
     //Class containing the configuration of the MaterialViewPager
     protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
 
-    protected MaterialViewPagerListener listener;
+    protected MaterialViewPager.Listener listener;
 
     //region construct
 
@@ -387,11 +387,11 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
                 };
     }
 
-    public void setMaterialViewPagerListener(MaterialViewPagerListener listener) {
+    public void setMaterialViewPagerListener(Listener listener) {
         this.listener = listener;
     }
 
-    public interface MaterialViewPagerListener {
+    public interface Listener {
         HeaderDesign getHeaderDesign(int page);
     }
 }

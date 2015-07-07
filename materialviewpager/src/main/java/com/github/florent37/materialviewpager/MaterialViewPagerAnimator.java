@@ -1,11 +1,13 @@
 package com.github.florent37.materialviewpager;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ListView;
@@ -19,7 +21,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ArgbEvaluator;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.TypeEvaluator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -27,9 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.github.florent37.materialviewpager.Utils.canScroll;
 import static com.github.florent37.materialviewpager.Utils.colorWithAlpha;
 import static com.github.florent37.materialviewpager.Utils.dpToPx;
+import static com.github.florent37.materialviewpager.Utils.getTheVisibileView;
 import static com.github.florent37.materialviewpager.Utils.minMax;
+import static com.github.florent37.materialviewpager.Utils.scrollTo;
 import static com.github.florent37.materialviewpager.Utils.setBackgroundColor;
 import static com.github.florent37.materialviewpager.Utils.setElevation;
 import static com.github.florent37.materialviewpager.Utils.setScale;
@@ -78,7 +82,7 @@ public class MaterialViewPagerAnimator {
     protected MaterialViewPagerSettings settings;
 
     //list of all registered scrollers
-    protected List<Object> scrollViewList = new ArrayList<>();
+    protected List<View> scrollViewList = new ArrayList<>();
 
     //save all yOffsets of scrollables
     protected HashMap<Object, Integer> yOffsets = new HashMap<>();
@@ -138,25 +142,7 @@ public class MaterialViewPagerAnimator {
         //do not re-scroll the source
         if (scroll != null && yOffset >= 0) {
 
-            if (scroll instanceof RecyclerView) {
-                //RecyclerView.scrollTo : UnsupportedOperationException
-                //Moved to the RecyclerView.LayoutManager.scrollToPositionWithOffset
-                //Have to be instanceOf RecyclerView.LayoutManager to work (so work with RecyclerView.GridLayoutManager)
-                RecyclerView.LayoutManager layoutManager = ((RecyclerView) scroll).getLayoutManager();
-                if (layoutManager instanceof LinearLayoutManager) {
-                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-                    linearLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
-                } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-                    StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
-                    staggeredGridLayoutManager.scrollToPositionWithOffset(0, (int) -yOffset);
-                }
-            } else if (scroll instanceof ScrollView) {
-                ((ScrollView) scroll).scrollTo(0, (int) yOffset);
-            } else if (scroll instanceof ListView) {
-                ((ListView) scroll).scrollTo(0, (int) yOffset);
-            } else if (scroll instanceof WebView) {
-                ((WebView) scroll).scrollTo(0, (int) yOffset);
-            }
+            scrollTo(scroll,yOffset);
 
             //save the current yOffset of the scrollable on the yOffsets hashmap
             yOffsets.put(scroll, (int) yOffset);
@@ -205,11 +191,11 @@ public class MaterialViewPagerAnimator {
             if (!settings.toolbarTransparent) {
                 // change color of toolbar & viewpager indicator &  statusBaground
                 setColorPercent(percent);
-            }else{
-                if (justToolbarAnimated){
-                    if(toolbarJoinsTabs())
+            } else {
+                if (justToolbarAnimated) {
+                    if (toolbarJoinsTabs())
                         setColorPercent(1);
-                    else if(lastPercent != percent){
+                    else if (lastPercent != percent) {
                         animateColorPercent(0, 200);
                     }
                 }
@@ -327,12 +313,12 @@ public class MaterialViewPagerAnimator {
 
     }
 
-    public void animateColorPercent(float percent,int duration) {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(lastPercent,percent);
+    public void animateColorPercent(float percent, int duration) {
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(lastPercent, percent);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                setColorPercent((float)animation.getAnimatedValue());
+                setColorPercent((float) animation.getAnimatedValue());
             }
         });
         valueAnimator.setDuration(duration);
@@ -392,8 +378,8 @@ public class MaterialViewPagerAnimator {
 
             float translationY = firstScrollValue - yOffset;
 
-            if(ENABLE_LOG)
-                Log.d(TAG,"translationY "+translationY);
+            if (ENABLE_LOG)
+                Log.d(TAG, "translationY " + translationY);
 
             ViewHelper.setTranslationY(mHeader.toolbarLayout, translationY);
         } else {
@@ -624,5 +610,11 @@ public class MaterialViewPagerAnimator {
 
     public void onViewPagerPageChanged() {
         scrollDown(lastYOffset);
+
+        View visibleView = getTheVisibileView(scrollViewList);
+        if(visibleView instanceof ScrollView && !canScroll(visibleView)){
+            followScrollToolbarLayout(0);
+            onMaterialScrolled(visibleView, 0);
+        }
     }
 }

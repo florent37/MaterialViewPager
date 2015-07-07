@@ -84,4 +84,40 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
                 break;
         }
     }
+
+    public void mvp_notifyDataSetChanged() {
+        mAdapter.notifyDataSetChanged();
+        notifyDataSetChanged();
+    }
+
+    public void mvp_notifyItemChanged(int position) {
+        mAdapter.notifyItemChanged(position-1);
+        notifyItemChanged(position);
+    }
+
+    public void mvp_notifyItemInserted(int position) {
+        mAdapter.notifyItemInserted(position - 1);
+        notifyItemInserted(position);
+    }
+
+    public void mvp_notifyItemRemoved(int position) {
+        mAdapter.notifyItemRemoved(position - 1);
+        notifyItemRemoved(position);
+    }
+
+    public void mpv_notifyItemRangeChanged(int startPosition, int itemCount) {
+        mAdapter.notifyItemRangeChanged(startPosition-1, itemCount-1);
+        notifyItemRangeChanged(startPosition,itemCount);
+    }
+
+    public void mpv_notifyItemRangeInserted(int startPosition, int itemCount) {
+        mAdapter.notifyItemRangeInserted(startPosition - 1, itemCount - 1);
+        notifyItemRangeInserted(startPosition, itemCount);
+    }
+
+    public void mpv_notifyItemRangeRemoved(int startPosition, int itemCount) {
+        mAdapter.notifyItemRangeRemoved(startPosition - 1, itemCount - 1);
+        notifyItemRangeRemoved(startPosition, itemCount);
+    }
+
 }
