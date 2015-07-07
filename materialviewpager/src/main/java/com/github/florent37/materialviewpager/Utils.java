@@ -105,7 +105,9 @@ public class Utils {
             }
             return false;
         }else if (view instanceof RecyclerView) {
-
+            RecyclerView recyclerView = (RecyclerView)view;
+            int yOffset = recyclerView.computeVerticalScrollOffset();
+            return yOffset != 0;
         }
         return true;
     }

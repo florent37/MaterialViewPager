@@ -25,6 +25,8 @@ public class RecyclerViewFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
+    private static final int ITEM_COUNT = 1;
+
     private List<Object> mContentItems = new ArrayList<>();
 
     public static RecyclerViewFragment newInstance() {
@@ -44,7 +46,7 @@ public class RecyclerViewFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        for (int i = 0; i < 100; ++i)
+        for (int i = 0; i < ITEM_COUNT; ++i)
             mContentItems.add(new Object());
 
         mAdapter = new RecyclerViewMaterialAdapter(new TestRecyclerViewAdapter(mContentItems));

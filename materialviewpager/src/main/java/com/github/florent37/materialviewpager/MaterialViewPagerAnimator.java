@@ -612,7 +612,7 @@ public class MaterialViewPagerAnimator {
         scrollDown(lastYOffset);
 
         View visibleView = getTheVisibileView(scrollViewList);
-        if(visibleView instanceof ScrollView && !canScroll(visibleView)){
+        if(!canScroll(visibleView)){
             followScrollToolbarLayout(0);
             onMaterialScrolled(visibleView, 0);
         }
