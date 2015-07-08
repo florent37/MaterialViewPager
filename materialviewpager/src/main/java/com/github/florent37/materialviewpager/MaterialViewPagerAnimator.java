@@ -143,6 +143,8 @@ public class MaterialViewPagerAnimator {
         }
     }
 
+    float initialDistance = -1;
+
     /**
      * Called when a scroller(RecyclerView/ListView,ScrollView,WebView) scrolled by the user
      *
@@ -178,6 +180,13 @@ public class MaterialViewPagerAnimator {
         dispatchScrollOffset(source, minMax(0, yOffset, scrollMaxDp));
 
         float percent = yOffset / scrollMax;
+
+        if(initialDistance == -1)
+            initialDistance = mHeader.mPagerSlidingTabStrip.getTop() - mHeader.toolbar.getBottom();
+
+        float newDistance = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) - mHeader.toolbar.getBottom();
+
+        percent = 1 - newDistance/initialDistance;
 
         percent = minMax(0, percent, 1);
         {
