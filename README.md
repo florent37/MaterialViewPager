@@ -357,7 +357,7 @@ Create your own layout using a PagerSlidingTabStrip
 Simply add a listen to the ViewPager
 
 ```java
-mViewPager.setMaterialViewPagerListener(new MaterialViewPager.MaterialViewPagerListener() {
+mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 switch (page) {
