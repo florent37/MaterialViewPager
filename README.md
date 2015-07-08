@@ -500,6 +500,9 @@ And must include @layout/material_view_pager_placeholder as first child
 #CHANGELOG
 
 ##1.0.6
+- fix bug on low resolutions
+
+##1.0.6
 - added attribute transparentToolbar
 - added attribute animatedHeaderImage
 - fixed bug when page is too small to scroll

@@ -91,6 +91,9 @@ public class MaterialViewPagerAnimator {
     float firstScrollValue = Float.MIN_VALUE;
     boolean justToolbarAnimated = false;
 
+    //intial distance between pager & toolbat
+    float initialDistance = -1;
+
     public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
         this.settings = materialViewPager.settings;
@@ -143,8 +146,6 @@ public class MaterialViewPagerAnimator {
         }
     }
 
-    float initialDistance = -1;
-
     /**
      * Called when a scroller(RecyclerView/ListView,ScrollView,WebView) scrolled by the user
      *
@@ -184,6 +185,7 @@ public class MaterialViewPagerAnimator {
         if(initialDistance == -1)
             initialDistance = mHeader.mPagerSlidingTabStrip.getTop() - mHeader.toolbar.getBottom();
 
+        //distance between pager & toolbar
         float newDistance = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) - mHeader.toolbar.getBottom();
 
         percent = 1 - newDistance/initialDistance;
