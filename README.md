@@ -25,7 +25,7 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.0.6@aar'){
+compile ('com.github.florent37:materialviewpager:1.0.7@aar'){
     transitive = true
 }
 ```
@@ -499,7 +499,7 @@ And must include @layout/material_view_pager_placeholder as first child
 
 #CHANGELOG
 
-##1.0.6
+##1.0.7
 - fix bug on low resolutions
 
 ##1.0.6
