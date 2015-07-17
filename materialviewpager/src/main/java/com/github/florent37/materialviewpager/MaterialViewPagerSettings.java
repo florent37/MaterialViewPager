@@ -39,6 +39,7 @@ public class MaterialViewPagerSettings implements Parcelable {
     protected boolean displayToolbarWhenSwipe;
     protected boolean toolbarTransparent;
     protected boolean animatedHeaderImage;
+    protected boolean disableToolbar;
 
     /**
      * Retrieve attributes from the MaterialViewPager
@@ -75,7 +76,7 @@ public class MaterialViewPagerSettings implements Parcelable {
             }
             {
                 parallaxHeaderFactor = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_parallaxHeaderFactor, 1.5f);
-                parallaxHeaderFactor = Math.max(parallaxHeaderFactor,1); //min=1
+                parallaxHeaderFactor = Math.max(parallaxHeaderFactor, 1); //min=1
             }
             {
                 hideToolbarAndTitle = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideToolbarAndTitle, false);
@@ -92,6 +93,9 @@ public class MaterialViewPagerSettings implements Parcelable {
             }
             {
                 animatedHeaderImage = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_animatedHeaderImage, true);
+            }
+            {
+                disableToolbar = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_disableToolbar, false);
             }
             styledAttrs.recycle();
         } catch (Exception e) {

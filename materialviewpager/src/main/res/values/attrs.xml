@@ -17,6 +17,7 @@
         <attr name="viewpager_displayToolbarWhenSwipe" format="boolean"/>
         <attr name="viewpager_transparentToolbar" format="boolean"/>
         <attr name="viewpager_animatedHeaderImage" format="boolean"/>
+        <attr name="viewpager_disableToolbar" format="boolean"/>
 
     </declare-styleable>
 
