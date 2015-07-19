@@ -4,15 +4,15 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.ben-manes.versions'
 
-version = "1.0.7"
+version = project.MAVEN_VERSION
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 22
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION
+        targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION
         versionCode 1
         versionName "1.0"
     }
@@ -28,11 +28,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile (
-            'com.android.support:appcompat-v7:22.2.0',
-            'com.android.support:support-v4:22.2.0',
-            'com.android.support:recyclerview-v7:22.2.0',
-            'com.android.support:cardview-v7:22.2.0',
-            'com.android.support:support-annotations:22.2.0'
+            'com.android.support:appcompat-v7:'+project.SUPPORT_VERSION,
+            'com.android.support:support-v4:'+project.SUPPORT_VERSION,
+            'com.android.support:recyclerview-v7:'+project.SUPPORT_VERSION,
+            'com.android.support:cardview-v7:'+project.SUPPORT_VERSION,
+            'com.android.support:support-annotations:'+project.SUPPORT_VERSION
     )
 
     compile 'com.nineoldandroids:library:2.4.0'

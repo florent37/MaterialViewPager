@@ -28,4 +28,16 @@
 
     <include layout="@layout/drawer" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
 </android.support.v4.widget.DrawerLayout>

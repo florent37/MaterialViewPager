@@ -47,7 +47,7 @@ public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
 
-    public static Boolean ENABLE_LOG = true;
+    public static Boolean ENABLE_LOG = false;
 
     private Context context;
 

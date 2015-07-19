@@ -20,6 +20,17 @@ buildscript {
     }
 }
 
+ext{
+    ANDROID_BUILD_MIN_SDK_VERSION=10
+    ANDROID_BUILD_TARGET_SDK_VERSION=22
+    ANDROID_BUILD_TOOLS_VERSION='22.0.0'
+    ANDROID_BUILD_SDK_VERSION=22
+
+    SUPPORT_VERSION='22.2.1'
+
+    MAVEN_VERSION='1.0.8'
+}
+
 allprojects {
     repositories {
         jcenter()
