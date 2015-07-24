@@ -303,19 +303,19 @@ public class MaterialViewPagerAnimator {
         colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int colorAlpha = colorWithAlpha((Integer) animation.getAnimatedValue(), lastPercent);
+                final int animatedValue = (Integer) animation.getAnimatedValue();
+                int colorAlpha = colorWithAlpha(animatedValue, lastPercent);
                 mHeader.headerBackground.setBackgroundColor(colorAlpha);
                 mHeader.statusBackground.setBackgroundColor(colorAlpha);
                 mHeader.toolbar.setBackgroundColor(colorAlpha);
                 mHeader.toolbarLayoutBackground.setBackgroundColor(colorAlpha);
                 mHeader.mPagerSlidingTabStrip.setBackgroundColor(colorAlpha);
+
+                //set the new color as MaterialViewPager's color
+                settings.color = animatedValue;
             }
         });
         colorAnim.start();
-
-        //set the new color as MaterialViewPager's color
-        this.settings.color = color;
-
     }
 
     public void animateColorPercent(float percent, int duration) {
