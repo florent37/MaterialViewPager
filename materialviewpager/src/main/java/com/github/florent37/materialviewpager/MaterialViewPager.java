@@ -118,6 +118,8 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         logoContainer = (ViewGroup) findViewById(R.id.logoContainer);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(settings.disableToolbar)
+            mToolbar.setVisibility(GONE);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         mViewPager.addOnPageChangeListener(this);
@@ -223,6 +225,15 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
      */
     public PagerSlidingTabStrip getPagerTitleStrip() {
         return (PagerSlidingTabStrip) pagerTitleStripContainer.findViewById(R.id.materialviewpager_pagerTitleStrip);
+    }
+
+    /**
+     * Retrieve the displayed toolbar
+     *
+     * @return the displayed toolbar
+     */
+    public void setToolbar(Toolbar toolbar) {
+        mToolbar=toolbar;
     }
 
     /**
