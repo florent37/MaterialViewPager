@@ -51,6 +51,8 @@ Add MaterialViewPager to your activity's layout
     app:viewpager_displayToolbarWhenSwipe="true"
     app:viewpager_transparentToolbar="true"
     app:viewpager_animatedHeaderImage="true"
+    app:viewpager_disableToolbar="false"
+
     />
 ```
 
