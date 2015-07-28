@@ -119,7 +119,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if(settings.disableToolbar)
-            mToolbar.setVisibility(GONE);
+            mToolbar.setVisibility(INVISIBLE);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         mViewPager.addOnPageChangeListener(this);

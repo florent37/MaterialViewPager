@@ -499,6 +499,9 @@ And must include @layout/material_view_pager_placeholder as first child
 
 #CHANGELOG
 
+##1.0.8
+- added attribute viewpager_disableToolbar
+
 ##1.0.7
 - fix bug on low resolutions
 

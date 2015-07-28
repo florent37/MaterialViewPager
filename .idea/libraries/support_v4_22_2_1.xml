@@ -1,11 +1,16 @@
 <component name="libraryTable">
   <library name="support-v4-22.2.1">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/materialviewpager/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/annotations.zip!/" />
+    </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/materialviewpager/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/materialviewpager/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/materialviewpager/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/res" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/android/sdk/extras/android/m2repository/com/android/support/support-v4/22.2.1/support-v4-22.2.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
