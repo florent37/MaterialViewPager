@@ -182,7 +182,7 @@ public class MaterialViewPagerAnimator {
 
         float percent = yOffset / scrollMax;
 
-        if(initialDistance == -1)
+        if(initialDistance == -1 || initialDistance == 0)
             initialDistance = mHeader.mPagerSlidingTabStrip.getTop() - mHeader.toolbar.getBottom();
 
         //distance between pager & toolbar
