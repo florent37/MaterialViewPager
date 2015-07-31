@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             logo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mViewPager.notifyHeaderChanged();
                     Toast.makeText(getApplicationContext(), "Yes, the title is clickable", Toast.LENGTH_SHORT).show();
                 }
             });

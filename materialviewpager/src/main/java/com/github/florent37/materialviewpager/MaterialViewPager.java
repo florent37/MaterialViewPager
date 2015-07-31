@@ -327,6 +327,12 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         }
     }
 
+    public void notifyHeaderChanged(){
+        int position = lastPosition;
+        lastPosition = -1;
+        onPageSelected(position);
+    }
+
     @Override
     public void onPageSelected(int position) {
         if (position == lastPosition || listener == null)
