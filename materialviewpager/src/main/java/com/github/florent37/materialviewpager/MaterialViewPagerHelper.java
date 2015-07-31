@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by florentchampigny on 25/04/15.
- * <p/>
+ *
  * MaterialViewPagerHelper attach a MaterialViewPagerAnimator to an activity
  * You can use MaterialViewPagerHelper to retrieve MaterialViewPagerAnimator from context
  * Or register a scrollable to the current activity's MaterialViewPagerAnimator
@@ -165,7 +165,7 @@ public class MaterialViewPagerHelper {
     }
 
     /**
-     * Prepare the webview, set Invisible & transparent background
+     * Prepare the webview, set Invisible and transparent background
      * Must call injectHeader next
      */
     public static void preLoadInjectHeader(WebView mWebView) {

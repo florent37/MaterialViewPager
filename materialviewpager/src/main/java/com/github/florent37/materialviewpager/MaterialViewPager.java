@@ -23,10 +23,10 @@ import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by florentchampigny on 28/04/15.
- * <p/>
+ * 
  * The main class of MaterialViewPager
  * To use in an xml layout with attributes viewpager_*
- * <p/>
+ *
  * Display a preview with header, actual logo and fake cells
  */
 public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageChangeListener {
@@ -229,8 +229,6 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
     /**
      * Retrieve the displayed toolbar
-     *
-     * @return the displayed toolbar
      */
     public void setToolbar(Toolbar toolbar) {
         mToolbar=toolbar;

@@ -34,13 +34,13 @@ import static com.github.florent37.materialviewpager.Utils.setScale;
 
 /**
  * Created by florentchampigny on 24/04/15.
- * <p/>
+ *
  * Listen to Scrollable inside MaterialViewPager
  * When notified scroll, dispatch the current scroll to other scrollable
- * <p/>
+ *
  * Note : didn't want to translate the MaterialViewPager or intercept Scroll,
  * so added a ViewPager with scrollables containing a transparent placeholder on top
- * <p/>
+ *
  * When scroll, animate the MaterialViewPager Header (toolbar, logo, color ...)
  */
 public class MaterialViewPagerAnimator {
