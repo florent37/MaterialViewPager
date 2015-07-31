@@ -154,7 +154,7 @@ public class MaterialViewPagerAnimator {
      * @param source  the scroller
      * @param yOffset the scroller current yOffset
      */
-    public void onMaterialScrolled(Object source, float yOffset) {
+    public boolean onMaterialScrolled(Object source, float yOffset) {
 
         if(initialDistance == -1 || initialDistance == 0) {
             initialDistance = mHeader.mPagerSlidingTabStrip.getTop() - mHeader.toolbar.getBottom();
@@ -162,7 +162,7 @@ public class MaterialViewPagerAnimator {
 
         //only if yOffset changed
         if (yOffset == lastYOffset)
-            return;
+            return false;
 
         float scrollTop = -yOffset;
 
@@ -194,7 +194,7 @@ public class MaterialViewPagerAnimator {
         percent = 1 - newDistance/initialDistance;
 
         if(Float.isNaN(percent)) //fix for orientation change
-            return;
+            return false;
 
         percent = minMax(0, percent, 1);
         {
@@ -271,6 +271,8 @@ public class MaterialViewPagerAnimator {
         }
 
         lastYOffset = yOffset;
+
+        return true;
     }
 
     private void scrollUp(float yOffset) {
@@ -614,10 +616,16 @@ public class MaterialViewPagerAnimator {
 
     //endregion
 
-    public void restoreScroll(final float scroll, MaterialViewPagerSettings settings) {
-        onMaterialScrolled(null, scroll);
-        //this.settings = settings;
-        onMaterialScrolled(null, 0);
+    public void restoreScroll(final float scroll, final MaterialViewPagerSettings settings) {
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!onMaterialScrolled(null, 0)){
+                    restoreScroll(scroll,settings);
+                }
+            }
+        },100);
+
     }
 
     public void onViewPagerPageChanged() {
