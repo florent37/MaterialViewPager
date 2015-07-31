@@ -617,10 +617,11 @@ public class MaterialViewPagerAnimator {
     //endregion
 
     public void restoreScroll(final float scroll, final MaterialViewPagerSettings settings) {
+        //try to scroll up, on a looper to wait until restored
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(!onMaterialScrolled(null, 0)){
+                if(!onMaterialScrolled(null, scroll)){
                     restoreScroll(scroll,settings);
                 }
             }
