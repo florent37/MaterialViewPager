@@ -505,6 +505,7 @@ And must include @layout/material_view_pager_placeholder as first child
 - orientation change fix
 - header image display fix
 - elements on header are now clickable
+- notifyHeaderChanged
 
 ##1.0.8
 - added attribute viewpager_disableToolbar
