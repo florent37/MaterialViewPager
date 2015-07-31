@@ -25,7 +25,7 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.0.8@aar'){
+compile ('com.github.florent37:materialviewpager:1.1.0@aar'){
     transitive = true
 }
 ```
@@ -500,6 +500,10 @@ And must include @layout/material_view_pager_placeholder as first child
 ```
 
 #CHANGELOG
+
+##1.1.0
+- orientation change fix
+- header image display fix
 
 ##1.0.8
 - added attribute viewpager_disableToolbar
