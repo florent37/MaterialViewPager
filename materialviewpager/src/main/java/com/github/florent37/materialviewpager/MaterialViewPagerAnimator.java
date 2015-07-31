@@ -2,6 +2,8 @@ package com.github.florent37.materialviewpager;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -117,7 +119,7 @@ public class MaterialViewPagerAnimator {
      * @param source
      * @param yOffset
      */
-    private void dispatchScrollOffset(Object source, float yOffset) {
+    protected void dispatchScrollOffset(Object source, float yOffset) {
         if (scrollViewList != null) {
             for (Object scroll : scrollViewList) {
 
@@ -154,6 +156,10 @@ public class MaterialViewPagerAnimator {
      */
     public void onMaterialScrolled(Object source, float yOffset) {
 
+        if(initialDistance == -1 || initialDistance == 0) {
+            initialDistance = mHeader.mPagerSlidingTabStrip.getTop() - mHeader.toolbar.getBottom();
+        }
+
         //only if yOffset changed
         if (yOffset == lastYOffset)
             return;
@@ -182,13 +188,13 @@ public class MaterialViewPagerAnimator {
 
         float percent = yOffset / scrollMax;
 
-        if(initialDistance == -1 || initialDistance == 0)
-            initialDistance = mHeader.mPagerSlidingTabStrip.getTop() - mHeader.toolbar.getBottom();
-
         //distance between pager & toolbar
         float newDistance = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) - mHeader.toolbar.getBottom();
 
         percent = 1 - newDistance/initialDistance;
+
+        if(Float.isNaN(percent)) //fix for orientation change
+            return;
 
         percent = minMax(0, percent, 1);
         {
@@ -608,9 +614,10 @@ public class MaterialViewPagerAnimator {
 
     //endregion
 
-    public void restoreScroll(float scroll, MaterialViewPagerSettings settings) {
-        this.settings = settings;
+    public void restoreScroll(final float scroll, MaterialViewPagerSettings settings) {
         onMaterialScrolled(null, scroll);
+        //this.settings = settings;
+        onMaterialScrolled(null, 0);
     }
 
     public void onViewPagerPageChanged() {
