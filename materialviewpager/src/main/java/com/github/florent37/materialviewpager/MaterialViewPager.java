@@ -316,7 +316,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
     //region ViewPagerOnPageListener
 
-    int lastPosition = 0;
+    int lastPosition = -1;
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
