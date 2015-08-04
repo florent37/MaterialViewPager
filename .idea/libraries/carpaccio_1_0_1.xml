@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="carpaccio-1.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/materialviewpagercontroller/build/intermediates/exploded-aar/com.github.florent37/carpaccio/1.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/materialviewpagercontroller/build/intermediates/exploded-aar/com.github.florent37/carpaccio/1.0.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -12,6 +12,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag="materialAdapter(card,R.layout.list_item_card_small)" />
+        android:tag="
+        materialColumns(2);
+        materialAdapter(card,R.layout.list_item_card_small);
+        " />
 
 </com.github.florent37.carpaccio.Carpaccio>

@@ -19,11 +19,11 @@ import static com.github.florent37.carpaccio.controllers.ControllerHelper.getLay
 /**
  * Created by florentchampigny on 04/08/15.
  */
-public class MaterialViewPagerViewController {
+public class ViewController {
 
     protected int recyclerColumnCount = 1;
 
-    public void materialColumn(View view, int number) {
+    public void materialColumns(View view, int number) {
         if (view instanceof RecyclerView) {
             recyclerColumnCount = number;
 
@@ -67,12 +67,19 @@ public class MaterialViewPagerViewController {
 
         @Override
         public int getItemCount() {
-            return super.getItemCount() + mPlaceholderSize;
+            int itemCount = super.getItemCount();
+            if( itemCount > 0)
+                return itemCount+mPlaceholderSize;
+            else
+                return 0;
         }
 
         @Override
         public Object getItemForRow(View view, int position) {
-            return super.getItemForRow(view, position - mPlaceholderSize);
+            if(position > mPlaceholderSize) {
+                return super.getItemForRow(view, position - mPlaceholderSize);
+            }else
+                return null;
         }
 
         @Override

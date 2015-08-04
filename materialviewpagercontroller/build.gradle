@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 version = project.MAVEN_VERSION
 
@@ -24,11 +26,13 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
 
-    compile ('com.github.florent37:carpaccio:0.0.1@aar') {
+    compile ('com.github.florent37:carpaccio:1.0.1@aar') {
         transitive = true
     }
 
-    compile project (":materialviewpager")
+    compile ('com.github.florent37:materialviewpager:+@aar') {
+        transitive = true
+    }
 }
 
 

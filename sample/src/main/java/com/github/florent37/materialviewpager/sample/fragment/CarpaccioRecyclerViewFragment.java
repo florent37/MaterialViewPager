@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class CarpaccioRecyclerViewFragment extends Fragment {
 
-    private static final int ITEM_COUNT = 100;
+    private static int ITEM_COUNT = 0;
     private List<Object> mContentItems = new ArrayList<>();
     Carpaccio carpaccio;
 
