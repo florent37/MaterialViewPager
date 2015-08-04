@@ -29,6 +29,8 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
      */
     public RecyclerViewMaterialAdapter(RecyclerView.Adapter adapter) {
         this.mAdapter = adapter;
+
+        registerAdapterObserver();
     }
 
     /**
@@ -40,6 +42,22 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
     public RecyclerViewMaterialAdapter(RecyclerView.Adapter adapter, int placeholderSize) {
         this.mAdapter = adapter;
         mPlaceholderSize = placeholderSize;
+
+        registerAdapterObserver();
+    }
+
+    protected void registerAdapterObserver() {
+        if(mAdapter != null) {
+            this.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+
+                @Override
+                public void onChanged() {
+                    super.onChanged();
+
+                    mAdapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     @Override

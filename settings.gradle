@@ -1,1 +1,1 @@
-include ':materialviewpager', ':sample'
+include ':materialviewpager', ':sample', ':materialviewpagercontroller'

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="materialimageloading-1.0.1">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/materialviewpagercontroller/build/intermediates/exploded-aar/com.github.florent37/materialimageloading/1.0.1/res" />
+      <root url="jar://$PROJECT_DIR$/materialviewpagercontroller/build/intermediates/exploded-aar/com.github.florent37/materialimageloading/1.0.1/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

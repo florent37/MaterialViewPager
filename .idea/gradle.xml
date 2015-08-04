@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/materialviewpager" />
+            <option value="$PROJECT_DIR$/materialviewpagercontroller" />
             <option value="$PROJECT_DIR$/sample" />
           </set>
         </option>
