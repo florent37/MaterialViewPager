@@ -46,11 +46,14 @@ public class RecyclerViewFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        for (int i = 0; i < ITEM_COUNT; ++i)
-            mContentItems.add(new Object());
-
         mAdapter = new RecyclerViewMaterialAdapter(new TestRecyclerViewAdapter(mContentItems));
         mRecyclerView.setAdapter(mAdapter);
+
+        {
+            for (int i = 0; i < ITEM_COUNT; ++i)
+                mContentItems.add(new Object());
+            mAdapter.notifyDataSetChanged();
+        }
 
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
     }

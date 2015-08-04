@@ -74,4 +74,5 @@ dependencies {
     }
 
     compile project(':materialviewpager')
+    compile project(':materialviewpagercontroller')
 }

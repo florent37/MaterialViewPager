@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
+import com.github.florent37.materialviewpager.sample.fragment.CarpaccioRecyclerViewFragment;
 import com.github.florent37.materialviewpager.sample.fragment.RecyclerViewFragment;
 import com.github.florent37.materialviewpager.sample.fragment.ScrollFragment;
 
@@ -66,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (position % 4) {
                     //case 0:
                     //    return RecyclerViewFragment.newInstance();
-                    case 1:
-                        return RecyclerViewFragment.newInstance();
+                    //case 1:
+                    //    return RecyclerViewFragment.newInstance();
                     //case 2:
                     //    return WebViewFragment.newInstance();
                     default:
-                        return ScrollFragment.newInstance();
+                        return CarpaccioRecyclerViewFragment.newInstance();
                 }
             }
 
