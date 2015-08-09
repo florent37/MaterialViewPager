@@ -259,6 +259,17 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
     }
 
     /**
+     * change the header displayed image with a fade and an OnLoadListener
+     * may remove Picasso
+     */
+    public void setImageUrl(String imageUrl, int fadeDuration, OnImageLoadListener imageLoadListener) {
+        if(imageLoadListener!=null)
+            MaterialViewPagerImageHelper.setImageLoadListener(imageLoadListener);
+        setImageUrl(imageUrl,fadeDuration);
+    }
+
+
+    /**
      * change the header displayed image with a fade
      * may remove Picasso
      */
@@ -409,4 +420,9 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
     public interface Listener {
         HeaderDesign getHeaderDesign(int page);
     }
+
+    public interface OnImageLoadListener {
+    void OnImageLoad(ImageView imageView, Bitmap bitmap);
+    }
+
 }
