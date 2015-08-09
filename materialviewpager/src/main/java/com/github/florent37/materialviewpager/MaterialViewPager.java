@@ -288,6 +288,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
      * Change the header color
      */
     public void setColor(int color, int fadeDuration) {
+	if(MaterialViewPagerHelper.getAnimator(getContext())!=null)
         MaterialViewPagerHelper.getAnimator(getContext()).setColor(color, fadeDuration * 2);
     }
 
