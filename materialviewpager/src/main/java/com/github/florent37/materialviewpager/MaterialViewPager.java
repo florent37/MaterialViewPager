@@ -282,6 +282,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         final View headerImageDarkLayerView = findViewById(R.id.materialviewpager_headerImageDarkLayer);
         //if using MaterialViewPagerImageHeader
         if (headerImageDarkLayerView != null) {
+            headerImageDarkLayerView.setBackgroundColor(getResources().getColor(android.R.color.black));
             ViewHelper.setAlpha(headerImageDarkLayerView, settings.imageHeaderDarkLayerAlpha);
         }
     }
