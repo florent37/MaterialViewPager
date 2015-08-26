@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.florent37.materialviewpager.header.MaterialViewPagerImageHeader
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/materialviewpager_imageHeader"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:adjustViewBounds="true"
-    android:scaleType="centerCrop" />
+    android:layout_height="match_parent">
+    <com.github.florent37.materialviewpager.header.MaterialViewPagerImageHeader
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@id/materialviewpager_imageHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+    <View
+        android:id="@id/materialviewpager_headerImageDarkLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"/>
+</RelativeLayout>

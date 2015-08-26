@@ -254,6 +254,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
             if (headerBackgroundImage != null) {
                 ViewHelper.setAlpha(headerBackgroundImage, settings.headerAlpha);
                 MaterialViewPagerImageHelper.setImageUrl(headerBackgroundImage, imageUrl, fadeDuration);
+                setImageHeaderDarkLayerAlpha();
             }
         }
     }
@@ -280,7 +281,20 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
             if (headerBackgroundImage != null) {
                 ViewHelper.setAlpha(headerBackgroundImage, settings.headerAlpha);
                 MaterialViewPagerImageHelper.setImageDrawable(headerBackgroundImage, drawable, fadeDuration);
+                setImageHeaderDarkLayerAlpha();
             }
+        }
+    }
+
+    /**
+     * Change alpha of the header image dark layer to reveal text.
+     */
+    public void setImageHeaderDarkLayerAlpha() {
+        final View headerImageDarkLayerView = findViewById(R.id.materialviewpager_headerImageDarkLayer);
+        //if using MaterialViewPagerImageHeader
+        if (headerImageDarkLayerView != null) {
+            headerImageDarkLayerView.setBackgroundColor(getResources().getColor(android.R.color.black));
+            ViewHelper.setAlpha(headerImageDarkLayerView, settings.imageHeaderDarkLayerAlpha);
         }
     }
 
