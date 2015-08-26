@@ -2,6 +2,7 @@ package com.github.florent37.materialviewpager;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
@@ -23,10 +24,10 @@ import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by florentchampigny on 28/04/15.
- * 
+ * <p/>
  * The main class of MaterialViewPager
  * To use in an xml layout with attributes viewpager_*
- *
+ * <p/>
  * Display a preview with header, actual logo and fake cells
  */
 public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageChangeListener {
@@ -118,7 +119,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         logoContainer = (ViewGroup) findViewById(R.id.logoContainer);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if(settings.disableToolbar)
+        if (settings.disableToolbar)
             mToolbar.setVisibility(INVISIBLE);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
@@ -231,7 +232,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
      * Retrieve the displayed toolbar
      */
     public void setToolbar(Toolbar toolbar) {
-        mToolbar=toolbar;
+        mToolbar = toolbar;
     }
 
     /**
@@ -264,9 +265,9 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
      * may remove Picasso
      */
     public void setImageUrl(String imageUrl, int fadeDuration, OnImageLoadListener imageLoadListener) {
-        if(imageLoadListener!=null)
+        if (imageLoadListener != null)
             MaterialViewPagerImageHelper.setImageLoadListener(imageLoadListener);
-        setImageUrl(imageUrl,fadeDuration);
+        setImageUrl(imageUrl, fadeDuration);
     }
 
 
@@ -302,8 +303,8 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
      * Change the header color
      */
     public void setColor(int color, int fadeDuration) {
-	if(MaterialViewPagerHelper.getAnimator(getContext())!=null)
-        MaterialViewPagerHelper.getAnimator(getContext()).setColor(color, fadeDuration * 2);
+        if (MaterialViewPagerHelper.getAnimator(getContext()) != null)
+            MaterialViewPagerHelper.getAnimator(getContext()).setColor(color, fadeDuration * 2);
     }
 
     @Override
@@ -353,7 +354,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         }
     }
 
-    public void notifyHeaderChanged(){
+    public void notifyHeaderChanged() {
         int position = lastPosition;
         lastPosition = -1;
         onPageSelected(position);
@@ -437,7 +438,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
     }
 
     public interface OnImageLoadListener {
-    void OnImageLoad(ImageView imageView, Bitmap bitmap);
+        void OnImageLoad(ImageView imageView, Bitmap bitmap);
     }
 
 }
