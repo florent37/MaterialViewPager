@@ -583,7 +583,7 @@ Tell me if you're using my library in your application, I'll share it in this RE
 
 #Credits
 
-Author: Florent Champigny www.florentchampigny.com/
+Author: Florent Champigny [http://www.florentchampigny.com/](http://www.florentchampigny.com/)
 
 <a href="https://plus.google.com/+florentchampigny">
   <img alt="Follow me on Google+"
