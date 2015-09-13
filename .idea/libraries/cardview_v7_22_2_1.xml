@@ -5,6 +5,8 @@
       <root url="jar://$PROJECT_DIR$/materialviewpager/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Library/Android/sdk/extras/android/m2repository/com/android/support/cardview-v7/22.2.1/cardview-v7-22.2.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

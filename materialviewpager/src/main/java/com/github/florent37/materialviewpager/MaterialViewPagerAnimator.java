@@ -204,6 +204,7 @@ public class MaterialViewPagerAnimator {
         if(Float.isNaN(percent)) //fix for orientation change
             return false;
 
+        //fix quick scroll
         if(percent == 0 && headerAnimator != null) {
             cancelHeaderAnimator();
             ViewHelper.setTranslationY(mHeader.toolbarLayout,0);

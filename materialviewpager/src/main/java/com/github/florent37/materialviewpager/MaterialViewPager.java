@@ -46,6 +46,12 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
      */
     private ViewGroup pagerTitleStripContainer;
 
+
+    /**
+     * the layout containing the viewpager, can be replaced to add your own implementation of viewpager
+     */
+    private ViewGroup viewpagerContainer;
+
     /**
      * the layout containing logo
      * default : empty
@@ -116,12 +122,22 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
         headerBackgroundContainer = (ViewGroup) findViewById(R.id.headerBackgroundContainer);
         pagerTitleStripContainer = (ViewGroup) findViewById(R.id.pagerTitleStripContainer);
+        viewpagerContainer = (ViewGroup) findViewById(R.id.viewpager_layout);
         logoContainer = (ViewGroup) findViewById(R.id.logoContainer);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (settings.disableToolbar)
             mToolbar.setVisibility(INVISIBLE);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+
+        { //replace the viewpager ?
+            int viewPagerLayoutId = settings.viewpagerId;
+            if (viewPagerLayoutId != -1) {
+                viewpagerContainer.removeAllViews();
+                viewpagerContainer.addView(LayoutInflater.from(getContext()).inflate(viewPagerLayoutId, viewpagerContainer, false));
+            }
+        }
+
+        mViewPager = (ViewPager) findViewById(R.id.materialviewpager_viewpager);
 
         mViewPager.addOnPageChangeListener(this);
 
@@ -137,6 +153,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
             }
             headerBackgroundContainer.addView(LayoutInflater.from(getContext()).inflate(headerId, headerBackgroundContainer, false));
         }
+
 
         if (isInEditMode()) { //preview titlestrip
             //add fake tabs on edit mode

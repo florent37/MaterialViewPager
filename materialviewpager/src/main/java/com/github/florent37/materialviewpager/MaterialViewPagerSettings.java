@@ -20,6 +20,7 @@ public class MaterialViewPagerSettings implements Parcelable {
 
     protected int headerLayoutId;
     protected int pagerTitleStripId;
+    protected int viewpagerId;
 
     protected int logoLayoutId;
     protected int logoMarginTop;
@@ -57,6 +58,9 @@ public class MaterialViewPagerSettings implements Parcelable {
                 pagerTitleStripId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_pagerTitleStrip, -1);
                 if(pagerTitleStripId == -1)
                     pagerTitleStripId = R.layout.material_view_pager_pagertitlestrip_standard;
+            }
+            {
+                viewpagerId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_viewpager, -1);
             }
             {
                 logoLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_logo, -1);
@@ -118,6 +122,7 @@ public class MaterialViewPagerSettings implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.headerLayoutId);
         dest.writeInt(this.pagerTitleStripId);
+        dest.writeInt(this.viewpagerId);
         dest.writeInt(this.logoLayoutId);
         dest.writeInt(this.logoMarginTop);
         dest.writeInt(this.headerAdditionalHeight);
@@ -138,6 +143,7 @@ public class MaterialViewPagerSettings implements Parcelable {
     private MaterialViewPagerSettings(Parcel in) {
         this.headerLayoutId = in.readInt();
         this.pagerTitleStripId = in.readInt();
+        this.viewpagerId = in.readInt();
         this.logoLayoutId = in.readInt();
         this.logoMarginTop = in.readInt();
         this.headerAdditionalHeight = in.readInt();

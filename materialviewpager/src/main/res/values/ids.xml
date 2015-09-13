@@ -3,4 +3,5 @@
     <item type="id" name="materialviewpager_pagerTitleStrip" />
     <item type="id" name="materialviewpager_imageHeader" />
     <item type="id" name="materialviewpager_headerImageDarkLayer" />
+    <item type="id" name="materialviewpager_viewpager" />
 </resources>

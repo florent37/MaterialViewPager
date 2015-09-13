@@ -28,7 +28,7 @@ ext{
 
     SUPPORT_VERSION='22.2.1'
 
-    MAVEN_VERSION='1.1.1'
+    MAVEN_VERSION='1.1.2'
 }
 
 allprojects {
