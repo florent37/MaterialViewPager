@@ -22,7 +22,7 @@
         app:viewpager_parallaxHeaderFactor="1.5"
         app:viewpager_headerAdditionalHeight="20dp"
         app:viewpager_displayToolbarWhenSwipe="true"
-        app:viewpager_transparentToolbar="true"
+        app:viewpager_transparentToolbar="false"
         app:viewpager_animatedHeaderImage="true"
 
         />

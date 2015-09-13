@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     //case 2:
                     //    return WebViewFragment.newInstance();
                     default:
-                        return CarpaccioRecyclerViewFragment.newInstance();
+                            return RecyclerViewFragment.newInstance();
                 }
             }
 

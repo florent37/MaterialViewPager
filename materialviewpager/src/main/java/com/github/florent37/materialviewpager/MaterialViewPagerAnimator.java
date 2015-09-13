@@ -49,7 +49,7 @@ public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
 
-    public static Boolean ENABLE_LOG = false;
+    public static Boolean ENABLE_LOG = true;
 
     private Context context;
 
@@ -188,13 +188,26 @@ public class MaterialViewPagerAnimator {
 
         float percent = yOffset / scrollMax;
 
-        //distance between pager & toolbar
-        float newDistance = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) - mHeader.toolbar.getBottom();
+        if (ENABLE_LOG)
+            Log.d("percent1", "" + percent);
 
-        percent = 1 - newDistance/initialDistance;
+        if(percent != 0) {
+            //distance between pager & toolbar
+            float newDistance = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) - mHeader.toolbar.getBottom();
+
+            percent = 1 - newDistance / initialDistance;
+
+            if (ENABLE_LOG)
+                Log.d("percent2", "" + percent);
+        }
 
         if(Float.isNaN(percent)) //fix for orientation change
             return false;
+
+        if(percent == 0 && headerAnimator != null) {
+            cancelHeaderAnimator();
+            ViewHelper.setTranslationY(mHeader.toolbarLayout,0);
+        }
 
         percent = minMax(0, percent, 1);
         {
@@ -263,16 +276,22 @@ public class MaterialViewPagerAnimator {
         }
 
         if (headerAnimator != null && percent < 1) {
+            cancelHeaderAnimator();
+        }
+
+        lastYOffset = yOffset;
+
+        return true;
+    }
+
+    private  void cancelHeaderAnimator(){
+        if(headerAnimator != null) {
             if (headerAnimator instanceof ObjectAnimator)
                 ((ObjectAnimator) headerAnimator).cancel();
             else if (headerAnimator instanceof android.animation.ObjectAnimator)
                 ((android.animation.ObjectAnimator) headerAnimator).cancel();
             headerAnimator = null;
         }
-
-        lastYOffset = yOffset;
-
-        return true;
     }
 
     private void scrollUp(float yOffset) {
