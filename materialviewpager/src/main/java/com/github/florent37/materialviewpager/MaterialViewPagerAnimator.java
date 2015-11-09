@@ -410,6 +410,10 @@ public class MaterialViewPagerAnimator {
                 firstScrollValue = yOffset;
 
             float translationY = firstScrollValue - yOffset;
+            
+            if(translationY > 0) {
+                translationY = 0;
+            }
 
             if (ENABLE_LOG)
                 Log.d(TAG, "translationY " + translationY);
