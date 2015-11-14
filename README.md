@@ -337,7 +337,7 @@ Create your own layout using a PagerSlidingTabStrip
     app:pstsIndicatorHeight="2dp"
     app:pstsShouldExpand="true"
     app:pstsTabPaddingLeftRight="10dp"
-    app:pstsTextAllCaps="true"
+    app:pstsTabTextAllCaps="true"
     tools:background="#A333"
      />
 ```
