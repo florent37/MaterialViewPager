@@ -501,6 +501,10 @@ And must include @layout/material_view_pager_placeholder as first child
 
 #CHANGELOG
 
+##1.1.3
+- header is now clickable
+- fixed some scrolling issues
+
 ##1.1.2
 - quick scroll fix
 - can set a custom viewpager with app:viewpager_viewpager (the viewpager id must be id/materialviewpager_viewpager)

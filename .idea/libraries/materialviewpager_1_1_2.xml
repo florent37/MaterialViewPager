@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="materialviewpager-1.1.2">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/materialviewpagercontroller/build/intermediates/exploded-aar/com.github.florent37/materialviewpager/1.1.2/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/materialviewpagercontroller/build/intermediates/exploded-aar/com.github.florent37/materialviewpager/1.1.2/res" />
+      <root url="jar://$PROJECT_DIR$/materialviewpagercontroller/build/intermediates/exploded-aar/com.github.florent37/materialviewpager/1.1.2/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
