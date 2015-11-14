@@ -38,8 +38,7 @@
     <RelativeLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true">
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/toolbar_layout_background"
