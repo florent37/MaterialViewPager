@@ -3,9 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MaterialViewPager.iml" filepath="$PROJECT_DIR$/MaterialViewPager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/materialviewpager/materialviewpager.iml" filepath="$PROJECT_DIR$/materialviewpager/materialviewpager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/materialviewpagercontroller/materialviewpagercontroller.iml" filepath="$PROJECT_DIR$/materialviewpagercontroller/materialviewpagercontroller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
   </component>
 </project>

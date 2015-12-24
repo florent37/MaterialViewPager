@@ -103,6 +103,10 @@ public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
+    public RecyclerView.Adapter getRecyclerAdapter() {
+        return mAdapter;
+    }
+
     public void mvp_notifyDataSetChanged() {
         mAdapter.notifyDataSetChanged();
         notifyDataSetChanged();
