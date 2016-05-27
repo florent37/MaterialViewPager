@@ -10,7 +10,10 @@ import com.github.florent37.materialviewpager.R;
 /**
  * Created by florentchampigny on 24/04/15.
  * A RecyclerView.Adapter which inject a header to the actual RecyclerView.Adapter
+ *
+ * Please use now MaterialViewPagerDecorator, or with Stagged Layout Manager
  */
+@Deprecated
 public class RecyclerViewMaterialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //the constants value of the header view

@@ -3,6 +3,7 @@ package com.github.florent37.materialviewpager;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -11,13 +12,12 @@ import android.webkit.WebView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by florentchampigny on 25/04/15.
- *
+ * <p/>
  * MaterialViewPagerHelper attach a MaterialViewPagerAnimator to an activity
  * You can use MaterialViewPagerHelper to retrieve MaterialViewPagerAnimator from context
  * Or register a scrollable to the current activity's MaterialViewPagerAnimator
@@ -37,8 +37,9 @@ public class MaterialViewPagerHelper {
     }
 
     public static void unregister(Context context) {
-        if (context != null)
+        if (context != null) {
             hashMap.remove(context);
+        }
     }
 
     /**
@@ -46,13 +47,13 @@ public class MaterialViewPagerHelper {
      * Listen to RecyclerView.OnScrollListener so give to $[onScrollListener] your RecyclerView.OnScrollListener if you already use one
      * For loadmore or anything else
      *
-     * @param activity         current context
+     * @param context          current context
      * @param recyclerView     the scrollable
      * @param onScrollListener use it if you want to get a callback of the RecyclerView
      */
-    public static void registerRecyclerView(Activity activity, RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
-        if (activity != null && hashMap.containsKey(activity)) {
-            MaterialViewPagerAnimator animator = hashMap.get(activity);
+    public static void registerRecyclerView(Context context, RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
+        if (context != null && hashMap.containsKey(context)) {
+            MaterialViewPagerAnimator animator = hashMap.get(context);
             if (animator != null) {
                 animator.registerRecyclerView(recyclerView, onScrollListener);
             }
@@ -105,14 +106,6 @@ public class MaterialViewPagerHelper {
         return hashMap.get(context);
     }
 
-    private static void webViewLoadJS(WebView webView, String js){
-        if (android.os.Build.VERSION.SDK_INT >= 19) {
-            webView.evaluateJavascript(js, null);
-        }else{
-            webView.loadUrl("javascript: " + js);
-        }
-    }
-
     /**
      * Have to be called from WebView.WebViewClient.onPageFinished
      * ex : mWebView.setWebViewClient(new WebViewClient() { onPageFinished(WebView view, String url) { [HERE] }});
@@ -149,17 +142,19 @@ public class MaterialViewPagerHelper {
 
                 {
                     final String js = "document.body.style.backround-color= white";
-                    webViewLoadJS(webView,js);
+                    webViewLoadJS(webView, js);
                 }
 
-                if (withAnimation)
+                if (withAnimation) {
                     webView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             webView.setVisibility(View.VISIBLE);
-                            ObjectAnimator.ofFloat(webView, "alpha", 0, 1).start();
+                            ViewCompat.setAlpha(webView, 0f);
+                            ViewCompat.animate(webView).withLayer().alpha(1);
                         }
                     }, 400);
+                }
             }
         }
     }
@@ -171,6 +166,14 @@ public class MaterialViewPagerHelper {
     public static void preLoadInjectHeader(WebView mWebView) {
         mWebView.setBackgroundColor(Color.TRANSPARENT);
         mWebView.setVisibility(View.INVISIBLE);
+    }
+
+    private static void webViewLoadJS(WebView webView, String js) {
+        if (android.os.Build.VERSION.SDK_INT >= 19) {
+            webView.evaluateJavascript(js, null);
+        } else {
+            webView.loadUrl("javascript: " + js);
+        }
     }
 
 }

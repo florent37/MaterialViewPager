@@ -1,18 +1,13 @@
-apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.ben-manes.versions'
 
-version = project.MAVEN_VERSION
-
 android {
-    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion project.sdk
+    buildToolsVersion project.buildTools
 
     defaultConfig {
-        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION
-        targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION
+        minSdkVersion project.minSdk
+        targetSdkVersion project.sdk
         versionCode 1
         versionName "1.0"
     }
@@ -28,110 +23,47 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile (
-            'com.android.support:appcompat-v7:'+project.SUPPORT_VERSION,
-            'com.android.support:support-v4:'+project.SUPPORT_VERSION,
-            'com.android.support:recyclerview-v7:'+project.SUPPORT_VERSION,
-            'com.android.support:cardview-v7:'+project.SUPPORT_VERSION,
-            'com.android.support:support-annotations:'+project.SUPPORT_VERSION
+            'com.android.support:appcompat-v7:'+project.supportVersion,
+            'com.android.support:support-v4:'+project.supportVersion,
+            'com.android.support:recyclerview-v7:'+project.supportVersion,
+            'com.android.support:cardview-v7:'+project.supportVersion,
+            'com.android.support:support-annotations:'+project.supportVersion
     )
 
     compile 'com.nineoldandroids:library:2.4.0'
 
-    compile 'com.flaviofaria:kenburnsview:1.0.6'
+    compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'com.jpardogo.materialtabstrip:library:1.1.0'
-    compile 'com.github.ksoichiro:android-observablescrollview:1.5.2'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'MaterialViewPager'
+    orgName = 'florent37'
 
-//https://github.com/danielemaddaluno/gradle-jcenter-publish
+    publishedGroupId = 'com.github.florent37'
+    libraryName = 'MaterialViewPager'
+    artifact = 'materialviewpager'
 
-// ./gradlew install bintrayUpload
+    libraryDescription = 'MaterialViewPager'
 
+    siteUrl = 'https://github.com/florent37/MaterialViewPager'
+    gitUrl = 'https://github.com/florent37/MaterialViewPager.git'
 
-def siteUrl = 'https://github.com/florent37/MaterialViewPager'      // Homepage URL of the library
-def gitUrl = 'https://github.com/florent37/MaterialViewPager.git'   // Git repository URL
-group = "com.github.florent37"                      // Maven Group ID for the artifact
+    libraryVersion = rootProject.ext.libraryVersion
 
+    developerId = 'florent37'
+    developerName = 'Florent Champigny'
+    developerEmail = 'champigny.florent@gmail.com'
 
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-
-                // Add your description here
-                name 'MaterialViewPager'
-                description = ''
-                url siteUrl
-
-                // Set your license
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'florent37'
-                        name 'Florent Champigny'
-                        email 'champigny.florent@gmail.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-
-                }
-            }
-        }
-    }
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-artifacts {
-    archives sourcesJar
-}
-
-Properties properties = new Properties()
-File f = new File("local.properties")
-if(f.exists()) {
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-}
-
-// https://github.com/bintray/gradle-bintray-plugin
-bintray {
-
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        // it is the name that appears in bintray when logged
-        name = "MaterialViewPager"
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-        version {
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties.getProperty("bintray.gpg.password") //Optional. The passphrase for GPG signing'
-            }
-//            mavenCentralSync {
-//                sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
-//                user = properties.getProperty("bintray.oss.user") //OSS user token
-//                password = properties.getProperty("bintray.oss.password") //OSS user password
-//                close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
-//            }
-        }
-    }
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: rootProject.file('gradle/install-v1.gradle')
+    apply from: rootProject.file('gradle/bintray-android-v1.gradle')
 }

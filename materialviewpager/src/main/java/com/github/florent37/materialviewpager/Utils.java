@@ -12,7 +12,7 @@ import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
-import com.nineoldandroids.view.ViewHelper;
+import android.support.v4.view.ViewCompat;
 
 import java.util.List;
 
@@ -53,7 +53,6 @@ public class Utils {
         return value;
     }
 
-
     /**
      * modify the scale of multiples views
      *
@@ -63,8 +62,8 @@ public class Utils {
     public static void setScale(float scale, View... views) {
         for (View view : views) {
             if (view != null) {
-                ViewHelper.setScaleX(view, scale);
-                ViewHelper.setScaleY(view, scale);
+                ViewCompat.setScaleX(view, scale);
+                ViewCompat.setScaleY(view, scale);
             }
         }
     }
@@ -77,8 +76,9 @@ public class Utils {
      */
     public static void setElevation(float elevation, View... views) {
         for (View view : views) {
-            if (view != null)
+            if (view != null) {
                 ViewCompat.setElevation(view, elevation);
+            }
         }
     }
 
@@ -90,29 +90,30 @@ public class Utils {
      */
     public static void setBackgroundColor(int color, View... views) {
         for (View view : views) {
-            if (view != null)
+            if (view != null) {
                 view.setBackgroundColor(color);
+            }
         }
     }
 
     public static boolean canScroll(View view) {
-        if(view instanceof ScrollView) {
-            ScrollView scrollView = (ScrollView)view;
+        if (view instanceof ScrollView) {
+            ScrollView scrollView = (ScrollView) view;
             View child = scrollView.getChildAt(0);
             if (child != null) {
                 int childHeight = child.getHeight();
                 return scrollView.getHeight() < childHeight + scrollView.getPaddingTop() + scrollView.getPaddingBottom();
             }
             return false;
-        }else if (view instanceof RecyclerView) {
-            RecyclerView recyclerView = (RecyclerView)view;
+        } else if (view instanceof RecyclerView) {
+            RecyclerView recyclerView = (RecyclerView) view;
             int yOffset = recyclerView.computeVerticalScrollOffset();
             return yOffset != 0;
         }
         return true;
     }
 
-    public static void scrollTo(Object scroll, float yOffset){
+    public static void scrollTo(Object scroll, float yOffset) {
         if (scroll instanceof RecyclerView) {
             //RecyclerView.scrollTo : UnsupportedOperationException
             //Moved to the RecyclerView.LayoutManager.scrollToPositionWithOffset

@@ -25,7 +25,7 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.1.3@aar'){
+compile ('com.github.florent37:materialviewpager:1.2.0@aar'){
     transitive = true
 }
 ```
@@ -441,6 +441,15 @@ Sample :
 
 ##RecyclerView
 
+### LinearLayoutManager / GridLayoutManager
+
+```java
+mRecyclerView.setAdapter(new MaterialViewPagerHeaderDecorator());
+mRecyclerView.setAdapter(yourAdapter);
+```
+
+### StaggedLayoutManager
+
 From your fragment
 ```java
 mAdapter = new RecyclerViewMaterialAdapter(new ***Adapter(mList));
@@ -500,6 +509,9 @@ And must include @layout/material_view_pager_placeholder as first child
 ```
 
 #CHANGELOG
+
+##1.2.0
+- header decorator instead of Adapter
 
 ##1.1.3
 - header is now clickable
