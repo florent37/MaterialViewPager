@@ -452,21 +452,9 @@ mRecyclerView.setAdapter(yourAdapter);
 
 From your fragment
 ```java
-mAdapter = new RecyclerViewMaterialAdapter(new ***Adapter(mList));
-mRecyclerView.setAdapter(mAdapter);
-
-MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(yourAdapter));
+MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView);
 ```
-
-###ReyclerView.OnScrollListener
-
-If you already use ReyclerView.OnScrollListener (maybe for load more, or anything else)
-
-```java
-MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, myRecyclerViewOnScrollListener);
-```
-
-So myRecyclerViewOnScrollListener will be still notified
 
 ##ScrollView
 
@@ -583,11 +571,6 @@ Added attributes
 viewpager_headerAlpha="0.6"
 ```
 
-#TODO
-
-- Header image does not load every time
-- **Remove Webviews from Android SDK !!!**
-
 #Community
 
 Looking for contributors, feel free to fork !
@@ -596,7 +579,7 @@ Tell me if you're using my library in your application, I'll share it in this RE
 
 #Dependencies
 
-* [Picasso][picasso] (from Square)
+* [Glide][glide] (from Bumptech)
 * [KenBurnsView][kenburnsview] (from flavioarfaria)
 * [Material PagerSlidingTabStrip][pagerslidingtitlestrip] (from jpardogo, forked from astuetz)
 * [Android-Observablescrollview][android-observablescrollview] (from ksoichiro)
@@ -613,7 +596,7 @@ Author: Florent Champigny [http://www.florentchampigny.com/](http://www.florentc
   <img alt="Follow me on Twitter"
        src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/twitter.png" />
 </a>
-<a href="https://www.linkedin.com/profile/view?id=297860624">
+<a href="https://www.linkedin.com/in/florentchampigny">
   <img alt="Follow me on LinkedIn"
        src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/linkedin.png" />
 </a>
@@ -637,8 +620,7 @@ License
     limitations under the License.
 
 
-[snap]: https://oss.sonatype.org/content/repositories/snapshots/
-[picasso]: https://github.com/square/picasso
+[glide]: https://github.com/bumptech/glide
 [kenburnsview]: https://github.com/flavioarfaria/KenBurnsView
 [pagerslidingtitlestrip]: https://github.com/jpardogo/PagerSlidingTabStrip
 [android-observablescrollview]: https://github.com/ksoichiro/Android-ObservableScrollView

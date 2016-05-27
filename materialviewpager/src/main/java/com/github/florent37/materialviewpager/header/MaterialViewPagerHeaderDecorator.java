@@ -24,7 +24,7 @@ public class MaterialViewPagerHeaderDecorator extends RecyclerView.ItemDecoratio
         final Context context = recyclerView.getContext();
 
         if(!registered) {
-            MaterialViewPagerHelper.registerRecyclerView(context, recyclerView, null);
+            MaterialViewPagerHelper.registerRecyclerView(context, recyclerView);
             registered = true;
         }
 

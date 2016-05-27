@@ -327,9 +327,8 @@ public class MaterialViewPagerAnimator {
      * For loadmore or anything else
      *
      * @param recyclerView     the scrollable
-     * @param onScrollListener use it if you want to get a callback of the RecyclerView
      */
-    public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
+    public void registerRecyclerView(final RecyclerView recyclerView) {
         if (recyclerView != null && !scrollViewList.contains(recyclerView)) {
             scrollViewList.add(recyclerView); //add to the scrollable list
             yOffsets.put(recyclerView, recyclerView.getScrollY()); //save the initial recyclerview's yOffset (0) into hashmap
@@ -341,20 +340,8 @@ public class MaterialViewPagerAnimator {
                 boolean firstZeroPassed;
 
                 @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                    if (onScrollListener != null) {
-                        onScrollListener.onScrollStateChanged(recyclerView, newState);
-                    }
-                }
-
-                @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
-
-                    if (onScrollListener != null) {
-                        onScrollListener.onScrolled(recyclerView, dx, dy);
-                    }
 
                     int yOffset = yOffsets.get(recyclerView);
 

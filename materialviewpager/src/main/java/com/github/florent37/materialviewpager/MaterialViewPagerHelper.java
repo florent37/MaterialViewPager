@@ -51,11 +51,11 @@ public class MaterialViewPagerHelper {
      * @param recyclerView     the scrollable
      * @param onScrollListener use it if you want to get a callback of the RecyclerView
      */
-    public static void registerRecyclerView(Context context, RecyclerView recyclerView, RecyclerView.OnScrollListener onScrollListener) {
+    public static void registerRecyclerView(Context context, RecyclerView recyclerView) {
         if (context != null && hashMap.containsKey(context)) {
             MaterialViewPagerAnimator animator = hashMap.get(context);
             if (animator != null) {
-                animator.registerRecyclerView(recyclerView, onScrollListener);
+                animator.registerRecyclerView(recyclerView);
             }
         }
     }
@@ -69,6 +69,7 @@ public class MaterialViewPagerHelper {
      * @param webView                       the scrollable
      * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
      */
+    @Deprecated
     public static void registerWebView(Activity activity, ObservableWebView webView, ObservableScrollViewCallbacks observableScrollViewCallbacks) {
         if (activity != null && hashMap.containsKey(activity)) {
             MaterialViewPagerAnimator animator = hashMap.get(activity);
@@ -117,6 +118,7 @@ public class MaterialViewPagerHelper {
      * @param webView
      * @param withAnimation if true, disapear with a fadein
      */
+    @Deprecated
     public static void injectHeader(final WebView webView, boolean withAnimation) {
         if (webView != null) {
 
@@ -163,11 +165,13 @@ public class MaterialViewPagerHelper {
      * Prepare the webview, set Invisible and transparent background
      * Must call injectHeader next
      */
+    @Deprecated
     public static void preLoadInjectHeader(WebView mWebView) {
         mWebView.setBackgroundColor(Color.TRANSPARENT);
         mWebView.setVisibility(View.INVISIBLE);
     }
 
+    @Deprecated
     private static void webViewLoadJS(WebView webView, String js) {
         if (android.os.Build.VERSION.SDK_INT >= 19) {
             webView.evaluateJavascript(js, null);
