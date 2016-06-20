@@ -1,4 +1,4 @@
-package com.github.florent37.materialviewpager.controllers;
+package com.github.florent37.materialviewpager;
 
 import android.app.Activity;
 import android.support.v7.widget.GridLayoutManager;
@@ -42,7 +42,7 @@ public class ViewController {
 
             commonViewController.setAdapterForRecyclerView(view, mappedName, layoutName, adapter);
 
-            MaterialViewPagerHelper.registerRecyclerView((Activity) view.getContext(), (RecyclerView) view, null);
+            MaterialViewPagerHelper.registerRecyclerView((Activity) view.getContext(), (RecyclerView) view);
         }
     }
 
