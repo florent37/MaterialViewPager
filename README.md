@@ -443,7 +443,7 @@ Sample :
 ### LinearLayoutManager / GridLayoutManager
 
 ```java
-mRecyclerView.setAdapter(new MaterialViewPagerHeaderDecorator());
+mRecyclerView.setDecorator(new MaterialViewPagerHeaderDecorator());
 mRecyclerView.setAdapter(yourAdapter);
 ```
 
