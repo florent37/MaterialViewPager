@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -20,7 +21,6 @@ import android.widget.RelativeLayout;
 import com.astuetz.PagerSlidingTabStrip;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerImageHelper;
-import android.support.v4.view.ViewCompat;
 
 /**
  * Created by florentchampigny on 28/04/15.
@@ -48,6 +48,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
     protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
     protected MaterialViewPager.Listener listener;
     int lastPosition = -1;
+    int currentPagerState = Integer.MIN_VALUE;
     /**
      * the layout containing the header
      * default : add @layout/material_view_pager_default_header
@@ -230,12 +231,14 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (positionOffset >= 0.5) {
-            onPageSelected(position + 1);
-        } else if (positionOffset <= -0.5) {
-            onPageSelected(position - 1);
-        } else {
-            onPageSelected(position);
+        if (currentPagerState != ViewPager.SCROLL_STATE_SETTLING) {
+            if (positionOffset >= 0.5) {
+                onPageSelected(position + 1);
+            } else if (positionOffset <= -0.5) {
+                onPageSelected(position - 1);
+            } else {
+                onPageSelected(position);
+            }
         }
     }
 
@@ -277,6 +280,7 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        currentPagerState = state;
         if (settings.displayToolbarWhenSwipe) {
             MaterialViewPagerHelper.getAnimator(getContext()).onViewPagerPageChanged();
         }
