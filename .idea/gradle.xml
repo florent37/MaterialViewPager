@@ -9,18 +9,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/materialviewpager" />
-            <option value="$PROJECT_DIR$/materialviewpagercontroller" />
             <option value="$PROJECT_DIR$/sample" />
           </set>
         </option>
-        <option name="myModules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/materialviewpager" />
-            <option value="$PROJECT_DIR$/materialviewpagercontroller" />
-            <option value="$PROJECT_DIR$/sample" />
-          </set>
-        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

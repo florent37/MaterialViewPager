@@ -1,0 +1,5 @@
+deployment:
+  release:
+    tag: /v.*/
+    commands:
+      - ./gradlew :materialviewpager:bintrayUpload

@@ -24,17 +24,12 @@ dependencies {
 
     compile (
             'com.android.support:appcompat-v7:'+project.supportVersion,
-            'com.android.support:support-v4:'+project.supportVersion,
             'com.android.support:recyclerview-v7:'+project.supportVersion,
-            'com.android.support:cardview-v7:'+project.supportVersion,
             'com.android.support:support-annotations:'+project.supportVersion
     )
 
-    compile 'com.nineoldandroids:library:2.4.0'
-
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'com.jpardogo.materialtabstrip:library:1.1.0'
-    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 
@@ -63,7 +58,6 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-if (project.rootProject.file('local.properties').exists()) {
-    apply from: rootProject.file('gradle/install-v1.gradle')
-    apply from: rootProject.file('gradle/bintray-android-v1.gradle')
-}
+
+apply from: rootProject.file('gradle/install-v1.gradle')
+apply from: rootProject.file('gradle/bintray-android-v1.gradle')

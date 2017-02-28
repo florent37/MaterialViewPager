@@ -17,16 +17,19 @@ import com.github.florent37.materialviewpager.sample.TestRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by florentchampigny on 24/04/15.
  */
 public class RecyclerViewFragment extends Fragment {
 
-    static final boolean GRID_LAYOUT = false;
+    private static final boolean GRID_LAYOUT = false;
     private static final int ITEM_COUNT = 100;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private List<Object> mContentItems = new ArrayList<>();
+
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
 
     public static RecyclerViewFragment newInstance() {
         return new RecyclerViewFragment();
@@ -40,30 +43,26 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager layoutManager;
+        ButterKnife.bind(this, view);
+
+        final List<Object> items = new ArrayList<>();
+
+        for (int i = 0; i < ITEM_COUNT; ++i) {
+            items.add(new Object());
+        }
+
+
+        //setup materialviewpager
 
         if (GRID_LAYOUT) {
-            layoutManager = new GridLayoutManager(getActivity(), 2);
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         } else {
-            layoutManager = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
-        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
         //Use this now
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
-
-        mAdapter = new TestRecyclerViewAdapter(mContentItems);
-
-        //mAdapter = new RecyclerViewMaterialAdapter();
-        mRecyclerView.setAdapter(mAdapter);
-
-        {
-            for (int i = 0; i < ITEM_COUNT; ++i) {
-                mContentItems.add(new Object());
-            }
-            mAdapter.notifyDataSetChanged();
-        }
+        mRecyclerView.setAdapter(new TestRecyclerViewAdapter(items));
     }
 }

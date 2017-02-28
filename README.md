@@ -3,6 +3,7 @@ MaterialViewPager
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialViewPager-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1731)
 [![Android Weekly](https://img.shields.io/badge/android--weekly-151-blue.svg)](http://androidweekly.net/issues/issue-151)
+[![CircleCI](https://circleci.com/gh/florent37/MaterialViewPager.svg?style=svg)](https://circleci.com/gh/florent37/MaterialViewPager)
 
 Material Design ViewPager easy to use library
 
@@ -18,15 +19,16 @@ You can find a sample APK : [Link](https://github.com/florent37/MaterialViewPage
 
 And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
-[![Video](http://i.giphy.com/xTiTnmEsdqa7IZaMXS.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
-
 #Download
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.2.0@aar'){
-    transitive = true
-}
+compile 'com.github.florent37:materialviewpager:1.2.1'
+
+//dependencies
+compile 'com.flaviofaria:kenburnsview:1.0.7'
+compile 'com.jpardogo.materialtabstrip:library:1.1.0'
+compile 'com.github.bumptech.glide:glide:3.7.0'
 ```
 
 #Usage
@@ -344,7 +346,7 @@ Create your own layout using a PagerSlidingTabStrip
 **Don't forget to give it id="@id/materialviewpager_pagerTitleStrip"**
 
 ```xml
-<com.github.florent37.materialviewpager.MaterialViewPager`
+<com.github.florent37.materialviewpager.MaterialViewPager
         ...
         app:viewpager_pagerTitleStrip="@layout/my_tabs"
         ...
@@ -423,61 +425,25 @@ viewPage.setAdapter(...);
 mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 ```
 
-#Register your Scrollable
-
-First thing, your fragment view and your scrollable must be **transparent**, so **do not use android:backgound="..."**
-Sample :
-
-```xml
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    />
-```
-
-
-##RecyclerView
-
-### LinearLayoutManager / GridLayoutManager
+#RecyclerView
 
 ```java
 mRecyclerView.setDecorator(new MaterialViewPagerHeaderDecorator());
 mRecyclerView.setAdapter(yourAdapter);
 ```
 
-### StaggedLayoutManager
+#ScrollView
 
-From your fragment
-```java
-mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(yourAdapter));
-MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView);
-```
-
-##ScrollView
-
-The ScrollView must be an [ObservableScrollView][android-observablescrollview]
+The ScrollView must be an NestedScrollView`
 ```java
 MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
 ```
 
-###CallBacks
-If you already use ObservableScrollViewCallbacks (maybe for load more, or anything else)
+And include @layout/material_view_pager_placeholder` as first child
 
-```java
-MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, myObservableScrollViewCallbacks);
-```
-
-So myObservableScrollViewCallbacks will be still notified
-
-###Layout
-
-And must include @layout/material_view_pager_placeholder as first child
 ```xml
-<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -492,7 +458,7 @@ And must include @layout/material_view_pager_placeholder as first child
         ...your content...
 
     </LinearLayout>
-</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+</android.support.v4.widget.NestedScrollView>
 ```
 
 #CHANGELOG
@@ -581,7 +547,6 @@ Tell me if you're using my library in your application, I'll share it in this RE
 * [Glide][glide] (from Bumptech)
 * [KenBurnsView][kenburnsview] (from flavioarfaria)
 * [Material PagerSlidingTabStrip][pagerslidingtitlestrip] (from jpardogo, forked from astuetz)
-* [Android-Observablescrollview][android-observablescrollview] (from ksoichiro)
 
 #Credits
 
@@ -622,4 +587,3 @@ License
 [glide]: https://github.com/bumptech/glide
 [kenburnsview]: https://github.com/flavioarfaria/KenBurnsView
 [pagerslidingtitlestrip]: https://github.com/jpardogo/PagerSlidingTabStrip
-[android-observablescrollview]: https://github.com/ksoichiro/Android-ObservableScrollView

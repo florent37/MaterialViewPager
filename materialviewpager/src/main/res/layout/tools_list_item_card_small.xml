@@ -4,15 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
+    <View
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="2dp"
+        android:elevation="2dp"
+        android:background="@android:color/white"
         android:layout_marginBottom="@dimen/cardMarginVertical"
         android:layout_marginLeft="@dimen/cardMarginHorizontal"
         android:layout_marginRight="@dimen/cardMarginHorizontal"
         android:layout_marginTop="@dimen/cardMarginVertical"
-        app:cardPreventCornerOverlap="false"
-        app:contentPadding="0dp"/>
+        />
 </FrameLayout>

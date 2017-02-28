@@ -21,13 +21,24 @@ artifacts {
     archives sourcesJar
 }
 
+def _user = System.getenv("BINTRAY_USER")
+def _key =  System.getenv("BINTRAY_API_KEY")
+def _passphrase = System.getenv("BINTRAY_PASSPHRASE")
+
+if(project.rootProject.file('local.properties').exists() && (_user == null || _user.isEmpty())){
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    _user = properties.getProperty("bintray.user")
+    _key = properties.getProperty("bintray.apikey");
+    _passphrase = properties.getProperty("bintray.gpg.password")
+}
+
 // Bintray
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
+    user = _user
+    key = _key
 
     configurations = ['archives']
     pkg {
@@ -44,7 +55,7 @@ bintray {
             desc = libraryDescription
             gpg {
                 sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties.getProperty("bintray.gpg.password")
+                passphrase = _passphrase
                 //Optional. The passphrase for GPG signing'
             }
         }

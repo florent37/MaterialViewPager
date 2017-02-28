@@ -17,24 +17,23 @@ import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.github.florent37.materialviewpager.sample.fragment.RecyclerViewFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends DrawerActivity {
 
-    private MaterialViewPager mViewPager;
-    private Toolbar toolbar;
+    @BindView(R.id.materialViewPager)
+    MaterialViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setTitle("");
+        ButterKnife.bind(this);
 
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
-
-        toolbar = mViewPager.getToolbar();
-
+        final Toolbar toolbar = mViewPager.getToolbar();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
@@ -83,11 +82,11 @@ public class MainActivity extends DrawerActivity {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
                             R.color.green,
-                            "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
+                            "http://phandroid.s3.amazonaws.com/wp-content/uploads/2014/06/android_google_moutain_google_now_1920x1080_wallpaper_Wallpaper-HD_2560x1600_www.paperhi.com_-640x400.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
                             R.color.blue,
-                            "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg");
+                            "http://www.hdiphonewallpapers.us/phone-wallpapers/540x960-1/540x960-mobile-wallpapers-hd-2218x5ox3.jpg");
                     case 2:
                         return HeaderDesign.fromColorResAndUrl(
                             R.color.cyan,
@@ -107,7 +106,7 @@ public class MainActivity extends DrawerActivity {
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
-        View logo = findViewById(R.id.logo_white);
+        final View logo = findViewById(R.id.logo_white);
         if (logo != null) {
             logo.setOnClickListener(new View.OnClickListener() {
                 @Override
