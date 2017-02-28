@@ -27,25 +27,25 @@ public class MaterialViewPagerSettings implements Parcelable {
             return new MaterialViewPagerSettings[size];
         }
     };
-    protected int headerLayoutId;
-    protected int pagerTitleStripId;
-    protected int viewpagerId;
-    protected int logoLayoutId;
-    protected int logoMarginTop;
-    protected int headerAdditionalHeight;
-    protected int headerHeight;
-    protected int headerHeightPx;
-    protected int color;
-    protected float headerAlpha;
-    protected float parallaxHeaderFactor;
-    protected float imageHeaderDarkLayerAlpha;
-    protected boolean hideToolbarAndTitle;
-    protected boolean hideLogoWithFade;
-    protected boolean enableToolbarElevation;
-    protected boolean displayToolbarWhenSwipe;
-    protected boolean toolbarTransparent;
-    protected boolean animatedHeaderImage;
-    protected boolean disableToolbar;
+    int headerLayoutId;
+    int pagerTitleStripId;
+    int viewpagerId;
+    int logoLayoutId;
+    int logoMarginTop;
+    int headerAdditionalHeight;
+    int headerHeight;
+    int headerHeightPx;
+    int color;
+    float headerAlpha;
+    float parallaxHeaderFactor;
+    float imageHeaderDarkLayerAlpha;
+    boolean hideToolbarAndTitle;
+    boolean hideLogoWithFade;
+    boolean enableToolbarElevation;
+    boolean displayToolbarWhenSwipe;
+    boolean toolbarTransparent;
+    boolean animatedHeaderImage;
+    boolean disableToolbar;
 
     //region parcelable
 
@@ -100,7 +100,7 @@ public class MaterialViewPagerSettings implements Parcelable {
      * @param context
      * @param attrs
      */
-    protected void handleAttributes(Context context, AttributeSet attrs) {
+    void handleAttributes(Context context, AttributeSet attrs) {
         try {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaterialViewPager);
             {

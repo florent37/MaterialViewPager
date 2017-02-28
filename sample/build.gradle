@@ -45,9 +45,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:'+project.supportVersion
     compile 'com.android.support:cardview-v7:'+project.supportVersion
+
+    compile 'com.jakewharton:butterknife:8.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.1.0'
 
     //compile ('com.github.florent37:materialviewpager:1.0.6@aar'){
     //    transitive=true
@@ -58,5 +60,4 @@ dependencies {
     }
 
     compile project(':materialviewpager')
-    compile project(':materialviewpagercontroller')
 }
