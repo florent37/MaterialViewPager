@@ -323,7 +323,9 @@ public class MaterialViewPagerAnimator {
                     super.onScrolled(recyclerView, dx, dy);
 
                     int yOffset = yOffsets.get(recyclerView);
-
+                    if(yOffset < 0) {
+                        yOffset = 0;
+                    }
                     yOffset += dy;
                     yOffsets.put(recyclerView, yOffset); //save the new offset
 
