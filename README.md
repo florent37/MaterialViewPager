@@ -9,7 +9,7 @@ Material Design ViewPager easy to use library
 
 [![Build screen](https://raw.githubusercontent.com/florent37/MaterialViewPager/master/screenshots/screenshot_2_small.png)](http://youtu.be/g6tTDVceM9E)
 
-#Sample
+# Sample
 
 <a href="https://play.google.com/store/apps/details?id=com.github.florent37.materialviewpager.sample">
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
@@ -19,7 +19,7 @@ You can find a sample APK : [Link](https://github.com/florent37/MaterialViewPage
 
 And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
-#Download
+# Download
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
@@ -31,7 +31,7 @@ compile 'com.jpardogo.materialtabstrip:library:1.1.0'
 compile 'com.github.bumptech.glide:glide:3.7.0'
 ```
 
-#Usage
+# Usage
 
 Add MaterialViewPager to your activity's layout
 ```xml
@@ -114,7 +114,7 @@ To get a beautiful screen and enable preview, you theme may follow
 </style>
 ```
 
-#Retrieve the MaterialViewPager
+# Retrieve the MaterialViewPager
 
 You can use MaterialViewPager as an usual Android View, and get it by findViewById
 
@@ -133,7 +133,7 @@ public class MainActivity extends ActionBarActivity {
 }
 ```
 
-#Customisation
+# Customisation
 
 First choose your color and height
 ```xml
@@ -148,7 +148,7 @@ First choose your color and height
         />
 ```
 
-##Set your logo
+## Set your logo
 
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager
@@ -159,7 +159,7 @@ First choose your color and height
         />
 ```
 
-###Titlebar Logo
+### Titlebar Logo
 
 [![Video](http://share.gifyoutube.com/ygbqnA.gif)](http://youtu.be/82gvoUqXb_I)
 
@@ -187,7 +187,7 @@ Your logo's layout must
 
 ```
 
-###Fading Logo
+### Fading Logo
 
 [![Video](http://share.gifyoutube.com/KYb0D4.gif)](http://youtu.be/9laniARQdqg)
 
@@ -217,9 +217,9 @@ Your logo's layout must
         />
 ```
 
-##Toolbar Animation
+## Toolbar Animation
 
-##Hide Logo and Toolbar
+## Hide Logo and Toolbar
 
 [![Video](http://share.gifyoutube.com/y5V8JX.gif)](http://youtu.be/3ElFoqVKxag)
 
@@ -231,7 +231,7 @@ Your logo's layout must
         />
 ```
 
-###Sticky Toolbar
+### Sticky Toolbar
 
 [![Video](http://share.gifyoutube.com/yo2oJn.gif)](http://youtu.be/3ElFoqVKxag)
 
@@ -243,7 +243,7 @@ Your logo's layout must
         />
 ```
 
-###Transparent Toolbar
+### Transparent Toolbar
 
 [![Video](http://share.gifyoutube.com/ywbP8k.gif)](https://youtu.be/jUVO2cozQHQ)
 
@@ -255,7 +255,7 @@ Your logo's layout must
         />
 ```
 
-##Header Layout
+## Header Layout
 
 You can replace the header
 
@@ -267,7 +267,7 @@ You can replace the header
         />
 ```
 
-###Moving Header
+### Moving Header
 
 Or use the default header, with a KenBurns animation
 
@@ -279,7 +279,7 @@ Or use the default header, with a KenBurns animation
         />
 ```
 
-###Static Header
+### Static Header
 
 Or simply use an ImageView as header
 
@@ -291,11 +291,11 @@ Or simply use an ImageView as header
         />
 ```
 
-##Custom Tab Bar
+## Custom Tab Bar
 
 You can set you own tab bar, by default I provided 2 implementations
 
-###Standard
+### Standard
 
 [![Video](http://share.gifyoutube.com/KdnoZX.gif)](http://youtu.be/VRinfxgewNE)
 
@@ -307,7 +307,7 @@ You can set you own tab bar, by default I provided 2 implementations
         />
 ```
 
-###News Stand
+### News Stand
 
 [![Video](http://share.gifyoutube.com/KeboLp.gif)](http://youtu.be/MBzK2s7HU1A)
 
@@ -319,7 +319,7 @@ You can set you own tab bar, by default I provided 2 implementations
         />
 ```
 
-###Or create your own tab bar
+### Or create your own tab bar
 
 Create your own layout using a PagerSlidingTabStrip
 
@@ -353,7 +353,7 @@ Create your own layout using a PagerSlidingTabStrip
         />
 ```
 
-#Animate Header
+# Animate Header
 
 [![Video](http://share.gifyoutube.com/yABkgW.gif)](http://youtu.be/90gKwEL1j2I )
 
@@ -398,7 +398,7 @@ HeaderDesign.fromColorAndDrawable(Color.BLUE,myDrawable);
 HeaderDesign.fromColorResAndDrawable(R.color.blue,myDrawable);
 ```
 
-#Toolbar
+# Toolbar
 
 ```java
 Toolbar toolbar = mViewPager.getToolbar();
@@ -415,7 +415,7 @@ if (toolbar != null) {
 }
 ```
 
-#ViewPager
+# ViewPager
 
 ```java
 ViewPager viewPager = mViewPager.getViewPager();
@@ -425,14 +425,14 @@ viewPage.setAdapter(...);
 mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 ```
 
-#RecyclerView
+# RecyclerView
 
 ```java
 mRecyclerView.setDecorator(new MaterialViewPagerHeaderDecorator());
 mRecyclerView.setAdapter(yourAdapter);
 ```
 
-#ScrollView
+# ScrollView
 
 The ScrollView must be an NestedScrollView`
 ```java
@@ -461,44 +461,44 @@ And include @layout/material_view_pager_placeholder` as first child
 </android.support.v4.widget.NestedScrollView>
 ```
 
-#CHANGELOG
+# CHANGELOG
 
-##1.2.0
+## 1.2.0
 - header decorator instead of Adapter
 
-##1.1.3
+## 1.1.3
 - header is now clickable
 - fixed some scrolling issues
 
-##1.1.2
+## 1.1.2
 - quick scroll fix
 - can set a custom viewpager with app:viewpager_viewpager (the viewpager id must be id/materialviewpager_viewpager)
 
-##1.1.0
+## 1.1.0
 - orientation change fix
 - header image display fix
 - elements on header are now clickable
 - notifyHeaderChanged
 
-##1.0.8
+## 1.0.8
 - added attribute viewpager_disableToolbar
 
-##1.0.7
+## 1.0.7
 - fix bug on low resolutions
 
-##1.0.6
+## 1.0.6
 - added attribute transparentToolbar
 - added attribute animatedHeaderImage
 - fixed bug when page is too small to scroll
 - modified HeaderDesign implementation
 
-##1.0.5
+## 1.0.5
 - smoother toolbar scrolling
 - fixed bug with fitSystemWindow
 - added HeaderDesign to modify the header color & image
 - added displayToolbarWhenSwipe attribute
 
-##1.0.4
+## 1.0.4
 Fixed :
 
 - Orientation changed
@@ -506,7 +506,7 @@ Fixed :
 - Android >2.3 with NineOldAndroid
 - Removed ListView usage
 
-##1.0.3
+## 1.0.3
 
 Fixed :  Rapid scrolling results in varying Toolbar height
 
@@ -515,7 +515,7 @@ RecyclerViewMaterialAdapter can handle a custom placeholder cells count (usefull
 public RecyclerViewMaterialAdapter(RecyclerView.Adapter adapter, int placeholderSize)
 ```
 
-##1.0.2
+## 1.0.2
 
 Added attributes
 ```java
@@ -529,26 +529,26 @@ app:viewpager_headerAdditionalHeight="20dp"
 Fixed issue when scroll down & scroll up multiples time while hideToolbarAndTitle="true"
 
 
-##1.0.1
+## 1.0.1
 
 Added attributes
 ```java
 viewpager_headerAlpha="0.6"
 ```
 
-#Community
+# Community
 
 Looking for contributors, feel free to fork !
 
 Tell me if you're using my library in your application, I'll share it in this README
 
-#Dependencies
+# Dependencies
 
 * [Glide][glide] (from Bumptech)
 * [KenBurnsView][kenburnsview] (from flavioarfaria)
 * [Material PagerSlidingTabStrip][pagerslidingtitlestrip] (from jpardogo, forked from astuetz)
 
-#Credits
+# Credits
 
 Author: Florent Champigny [http://www.florentchampigny.com/](http://www.florentchampigny.com/)
 
