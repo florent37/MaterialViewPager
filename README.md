@@ -428,7 +428,7 @@ mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 # RecyclerView
 
 ```java
-mRecyclerView.setDecorator(new MaterialViewPagerHeaderDecorator());
+mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
 mRecyclerView.setAdapter(yourAdapter);
 ```
 
