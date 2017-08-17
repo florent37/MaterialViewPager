@@ -14,6 +14,7 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:+'
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -32,5 +33,6 @@ allprojects {
         jcenter()
         maven { url "http://dl.bintray.com/florent37/maven" }
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://maven.google.com" }
     }
 }
