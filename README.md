@@ -25,12 +25,12 @@ And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.co
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile 'com.github.florent37:materialviewpager:1.2.1'
+compile 'com.github.florent37:materialviewpager:1.2.3'
 
 //dependencies
 compile 'com.flaviofaria:kenburnsview:1.0.7'
 compile 'com.jpardogo.materialtabstrip:library:1.1.0'
-compile 'com.github.bumptech.glide:glide:3.7.0'
+compile 'com.github.bumptech.glide:glide:4.0.0'
 ```
 
 # Usage
