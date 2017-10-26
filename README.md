@@ -7,6 +7,10 @@ MaterialViewPager
 
 Material Design ViewPager easy to use library
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/iqkQGAc2EFNdScAzpwZr1Sdy/florent37/MaterialViewPager'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/iqkQGAc2EFNdScAzpwZr1Sdy/florent37/MaterialViewPager.svg' />
+</a>
+
 [![Build screen](https://raw.githubusercontent.com/florent37/MaterialViewPager/master/screenshots/screenshot_2_small.png)](http://youtu.be/g6tTDVceM9E)
 
 # Sample
