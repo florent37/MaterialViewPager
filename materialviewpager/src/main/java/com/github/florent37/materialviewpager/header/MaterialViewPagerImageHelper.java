@@ -2,6 +2,7 @@ package com.github.florent37.materialviewpager.header;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
@@ -17,6 +18,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.github.florent37.materialviewpager.MaterialViewPager;
+
+import android.os.Handler;
 
 /**
  * Created by florentchampigny on 12/06/15.
@@ -53,10 +56,16 @@ public class MaterialViewPagerImageHelper {
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             //then fade to alpha=1
-                            fadeIn(viewToAnimate, alpha, fadeDuration, new ViewPropertyAnimatorListenerAdapter());
-                            if (imageLoadListener != null) {
-                                imageLoadListener.OnImageLoad(imageView, ((BitmapDrawable) imageView.getDrawable()).getBitmap());
-                            }
+                            new Handler(Looper.getMainLooper()) {}.post(new Runnable(){
+                               @Override
+                                public void run(){
+                                   fadeIn(viewToAnimate, alpha, fadeDuration, new ViewPropertyAnimatorListenerAdapter());
+                                   if (imageLoadListener != null) {
+                                       imageLoadListener.OnImageLoad(imageView, ((BitmapDrawable) imageView.getDrawable()).getBitmap());
+                                   }
+                               }
+                            });
+
                             return false;
                         }
                     })

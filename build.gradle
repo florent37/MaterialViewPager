@@ -4,11 +4,12 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        google()
         maven { url "http://dl.bintray.com/jfrog/jfrog-jars" }
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
@@ -21,9 +22,9 @@ buildscript {
 
 ext {
     minSdk = 14
-    sdk = 24
-    buildTools = "24.0.2"
-    supportVersion = "24.0.0"
+    sdk = 27
+    buildTools = "26.0.2"
+    supportVersion = "27.1.0"
     libraryVersion = '1.2.3'
 }
 
@@ -32,5 +33,7 @@ allprojects {
         jcenter()
         maven { url "http://dl.bintray.com/florent37/maven" }
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://maven.google.com" }
+        google()
     }
 }
