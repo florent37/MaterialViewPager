@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.github.florent37.materialviewpager.GlideImageLoadFailedCallback;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 
 import android.os.Handler;
@@ -27,6 +28,7 @@ import android.os.Handler;
 public class MaterialViewPagerImageHelper {
 
     private static MaterialViewPager.OnImageLoadListener imageLoadListener;
+    private static GlideImageLoadFailedCallback glideImageLoadFailedCallback;
 
     /**
      * change the image with a fade
@@ -50,6 +52,7 @@ public class MaterialViewPagerImageHelper {
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            if(glideImageLoadFailedCallback !=null) return glideImageLoadFailedCallback.onLoadFailed(e,model,target,isFirstResource);
                             return false;
                         }
 
@@ -116,6 +119,10 @@ public class MaterialViewPagerImageHelper {
                 fadeIn(viewToAnimate, alpha, fadeDuration, new ViewPropertyAnimatorListenerAdapter());
             }
         });
+    }
+
+    public static void setGlideImageLoadFailedCallback(GlideImageLoadFailedCallback glideImageLoadFailedCallback) {
+        MaterialViewPagerImageHelper.glideImageLoadFailedCallback = glideImageLoadFailedCallback;
     }
 
     public static void setImageLoadListener(MaterialViewPager.OnImageLoadListener imageLoadListener) {

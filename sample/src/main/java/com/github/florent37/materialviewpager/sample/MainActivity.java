@@ -1,6 +1,8 @@
 package com.github.florent37.materialviewpager.sample;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.target.Target;
 import com.crashlytics.android.Crashlytics;
+import com.github.florent37.materialviewpager.GlideImageLoadFailedCallback;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.github.florent37.materialviewpager.sample.fragment.RecyclerViewFragment;
@@ -37,6 +42,15 @@ public class MainActivity extends DrawerActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+
+        mViewPager.setGlideImageLoadFailedCallback(new GlideImageLoadFailedCallback() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                //do something!
+                int position = mViewPager.getLastPosition();
+                return false;
+            }
+        });
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
@@ -81,20 +95,20 @@ public class MainActivity extends DrawerActivity {
                 switch (page) {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
-                            R.color.green,
-                            "http://phandroid.s3.amazonaws.com/wp-content/uploads/2014/06/android_google_moutain_google_now_1920x1080_wallpaper_Wallpaper-HD_2560x1600_www.paperhi.com_-640x400.jpg");
+                                R.color.green,
+                                "http://phandroid.s3.amazonaws.com/wp-content/uploads/2014/06/android_google_moutain_google_now_1920x1080_wallpaper_Wallpaper-HD_2560x1600_www.paperhi.com_-640x400.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
-                            R.color.blue,
-                            "http://www.hdiphonewallpapers.us/phone-wallpapers/540x960-1/540x960-mobile-wallpapers-hd-2218x5ox3.jpg");
+                                R.color.blue,
+                                "http://www.hdiphonewallpapers.us/phone-wallpapers/540x960-1/540x960-mobile-wallpapers-hd-2218x5ox3.jpg");
                     case 2:
                         return HeaderDesign.fromColorResAndUrl(
-                            R.color.cyan,
-                            "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
+                                R.color.cyan,
+                                "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
                     case 3:
                         return HeaderDesign.fromColorResAndUrl(
-                            R.color.red,
-                            "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
+                                R.color.red,
+                                "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
                 }
 
                 //execute others actions if needed (ex : modify your header logo)
