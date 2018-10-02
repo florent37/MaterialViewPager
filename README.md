@@ -556,7 +556,7 @@ Tell me if you're using my library in your application, I'll share it in this RE
 
 Author: Florent Champigny [http://www.florentchampigny.com/](http://www.florentchampigny.com/)
 
-Blog : [http://www.tutos-android-france.com/](http://www.www.tutos-android-france.com/)
+Blog : [http://www.tutos-android-france.com/](http://www.tutos-android-france.com/)
 
 Fiches Plateau Moto : [https://www.fiches-plateau-moto.fr/](https://www.fiches-plateau-moto.fr/)
 
