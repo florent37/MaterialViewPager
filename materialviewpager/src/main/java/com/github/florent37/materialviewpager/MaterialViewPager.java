@@ -286,6 +286,14 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         }
     }
 
+    public void setGlideImageLoadFailedCallback(GlideImageLoadFailedCallback glideImageLoadFailedCallback){
+        MaterialViewPagerImageHelper.setGlideImageLoadFailedCallback(glideImageLoadFailedCallback);
+    }
+
+    public int getLastPosition(){
+        return lastPosition;
+    }
+
     public void setMaterialViewPagerListener(Listener listener) {
         this.listener = listener;
     }
