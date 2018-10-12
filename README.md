@@ -3,30 +3,39 @@ MaterialViewPager
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialViewPager-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1731)
 [![Android Weekly](https://img.shields.io/badge/android--weekly-151-blue.svg)](http://androidweekly.net/issues/issue-151)
-[![Join the chat at https://gitter.im/florent37/MaterialViewPager](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/florent37/MaterialViewPager?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![CircleCI](https://circleci.com/gh/florent37/MaterialViewPager.svg?style=svg)](https://circleci.com/gh/florent37/MaterialViewPager)
 
 Material Design ViewPager easy to use library
 
+<a href="https://goo.gl/WXW8Dc">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
+
 [![Build screen](https://raw.githubusercontent.com/florent37/MaterialViewPager/master/screenshots/screenshot_2_small.png)](http://youtu.be/g6tTDVceM9E)
 
-#Sample
+# Sample
 
-You can find a sample APK : [Link](https://github.com/florent37/MaterialViewPager/releases/download/1.0.3/sample-debug.apk)
+<a href="https://goo.gl/WXW8Dc">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
 
 And have a look on a sample Youtube Video : [Youtube Link](http://www.youtube.com/watch?v=r95Tt6AS18c)
 
-[![Video](http://i.giphy.com/xTiTnmEsdqa7IZaMXS.gif)](http://www.youtube.com/watch?v=r95Tt6AS18c)
+# Download
 
-#Download
+<a href='https://ko-fi.com/A160LCC' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 In your module [![Download](https://api.bintray.com/packages/florent37/maven/MaterialViewPager/images/download.svg)](https://bintray.com/florent37/maven/MaterialViewPager/_latestVersion)
 ```groovy
-compile ('com.github.florent37:materialviewpager:1.0.6@aar'){
-    transitive = true
-}
+compile 'com.github.florent37:materialviewpager:1.2.3'
+
+//dependencies
+compile 'com.flaviofaria:kenburnsview:1.0.7'
+compile 'com.jpardogo.materialtabstrip:library:1.1.0'
+compile 'com.github.bumptech.glide:glide:4.0.0'
 ```
 
-#Usage
+# Usage
 
 Add MaterialViewPager to your activity's layout
 ```xml
@@ -47,6 +56,8 @@ Add MaterialViewPager to your activity's layout
     app:viewpager_displayToolbarWhenSwipe="true"
     app:viewpager_transparentToolbar="true"
     app:viewpager_animatedHeaderImage="true"
+    app:viewpager_disableToolbar="false"
+
     />
 ```
 
@@ -107,7 +118,7 @@ To get a beautiful screen and enable preview, you theme may follow
 </style>
 ```
 
-#Retrieve the MaterialViewPager
+# Retrieve the MaterialViewPager
 
 You can use MaterialViewPager as an usual Android View, and get it by findViewById
 
@@ -126,7 +137,7 @@ public class MainActivity extends ActionBarActivity {
 }
 ```
 
-#Customisation
+# Customisation
 
 First choose your color and height
 ```xml
@@ -141,7 +152,7 @@ First choose your color and height
         />
 ```
 
-##Set your logo
+## Set your logo
 
 ```xml
 <com.github.florent37.materialviewpager.MaterialViewPager
@@ -152,7 +163,7 @@ First choose your color and height
         />
 ```
 
-###Titlebar Logo
+### Titlebar Logo
 
 [![Video](http://share.gifyoutube.com/ygbqnA.gif)](http://youtu.be/82gvoUqXb_I)
 
@@ -180,7 +191,7 @@ Your logo's layout must
 
 ```
 
-###Fading Logo
+### Fading Logo
 
 [![Video](http://share.gifyoutube.com/KYb0D4.gif)](http://youtu.be/9laniARQdqg)
 
@@ -210,9 +221,9 @@ Your logo's layout must
         />
 ```
 
-##Toolbar Animation
+## Toolbar Animation
 
-##Hide Logo and Toolbar
+## Hide Logo and Toolbar
 
 [![Video](http://share.gifyoutube.com/y5V8JX.gif)](http://youtu.be/3ElFoqVKxag)
 
@@ -224,7 +235,7 @@ Your logo's layout must
         />
 ```
 
-###Sticky Toolbar
+### Sticky Toolbar
 
 [![Video](http://share.gifyoutube.com/yo2oJn.gif)](http://youtu.be/3ElFoqVKxag)
 
@@ -236,7 +247,7 @@ Your logo's layout must
         />
 ```
 
-###Transparent Toolbar
+### Transparent Toolbar
 
 [![Video](http://share.gifyoutube.com/ywbP8k.gif)](https://youtu.be/jUVO2cozQHQ)
 
@@ -248,7 +259,7 @@ Your logo's layout must
         />
 ```
 
-##Header Layout
+## Header Layout
 
 You can replace the header
 
@@ -260,7 +271,7 @@ You can replace the header
         />
 ```
 
-###Moving Header
+### Moving Header
 
 Or use the default header, with a KenBurns animation
 
@@ -272,7 +283,7 @@ Or use the default header, with a KenBurns animation
         />
 ```
 
-###Static Header
+### Static Header
 
 Or simply use an ImageView as header
 
@@ -284,11 +295,11 @@ Or simply use an ImageView as header
         />
 ```
 
-##Custom Tab Bar
+## Custom Tab Bar
 
 You can set you own tab bar, by default I provided 2 implementations
 
-###Standard
+### Standard
 
 [![Video](http://share.gifyoutube.com/KdnoZX.gif)](http://youtu.be/VRinfxgewNE)
 
@@ -300,7 +311,7 @@ You can set you own tab bar, by default I provided 2 implementations
         />
 ```
 
-###News Stand
+### News Stand
 
 [![Video](http://share.gifyoutube.com/KeboLp.gif)](http://youtu.be/MBzK2s7HU1A)
 
@@ -312,7 +323,7 @@ You can set you own tab bar, by default I provided 2 implementations
         />
 ```
 
-###Or create your own tab bar
+### Or create your own tab bar
 
 Create your own layout using a PagerSlidingTabStrip
 
@@ -331,7 +342,7 @@ Create your own layout using a PagerSlidingTabStrip
     app:pstsIndicatorHeight="2dp"
     app:pstsShouldExpand="true"
     app:pstsTabPaddingLeftRight="10dp"
-    app:pstsTextAllCaps="true"
+    app:pstsTabTextAllCaps="true"
     tools:background="#A333"
      />
 ```
@@ -339,21 +350,21 @@ Create your own layout using a PagerSlidingTabStrip
 **Don't forget to give it id="@id/materialviewpager_pagerTitleStrip"**
 
 ```xml
-<com.github.florent37.materialviewpager.MaterialViewPager`
+<com.github.florent37.materialviewpager.MaterialViewPager
         ...
         app:viewpager_pagerTitleStrip="@layout/my_tabs"
         ...
         />
 ```
 
-#Animate Header
+# Animate Header
 
 [![Video](http://share.gifyoutube.com/yABkgW.gif)](http://youtu.be/90gKwEL1j2I )
 
 Simply add a listen to the ViewPager
 
 ```java
-mViewPager.setMaterialViewPagerListener(new MaterialViewPager.MaterialViewPagerListener() {
+mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 switch (page) {
@@ -391,7 +402,7 @@ HeaderDesign.fromColorAndDrawable(Color.BLUE,myDrawable);
 HeaderDesign.fromColorResAndDrawable(R.color.blue,myDrawable);
 ```
 
-#Toolbar
+# Toolbar
 
 ```java
 Toolbar toolbar = mViewPager.getToolbar();
@@ -408,7 +419,7 @@ if (toolbar != null) {
 }
 ```
 
-#ViewPager
+# ViewPager
 
 ```java
 ViewPager viewPager = mViewPager.getViewPager();
@@ -418,64 +429,25 @@ viewPage.setAdapter(...);
 mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 ```
 
-#Register your Scrollable
-
-First thing, your fragment view and your scrollable must be **transparent**, so **do not use android:backgound="..."**
-Sample :
-
-```xml
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    />
-```
-
-
-##RecyclerView
-
-From your fragment
-```java
-mAdapter = new RecyclerViewMaterialAdapter(new ***Adapter(mList));
-mRecyclerView.setAdapter(mAdapter);
-
-MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-```
-
-###ReyclerView.OnScrollListener
-
-If you already use ReyclerView.OnScrollListener (maybe for load more, or anything else)
+# RecyclerView
 
 ```java
-MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, myRecyclerViewOnScrollListener);
+mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
+mRecyclerView.setAdapter(yourAdapter);
 ```
 
-So myRecyclerViewOnScrollListener will be still notified
+# ScrollView
 
-##ScrollView
-
-The ScrollView must be an [ObservableScrollView][android-observablescrollview]
+The ScrollView must be an NestedScrollView`
 ```java
 MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
 ```
 
-###CallBacks
-If you already use ObservableScrollViewCallbacks (maybe for load more, or anything else)
+And include @layout/material_view_pager_placeholder` as first child
 
-```java
-MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, myObservableScrollViewCallbacks);
-```
-
-So myObservableScrollViewCallbacks will be still notified
-
-###Layout
-
-And must include @layout/material_view_pager_placeholder as first child
 ```xml
-<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -490,24 +462,47 @@ And must include @layout/material_view_pager_placeholder as first child
         ...your content...
 
     </LinearLayout>
-</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+</android.support.v4.widget.NestedScrollView>
 ```
 
-#CHANGELOG
+# CHANGELOG
 
-##1.0.6
+## 1.2.0
+- header decorator instead of Adapter
+
+## 1.1.3
+- header is now clickable
+- fixed some scrolling issues
+
+## 1.1.2
+- quick scroll fix
+- can set a custom viewpager with app:viewpager_viewpager (the viewpager id must be id/materialviewpager_viewpager)
+
+## 1.1.0
+- orientation change fix
+- header image display fix
+- elements on header are now clickable
+- notifyHeaderChanged
+
+## 1.0.8
+- added attribute viewpager_disableToolbar
+
+## 1.0.7
+- fix bug on low resolutions
+
+## 1.0.6
 - added attribute transparentToolbar
 - added attribute animatedHeaderImage
 - fixed bug when page is too small to scroll
 - modified HeaderDesign implementation
 
-##1.0.5
+## 1.0.5
 - smoother toolbar scrolling
 - fixed bug with fitSystemWindow
 - added HeaderDesign to modify the header color & image
 - added displayToolbarWhenSwipe attribute
 
-##1.0.4
+## 1.0.4
 Fixed :
 
 - Orientation changed
@@ -515,7 +510,7 @@ Fixed :
 - Android >2.3 with NineOldAndroid
 - Removed ListView usage
 
-##1.0.3
+## 1.0.3
 
 Fixed :  Rapid scrolling results in varying Toolbar height
 
@@ -524,7 +519,7 @@ RecyclerViewMaterialAdapter can handle a custom placeholder cells count (usefull
 public RecyclerViewMaterialAdapter(RecyclerView.Adapter adapter, int placeholderSize)
 ```
 
-##1.0.2
+## 1.0.2
 
 Added attributes
 ```java
@@ -538,34 +533,36 @@ app:viewpager_headerAdditionalHeight="20dp"
 Fixed issue when scroll down & scroll up multiples time while hideToolbarAndTitle="true"
 
 
-##1.0.1
+## 1.0.1
 
 Added attributes
 ```java
 viewpager_headerAlpha="0.6"
 ```
 
-#TODO
-
-- Header image does not load every time
-- **Remove Webviews from Android SDK !!!**
-
-#Community
+# Community
 
 Looking for contributors, feel free to fork !
 
 Tell me if you're using my library in your application, I'll share it in this README
 
-#Dependencies
+# Dependencies
 
-* [Picasso][picasso] (from Square)
+* [Glide][glide] (from Bumptech)
 * [KenBurnsView][kenburnsview] (from flavioarfaria)
 * [Material PagerSlidingTabStrip][pagerslidingtitlestrip] (from jpardogo, forked from astuetz)
-* [Android-Observablescrollview][android-observablescrollview] (from ksoichiro)
 
-#Credits
+# Credits
 
-Author: Florent Champigny
+Author: Florent Champigny [http://www.florentchampigny.com/](http://www.florentchampigny.com/)
+
+Blog : [http://www.tutos-android-france.com/](http://www.tutos-android-france.com/)
+
+Fiches Plateau Moto : [https://www.fiches-plateau-moto.fr/](https://www.fiches-plateau-moto.fr/)
+
+<a href="https://goo.gl/WXW8Dc">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
 
 <a href="https://plus.google.com/+florentchampigny">
   <img alt="Follow me on Google+"
@@ -575,7 +572,7 @@ Author: Florent Champigny
   <img alt="Follow me on Twitter"
        src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/twitter.png" />
 </a>
-<a href="https://www.linkedin.com/profile/view?id=297860624">
+<a href="https://www.linkedin.com/in/florentchampigny">
   <img alt="Follow me on LinkedIn"
        src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/linkedin.png" />
 </a>
@@ -599,8 +596,6 @@ License
     limitations under the License.
 
 
-[snap]: https://oss.sonatype.org/content/repositories/snapshots/
-[picasso]: https://github.com/square/picasso
+[glide]: https://github.com/bumptech/glide
 [kenburnsview]: https://github.com/flavioarfaria/KenBurnsView
 [pagerslidingtitlestrip]: https://github.com/jpardogo/PagerSlidingTabStrip
-[android-observablescrollview]: https://github.com/ksoichiro/Android-ObservableScrollView

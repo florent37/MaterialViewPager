@@ -10,7 +10,7 @@ import static com.github.florent37.materialviewpager.Utils.pxToDp;
 
 /**
  * Created by florentchampigny on 29/04/15.
- *
+ * <p/>
  * Save attributes given to MaterialViewPager from layout
  */
 public class MaterialViewPagerSettings implements Parcelable {
@@ -18,34 +18,89 @@ public class MaterialViewPagerSettings implements Parcelable {
     //attributes are protected and can be used by class from the same package
     //com.github.florent37.materialviewpager
 
-    protected int headerLayoutId;
-    protected int pagerTitleStripId;
+    public static final Parcelable.Creator<MaterialViewPagerSettings> CREATOR = new Parcelable.Creator<MaterialViewPagerSettings>() {
+        public MaterialViewPagerSettings createFromParcel(Parcel source) {
+            return new MaterialViewPagerSettings(source);
+        }
 
-    protected int logoLayoutId;
-    protected int logoMarginTop;
+        public MaterialViewPagerSettings[] newArray(int size) {
+            return new MaterialViewPagerSettings[size];
+        }
+    };
+    int headerLayoutId;
+    int pagerTitleStripId;
+    int viewpagerId;
+    int logoLayoutId;
+    int logoMarginTop;
+    int headerAdditionalHeight;
+    int headerHeight;
+    int headerHeightPx;
+    int color;
+    float headerAlpha;
+    float parallaxHeaderFactor;
+    float imageHeaderDarkLayerAlpha;
+    boolean hideToolbarAndTitle;
+    boolean hideLogoWithFade;
+    boolean enableToolbarElevation;
+    boolean displayToolbarWhenSwipe;
+    boolean toolbarTransparent;
+    boolean animatedHeaderImage;
+    boolean disableToolbar;
 
-    protected int headerAdditionalHeight;
+    //region parcelable
 
-    protected int headerHeight;
-    protected int headerHeightPx;
-    protected int color;
+    public MaterialViewPagerSettings() {
+    }
 
-    protected float headerAlpha;
-    protected float parallaxHeaderFactor;
+    private MaterialViewPagerSettings(Parcel in) {
+        this.headerLayoutId = in.readInt();
+        this.pagerTitleStripId = in.readInt();
+        this.viewpagerId = in.readInt();
+        this.logoLayoutId = in.readInt();
+        this.logoMarginTop = in.readInt();
+        this.headerAdditionalHeight = in.readInt();
+        this.headerHeight = in.readInt();
+        this.headerHeightPx = in.readInt();
+        this.color = in.readInt();
+        this.headerAlpha = in.readFloat();
+        this.imageHeaderDarkLayerAlpha = in.readFloat();
+        this.parallaxHeaderFactor = in.readFloat();
+        this.hideToolbarAndTitle = in.readByte() != 0;
+        this.hideLogoWithFade = in.readByte() != 0;
+        this.enableToolbarElevation = in.readByte() != 0;
+    }
 
-    protected boolean hideToolbarAndTitle;
-    protected boolean hideLogoWithFade;
-    protected boolean enableToolbarElevation;
-    protected boolean displayToolbarWhenSwipe;
-    protected boolean toolbarTransparent;
-    protected boolean animatedHeaderImage;
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.headerLayoutId);
+        dest.writeInt(this.pagerTitleStripId);
+        dest.writeInt(this.viewpagerId);
+        dest.writeInt(this.logoLayoutId);
+        dest.writeInt(this.logoMarginTop);
+        dest.writeInt(this.headerAdditionalHeight);
+        dest.writeInt(this.headerHeight);
+        dest.writeInt(this.headerHeightPx);
+        dest.writeInt(this.color);
+        dest.writeFloat(this.headerAlpha);
+        dest.writeFloat(this.imageHeaderDarkLayerAlpha);
+        dest.writeFloat(this.parallaxHeaderFactor);
+        dest.writeByte(hideToolbarAndTitle ? (byte) 1 : (byte) 0);
+        dest.writeByte(hideLogoWithFade ? (byte) 1 : (byte) 0);
+        dest.writeByte(enableToolbarElevation ? (byte) 1 : (byte) 0);
+    }
 
     /**
      * Retrieve attributes from the MaterialViewPager
+     *
      * @param context
      * @param attrs
      */
-    protected void handleAttributes(Context context, AttributeSet attrs){
+    void handleAttributes(Context context, AttributeSet attrs) {
         try {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaterialViewPager);
             {
@@ -53,8 +108,12 @@ public class MaterialViewPagerSettings implements Parcelable {
             }
             {
                 pagerTitleStripId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_pagerTitleStrip, -1);
-                if(pagerTitleStripId == -1)
+                if (pagerTitleStripId == -1) {
                     pagerTitleStripId = R.layout.material_view_pager_pagertitlestrip_standard;
+                }
+            }
+            {
+                viewpagerId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_viewpager, -1);
             }
             {
                 logoLayoutId = styledAttrs.getResourceId(R.styleable.MaterialViewPager_viewpager_logo, -1);
@@ -74,8 +133,11 @@ public class MaterialViewPagerSettings implements Parcelable {
                 headerAlpha = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_headerAlpha, 0.5f);
             }
             {
+                imageHeaderDarkLayerAlpha = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_imageHeaderDarkLayerAlpha, 0.0f);
+            }
+            {
                 parallaxHeaderFactor = styledAttrs.getFloat(R.styleable.MaterialViewPager_viewpager_parallaxHeaderFactor, 1.5f);
-                parallaxHeaderFactor = Math.max(parallaxHeaderFactor,1); //min=1
+                parallaxHeaderFactor = Math.max(parallaxHeaderFactor, 1); //min=1
             }
             {
                 hideToolbarAndTitle = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_hideToolbarAndTitle, false);
@@ -93,64 +155,14 @@ public class MaterialViewPagerSettings implements Parcelable {
             {
                 animatedHeaderImage = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_animatedHeaderImage, true);
             }
+            {
+                disableToolbar = styledAttrs.getBoolean(R.styleable.MaterialViewPager_viewpager_disableToolbar, false);
+            }
             styledAttrs.recycle();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    //region parcelable
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.headerLayoutId);
-        dest.writeInt(this.pagerTitleStripId);
-        dest.writeInt(this.logoLayoutId);
-        dest.writeInt(this.logoMarginTop);
-        dest.writeInt(this.headerAdditionalHeight);
-        dest.writeInt(this.headerHeight);
-        dest.writeInt(this.headerHeightPx);
-        dest.writeInt(this.color);
-        dest.writeFloat(this.headerAlpha);
-        dest.writeFloat(this.parallaxHeaderFactor);
-        dest.writeByte(hideToolbarAndTitle ? (byte) 1 : (byte) 0);
-        dest.writeByte(hideLogoWithFade ? (byte) 1 : (byte) 0);
-        dest.writeByte(enableToolbarElevation ? (byte) 1 : (byte) 0);
-    }
-
-    public MaterialViewPagerSettings() {
-    }
-
-    private MaterialViewPagerSettings(Parcel in) {
-        this.headerLayoutId = in.readInt();
-        this.pagerTitleStripId = in.readInt();
-        this.logoLayoutId = in.readInt();
-        this.logoMarginTop = in.readInt();
-        this.headerAdditionalHeight = in.readInt();
-        this.headerHeight = in.readInt();
-        this.headerHeightPx = in.readInt();
-        this.color = in.readInt();
-        this.headerAlpha = in.readFloat();
-        this.parallaxHeaderFactor = in.readFloat();
-        this.hideToolbarAndTitle = in.readByte() != 0;
-        this.hideLogoWithFade = in.readByte() != 0;
-        this.enableToolbarElevation = in.readByte() != 0;
-    }
-
-    public static final Parcelable.Creator<MaterialViewPagerSettings> CREATOR = new Parcelable.Creator<MaterialViewPagerSettings>() {
-        public MaterialViewPagerSettings createFromParcel(Parcel source) {
-            return new MaterialViewPagerSettings(source);
-        }
-
-        public MaterialViewPagerSettings[] newArray(int size) {
-            return new MaterialViewPagerSettings[size];
-        }
-    };
 
     //endregion
 }

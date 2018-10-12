@@ -1,13 +1,12 @@
 package com.github.florent37.materialviewpager;
 
 import android.content.Context;
-import android.graphics.Rect;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 
-import com.nineoldandroids.view.ViewHelper;
+import android.support.v4.view.ViewCompat;
 
 import static com.github.florent37.materialviewpager.Utils.dpToPx;
 
@@ -41,7 +40,7 @@ public class MaterialViewPagerHeader {
     public float originalTitleX;
     public float finalScale;
 
-    private MaterialViewPagerHeader(Toolbar toolbar){
+    private MaterialViewPagerHeader(Toolbar toolbar) {
         this.toolbar = toolbar;
         this.context = toolbar.getContext();
         this.toolbarLayout = (View) toolbar.getParent();
@@ -86,7 +85,7 @@ public class MaterialViewPagerHeader {
         return this;
     }
 
-    public int getStatusBarHeight(Context context){
+    public int getStatusBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -99,11 +98,15 @@ public class MaterialViewPagerHeader {
         this.mLogo = logo;
 
         //when logo get a height, initialise initial & final logo positions
-        toolbar.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+        toolbarLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                originalTitleY = ViewHelper.getY(mLogo);
-                originalTitleX = ViewHelper.getX(mLogo);
+                //rotation fix, if not set, originalTitleY = Na
+                ViewCompat.setTranslationY(mLogo,0);
+                ViewCompat.setTranslationX(mLogo, 0);
+
+                originalTitleY = ViewCompat.getY(mLogo);
+                originalTitleX = ViewCompat.getX(mLogo);
 
                 originalTitleHeight = mLogo.getHeight();
                 finalTitleHeight = dpToPx(21, context);

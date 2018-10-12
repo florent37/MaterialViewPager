@@ -37,10 +37,10 @@ public class HeaderDesign {
         return headerDesign;
     }
 
-    public static HeaderDesign fromColorResAndDrawable(@ColorRes int colorRes, String imageUrl) {
+    public static HeaderDesign fromColorResAndDrawable(@ColorRes int colorRes, Drawable drawable) {
         HeaderDesign headerDesign = new HeaderDesign();
         headerDesign.colorRes = colorRes;
-        headerDesign.imageUrl = imageUrl;
+        headerDesign.drawable = drawable;
         return headerDesign;
     }
 

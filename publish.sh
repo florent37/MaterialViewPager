@@ -1,0 +1,1 @@
+./gradlew clean :materialviewpager:install :materialviewpager:bintrayUpload

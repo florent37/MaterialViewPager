@@ -1,28 +1,16 @@
 package com.github.florent37.materialviewpager;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Rect;
-import android.os.Build;
-import android.support.v7.widget.LinearLayoutManager;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.ListView;
-import android.widget.ScrollView;
-
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ArgbEvaluator;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,70 +28,52 @@ import static com.github.florent37.materialviewpager.Utils.setScale;
 
 /**
  * Created by florentchampigny on 24/04/15.
- * <p/>
+ * <p>
  * Listen to Scrollable inside MaterialViewPager
  * When notified scroll, dispatch the current scroll to other scrollable
- * <p/>
+ * <p>
  * Note : didn't want to translate the MaterialViewPager or intercept Scroll,
  * so added a ViewPager with scrollables containing a transparent placeholder on top
- * <p/>
+ * <p>
  * When scroll, animate the MaterialViewPager Header (toolbar, logo, color ...)
  */
 public class MaterialViewPagerAnimator {
 
-    private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
-
-    private static final Boolean ENABLE_LOG = true;
-
-    private Context context;
-
-    //contains MaterialViewPager subviews references
-    private MaterialViewPagerHeader mHeader;
+    private static final String TAG = "MaterialViewPager";
 
     //duration of translate header enter animation
-    private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 600;
-
-    //reference to the current MaterialViewPager
-    protected MaterialViewPager materialViewPager;
-
+    private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 300;
+    public static Boolean ENABLE_LOG = false;
     //final toolbar layout elevation (if attr viewpager_enableToolbarElevation = true)
     public final float elevation;
-
     //max scroll which will be dispatched for all scrollable
-    public final float scrollMax;
-
+    private final float scrollMax;
     // equals scrollMax in DP (saved to avoir convert to dp anytime I use it)
-    public final float scrollMaxDp;
-
-    protected float lastYOffset = -1; //the current yOffset
-    protected float lastPercent = 0; //the current Percent
-
+    private final float scrollMaxDp;
+    float lastYOffset = -1; //the current yOffset
+    private float lastPercent = 0; //the current Percent
     //contains the attributes given to MaterialViewPager from layout
-    protected MaterialViewPagerSettings settings;
-
+    private MaterialViewPagerSettings settings;
     //list of all registered scrollers
-    protected List<View> scrollViewList = new ArrayList<>();
-
+    private List<View> scrollViewList = new ArrayList<>();
     //save all yOffsets of scrollables
-    protected HashMap<Object, Integer> yOffsets = new HashMap<>();
-
-    //the last headerYOffset during scroll
-    private float headerYOffset = Float.MAX_VALUE;
-
+    private HashMap<Object, Integer> yOffsets = new HashMap<>();
+    private boolean followScrollToolbarIsVisible = false;
+    private float firstScrollValue = Float.MIN_VALUE;
+    private boolean justToolbarAnimated = false;
+    //intial distance between pager & toolbat
+    private float initialDistance = -1;
+    //contains MaterialViewPager subviews references
+    private MaterialViewPagerHeader mHeader;
     //the tmp headerAnimator (not null if animating, else null)
-    private Object headerAnimator;
+    private ValueAnimator headerAnimator;
 
-    boolean followScrollToolbarIsVisible = false;
-    float firstScrollValue = Float.MIN_VALUE;
-    boolean justToolbarAnimated = false;
-
-    public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
+    MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
         this.settings = materialViewPager.settings;
 
-        this.materialViewPager = materialViewPager;
         this.mHeader = materialViewPager.materialViewPagerHeader;
-        this.context = mHeader.getContext();
+        Context context = mHeader.getContext();
 
         // initialise the scrollMax to headerHeight, so until the first cell touch the top of the screen
         this.scrollMax = this.settings.headerHeight;
@@ -115,51 +85,21 @@ public class MaterialViewPagerAnimator {
     }
 
     /**
-     * When notified for scroll, dispatch it to all registered scrollables
-     *
-     * @param source
-     * @param yOffset
-     */
-    private void dispatchScrollOffset(Object source, float yOffset) {
-        if (scrollViewList != null) {
-            for (Object scroll : scrollViewList) {
-
-                //do not re-scroll the source
-                if (scroll != null && scroll != source) {
-                    setScrollOffset(scroll, yOffset);
-                }
-            }
-        }
-    }
-
-    /**
-     * When notified for scroll, dispatch it to all registered scrollables
-     *
-     * @param scroll
-     * @param yOffset
-     */
-    private void setScrollOffset(Object scroll, float yOffset) {
-        //do not re-scroll the source
-        if (scroll != null && yOffset >= 0) {
-
-            scrollTo(scroll,yOffset);
-
-            //save the current yOffset of the scrollable on the yOffsets hashmap
-            yOffsets.put(scroll, (int) yOffset);
-        }
-    }
-
-    /**
      * Called when a scroller(RecyclerView/ListView,ScrollView,WebView) scrolled by the user
      *
      * @param source  the scroller
      * @param yOffset the scroller current yOffset
      */
-    public void onMaterialScrolled(Object source, float yOffset) {
+    private boolean onMaterialScrolled(Object source, float yOffset) {
+
+        if (initialDistance == -1 || initialDistance == 0) {
+            initialDistance = mHeader.mPagerSlidingTabStrip.getTop() - mHeader.toolbar.getBottom();
+        }
 
         //only if yOffset changed
-        if (yOffset == lastYOffset)
-            return;
+        if (yOffset == lastYOffset) {
+            return false;
+        }
 
         float scrollTop = -yOffset;
 
@@ -167,23 +107,45 @@ public class MaterialViewPagerAnimator {
             //parallax scroll of the Background ImageView (the KenBurnsView)
             if (mHeader.headerBackground != null) {
 
-                if (this.settings.parallaxHeaderFactor != 0)
-                    ViewHelper.setTranslationY(mHeader.headerBackground, scrollTop / this.settings.parallaxHeaderFactor);
+                if (this.settings.parallaxHeaderFactor != 0) {
+                    ViewCompat.setTranslationY(mHeader.headerBackground, scrollTop / this.settings.parallaxHeaderFactor);
+                }
 
-                if (ViewHelper.getY(mHeader.headerBackground) >= 0)
-                    ViewHelper.setY(mHeader.headerBackground, 0);
+                if (ViewCompat.getY(mHeader.headerBackground) >= 0) {
+                    ViewCompat.setY(mHeader.headerBackground, 0);
+                }
             }
-
 
         }
 
-        if (ENABLE_LOG)
-            Log.d("yOffset", "" + yOffset);
+        log("yOffset" + yOffset);
 
         //dispatch the new offset to all registered scrollables
         dispatchScrollOffset(source, minMax(0, yOffset, scrollMaxDp));
 
         float percent = yOffset / scrollMax;
+
+        log("percent1" + percent);
+
+        if (percent != 0) {
+            //distance between pager & toolbar
+            float newDistance = ViewCompat.getY(mHeader.mPagerSlidingTabStrip) - mHeader.toolbar.getBottom();
+
+            percent = 1 - newDistance / initialDistance;
+
+            log("percent2" + percent);
+        }
+
+        if (Float.isNaN(percent)) //fix for orientation change
+        {
+            return false;
+        }
+
+        //fix quick scroll
+        if (percent == 0 && headerAnimator != null) {
+            cancelHeaderAnimator();
+            ViewCompat.setTranslationY(mHeader.toolbarLayout, 0);
+        }
 
         percent = minMax(0, percent, 1);
         {
@@ -193,9 +155,9 @@ public class MaterialViewPagerAnimator {
                 setColorPercent(percent);
             } else {
                 if (justToolbarAnimated) {
-                    if (toolbarJoinsTabs())
+                    if (toolbarJoinsTabs()) {
                         setColorPercent(1);
-                    else if (lastPercent != percent) {
+                    } else if (lastPercent != percent) {
                         animateColorPercent(0, 200);
                     }
                 }
@@ -204,36 +166,33 @@ public class MaterialViewPagerAnimator {
             lastPercent = percent; //save the percent
 
             if (mHeader.mPagerSlidingTabStrip != null) { //move the viewpager indicator
-                //float newY = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) + scrollTop;
+                //float newY = ViewCompat.getY(mHeader.mPagerSlidingTabStrip) + scrollTop;
 
-                if (ENABLE_LOG)
-                    Log.d(TAG, "" + scrollTop);
-
+                log("" + scrollTop);
 
                 //mHeader.mPagerSlidingTabStrip.setTranslationY(mHeader.getToolbar().getBottom()-mHeader.mPagerSlidingTabStrip.getY());
                 if (scrollTop <= 0) {
-                    ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, scrollTop);
-                    ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, scrollTop);
+                    ViewCompat.setTranslationY(mHeader.mPagerSlidingTabStrip, scrollTop);
+                    ViewCompat.setTranslationY(mHeader.toolbarLayoutBackground, scrollTop);
 
                     //when
-                    if (ViewHelper.getY(mHeader.mPagerSlidingTabStrip) < mHeader.getToolbar().getBottom()) {
+                    if (ViewCompat.getY(mHeader.mPagerSlidingTabStrip) < mHeader.getToolbar().getBottom()) {
                         float ty = mHeader.getToolbar().getBottom() - mHeader.mPagerSlidingTabStrip.getTop();
-                        ViewHelper.setTranslationY(mHeader.mPagerSlidingTabStrip, ty);
-                        ViewHelper.setTranslationY(mHeader.toolbarLayoutBackground, ty);
+                        ViewCompat.setTranslationY(mHeader.mPagerSlidingTabStrip, ty);
+                        ViewCompat.setTranslationY(mHeader.toolbarLayoutBackground, ty);
                     }
                 }
 
             }
 
-
             if (mHeader.mLogo != null) { //move the header logo to toolbar
 
                 if (this.settings.hideLogoWithFade) {
-                    ViewHelper.setAlpha(mHeader.mLogo, 1 - percent);
-                    ViewHelper.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    ViewCompat.setAlpha(mHeader.mLogo, 1 - percent);
+                    ViewCompat.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
                 } else {
-                    ViewHelper.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
-                    ViewHelper.setTranslationX(mHeader.mLogo, (mHeader.finalTitleX - mHeader.originalTitleX) * percent);
+                    ViewCompat.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
+                    ViewCompat.setTranslationX(mHeader.mLogo, (mHeader.finalTitleX - mHeader.originalTitleX) * percent);
 
                     float scale = (1 - percent) * (1 - mHeader.finalScale) + mHeader.finalScale;
                     setScale(scale, mHeader.mLogo);
@@ -252,36 +211,12 @@ public class MaterialViewPagerAnimator {
         }
 
         if (headerAnimator != null && percent < 1) {
-            if (headerAnimator instanceof ObjectAnimator)
-                ((ObjectAnimator) headerAnimator).cancel();
-            else if (headerAnimator instanceof android.animation.ObjectAnimator)
-                ((android.animation.ObjectAnimator) headerAnimator).cancel();
-            headerAnimator = null;
+            cancelHeaderAnimator();
         }
 
         lastYOffset = yOffset;
-    }
 
-    private void scrollUp(float yOffset) {
-        if (ENABLE_LOG)
-            Log.d(TAG, "scrollUp");
-
-        followScrollToolbarLayout(yOffset);
-    }
-
-    private void scrollDown(float yOffset) {
-        if (ENABLE_LOG)
-            Log.d(TAG, "scrollDown");
-        if (yOffset > mHeader.toolbarLayout.getHeight() * 1.5f) {
-            animateEnterToolbarLayout(yOffset);
-        } else {
-            if (headerAnimator != null) {
-                followScrollToolbarIsVisible = true;
-            } else {
-                headerYOffset = Float.MAX_VALUE;
-                followScrollToolbarLayout(yOffset);
-            }
-        }
+        return true;
     }
 
     /**
@@ -291,30 +226,30 @@ public class MaterialViewPagerAnimator {
      * @param color    the final color
      * @param duration the transition color animation duration
      */
-    public void setColor(int color, int duration) {
-        ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", settings.color, color);
+    void setColor(int color, int duration) {
+        final ValueAnimator colorAnim = ObjectAnimator.ofInt(mHeader.headerBackground, "backgroundColor", settings.color, color);
         colorAnim.setEvaluator(new ArgbEvaluator());
         colorAnim.setDuration(duration);
         colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int colorAlpha = colorWithAlpha((Integer) animation.getAnimatedValue(), lastPercent);
+                final int animatedValue = (Integer) animation.getAnimatedValue();
+                int colorAlpha = colorWithAlpha(animatedValue, lastPercent);
                 mHeader.headerBackground.setBackgroundColor(colorAlpha);
                 mHeader.statusBackground.setBackgroundColor(colorAlpha);
                 mHeader.toolbar.setBackgroundColor(colorAlpha);
                 mHeader.toolbarLayoutBackground.setBackgroundColor(colorAlpha);
                 mHeader.mPagerSlidingTabStrip.setBackgroundColor(colorAlpha);
+
+                //set the new color as MaterialViewPager's color
+                settings.color = animatedValue;
             }
         });
         colorAnim.start();
-
-        //set the new color as MaterialViewPager's color
-        this.settings.color = color;
-
     }
 
     public void animateColorPercent(float percent, int duration) {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(lastPercent, percent);
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(lastPercent, percent);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -350,7 +285,7 @@ public class MaterialViewPagerAnimator {
             );
         }
 
-        if (this.settings.enableToolbarElevation && toolbarJoinsTabs())
+        if (this.settings.enableToolbarElevation && toolbarJoinsTabs()) {
             setElevation(
                     (percent == 1) ? elevation : 0,
                     mHeader.toolbar,
@@ -358,79 +293,6 @@ public class MaterialViewPagerAnimator {
                     mHeader.mPagerSlidingTabStrip,
                     mHeader.mLogo
             );
-    }
-
-    private boolean toolbarJoinsTabs() {
-        return (mHeader.toolbar.getBottom() == mHeader.mPagerSlidingTabStrip.getTop() + ViewHelper.getTranslationY(mHeader.mPagerSlidingTabStrip));
-    }
-
-    /**
-     * move the toolbarlayout (containing toolbar & tabs)
-     * following the current scroll
-     */
-    private void followScrollToolbarLayout(float yOffset) {
-        if (mHeader.toolbar.getBottom() == 0)
-            return;
-
-        if (toolbarJoinsTabs()) {
-            if (firstScrollValue == Float.MIN_VALUE)
-                firstScrollValue = yOffset;
-
-            float translationY = firstScrollValue - yOffset;
-
-            if (ENABLE_LOG)
-                Log.d(TAG, "translationY " + translationY);
-
-            ViewHelper.setTranslationY(mHeader.toolbarLayout, translationY);
-        } else {
-            ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
-            justToolbarAnimated = false;
-        }
-
-        followScrollToolbarIsVisible = (ViewHelper.getY(mHeader.toolbarLayout) >= 0);
-    }
-
-    /**
-     * Animate enter toolbarlayout
-     *
-     * @param yOffset
-     */
-    private void animateEnterToolbarLayout(float yOffset) {
-        if (!followScrollToolbarIsVisible && headerAnimator != null) {
-            if (headerAnimator instanceof ObjectAnimator)
-                ((ObjectAnimator) headerAnimator).cancel();
-            else if (headerAnimator instanceof android.animation.ObjectAnimator)
-                ((android.animation.ObjectAnimator) headerAnimator).cancel();
-            headerAnimator = null;
-        }
-
-        if (headerAnimator == null) {
-            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
-                headerAnimator = android.animation.ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
-                ((android.animation.ObjectAnimator) headerAnimator).addListener(new android.animation.AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(android.animation.Animator animation) {
-                        super.onAnimationEnd(animation);
-                        followScrollToolbarIsVisible = true;
-                        firstScrollValue = Float.MIN_VALUE;
-                        justToolbarAnimated = true;
-                    }
-                });
-                ((android.animation.ObjectAnimator) headerAnimator).start();
-            } else {
-                headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, "translationY", 0).setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
-                ((ObjectAnimator) headerAnimator).addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        followScrollToolbarIsVisible = true;
-                        firstScrollValue = Float.MIN_VALUE;
-                        justToolbarAnimated = true;
-                    }
-                });
-                ((ObjectAnimator) headerAnimator).start();
-            }
-            headerYOffset = yOffset;
         }
     }
 
@@ -438,25 +300,15 @@ public class MaterialViewPagerAnimator {
         return this.settings.headerHeight;
     }
 
-    protected boolean isNewYOffset(int yOffset) {
-        if (lastYOffset == -1)
-            return true;
-        else
-            return yOffset != lastYOffset;
-    }
-
-    //region register scrollables
-
     /**
      * Register a RecyclerView to the current MaterialViewPagerAnimator
      * Listen to RecyclerView.OnScrollListener so give to $[onScrollListener] your RecyclerView.OnScrollListener if you already use one
      * For loadmore or anything else
      *
-     * @param recyclerView     the scrollable
-     * @param onScrollListener use it if you want to get a callback of the RecyclerView
+     * @param recyclerView the scrollable
      */
-    public void registerRecyclerView(final RecyclerView recyclerView, final RecyclerView.OnScrollListener onScrollListener) {
-        if (recyclerView != null) {
+    void registerRecyclerView(final RecyclerView recyclerView) {
+        if (recyclerView != null && !scrollViewList.contains(recyclerView)) {
             scrollViewList.add(recyclerView); //add to the scrollable list
             yOffsets.put(recyclerView, recyclerView.getScrollY()); //save the initial recyclerview's yOffset (0) into hashmap
             //only necessary for recyclerview
@@ -467,21 +319,13 @@ public class MaterialViewPagerAnimator {
                 boolean firstZeroPassed;
 
                 @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                    if (onScrollListener != null)
-                        onScrollListener.onScrollStateChanged(recyclerView, newState);
-                }
-
-                @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
 
-                    if (onScrollListener != null)
-                        onScrollListener.onScrolled(recyclerView, dx, dy);
-
                     int yOffset = yOffsets.get(recyclerView);
-
+                    if(yOffset < 0) {
+                        yOffset = 0;
+                    }
                     yOffset += dy;
                     yOffsets.put(recyclerView, yOffset); //save the new offset
 
@@ -492,8 +336,9 @@ public class MaterialViewPagerAnimator {
                     }
 
                     //only if yOffset changed
-                    if (isNewYOffset(yOffset))
+                    if (isNewYOffset(yOffset)) {
                         onMaterialScrolled(recyclerView, yOffset);
+                    }
                 }
             });
 
@@ -511,44 +356,28 @@ public class MaterialViewPagerAnimator {
      * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
      * For loadmore or anything else
      *
-     * @param scrollView                    the scrollable
-     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
+     * @param scrollView the scrollable
      */
-    public void registerScrollView(final ObservableScrollView scrollView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
+    void registerScrollView(final NestedScrollView scrollView) {
         if (scrollView != null) {
             scrollViewList.add(scrollView);  //add to the scrollable list
-            if (scrollView.getParent() != null && scrollView.getParent().getParent() != null && scrollView.getParent().getParent() instanceof ViewGroup)
-                scrollView.setTouchInterceptionViewGroup((ViewGroup) scrollView.getParent().getParent());
-            scrollView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+
+            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
 
                 boolean firstZeroPassed;
 
                 @Override
-                public void onScrollChanged(int yOffset, boolean b, boolean b2) {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onScrollChanged(yOffset, b, b2);
-
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                     //first time you get 0, don't share it to others scrolls
-                    if (yOffset == 0 && !firstZeroPassed) {
+                    if (scrollY == 0 && !firstZeroPassed) {
                         firstZeroPassed = true;
                         return;
                     }
 
                     //only if yOffset changed
-                    if (isNewYOffset(yOffset))
-                        onMaterialScrolled(scrollView, yOffset);
-                }
-
-                @Override
-                public void onDownMotionEvent() {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onDownMotionEvent();
-                }
-
-                @Override
-                public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
+                    if (isNewYOffset(scrollY)) {
+                        onMaterialScrolled(scrollView, scrollY);
+                    }
                 }
             });
 
@@ -561,60 +390,168 @@ public class MaterialViewPagerAnimator {
         }
     }
 
-    /**
-     * Register a WebView to the current MaterialViewPagerAnimator
-     * Listen to ObservableScrollViewCallbacks so give to $[observableScrollViewCallbacks] your ObservableScrollViewCallbacks if you already use one
-     * For loadmore or anything else
-     *
-     * @param webView                       the scrollable
-     * @param observableScrollViewCallbacks use it if you want to get a callback of the RecyclerView
-     */
-    public void registerWebView(final ObservableWebView webView, final ObservableScrollViewCallbacks observableScrollViewCallbacks) {
-        if (webView != null) {
-            if (scrollViewList.isEmpty())
-                onMaterialScrolled(webView, webView.getCurrentScrollY());
-            scrollViewList.add(webView);  //add to the scrollable list
-            webView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
-                @Override
-                public void onScrollChanged(int yOffset, boolean b, boolean b2) {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onScrollChanged(yOffset, b, b2);
-
-                    if (isNewYOffset(yOffset))
-                        onMaterialScrolled(webView, yOffset);
+    void restoreScroll(final float scroll, final MaterialViewPagerSettings settings) {
+        //try to scroll up, on a looper to wait until restored
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!onMaterialScrolled(null, scroll)) {
+                    restoreScroll(scroll, settings);
                 }
+            }
+        }, 100);
 
-                @Override
-                public void onDownMotionEvent() {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onDownMotionEvent();
-                }
+    }
 
-                @Override
-                public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-                    if (observableScrollViewCallbacks != null)
-                        observableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
-                }
-            });
+    void onViewPagerPageChanged() {
+        scrollDown(lastYOffset);
 
-            this.setScrollOffset(webView, -lastYOffset);
+        View visibleView = getTheVisibileView(scrollViewList);
+        if (!canScroll(visibleView)) {
+            followScrollToolbarLayout(0);
+            onMaterialScrolled(visibleView, 0);
         }
+    }
+
+    /**
+     * When notified for scroll, dispatch it to all registered scrollables
+     *
+     * @param source
+     * @param yOffset
+     */
+    private void dispatchScrollOffset(Object source, float yOffset) {
+        if (scrollViewList != null) {
+            for (Object scroll : scrollViewList) {
+
+                //do not re-scroll the source
+                if (scroll != null && scroll != source) {
+                    setScrollOffset(scroll, yOffset);
+                }
+            }
+        }
+    }
+
+    private boolean isNewYOffset(int yOffset) {
+        if (lastYOffset == -1) {
+            return true;
+        } else {
+            return yOffset != lastYOffset;
+        }
+    }
+
+    /**
+     * When notified for scroll, dispatch it to all registered scrollables
+     *
+     * @param scroll
+     * @param yOffset
+     */
+    private void setScrollOffset(Object scroll, float yOffset) {
+        //do not re-scroll the source
+        if (scroll != null && yOffset >= 0) {
+
+            scrollTo(scroll, yOffset);
+
+            //save the current yOffset of the scrollable on the yOffsets hashmap
+            yOffsets.put(scroll, (int) yOffset);
+        }
+    }
+
+    private void cancelHeaderAnimator() {
+        if (headerAnimator != null) {
+            headerAnimator.cancel();
+            headerAnimator = null;
+        }
+    }
+
+    //region register scrollables
+
+    private void scrollUp(float yOffset) {
+        log("scrollUp");
+
+        followScrollToolbarLayout(yOffset);
+    }
+
+    private void log(String scrollUp) {
+        if (ENABLE_LOG) {
+            Log.d(TAG, scrollUp);
+        }
+    }
+
+    private void scrollDown(float yOffset) {
+        log("scrollDown");
+        if (yOffset > mHeader.toolbarLayout.getHeight() * 1.5f) {
+            animateEnterToolbarLayout(yOffset);
+        } else {
+            if (headerAnimator != null) {
+                followScrollToolbarIsVisible = true;
+            } else {
+                followScrollToolbarLayout(yOffset);
+            }
+        }
+    }
+
+    private boolean toolbarJoinsTabs() {
+        return (mHeader.toolbar.getBottom() == mHeader.mPagerSlidingTabStrip.getTop() + ViewCompat.getTranslationY(mHeader.mPagerSlidingTabStrip));
     }
 
     //endregion
 
-    public void restoreScroll(float scroll, MaterialViewPagerSettings settings) {
-        this.settings = settings;
-        onMaterialScrolled(null, scroll);
+    /**
+     * move the toolbarlayout (containing toolbar & tabs)
+     * following the current scroll
+     */
+    private void followScrollToolbarLayout(float yOffset) {
+        if (mHeader.toolbar.getBottom() == 0) {
+            return;
+        }
+
+        if (toolbarJoinsTabs()) {
+            if (firstScrollValue == Float.MIN_VALUE) {
+                firstScrollValue = yOffset;
+            }
+
+            float translationY = firstScrollValue - yOffset;
+
+            if (translationY > 0) {
+                translationY = 0;
+            }
+
+            log("translationY " + translationY);
+
+            ViewCompat.setTranslationY(mHeader.toolbarLayout, translationY);
+        } else {
+            ViewCompat.setTranslationY(mHeader.toolbarLayout, 0);
+            justToolbarAnimated = false;
+        }
+
+        followScrollToolbarIsVisible = (ViewCompat.getY(mHeader.toolbarLayout) >= 0);
     }
 
-    public void onViewPagerPageChanged() {
-        scrollDown(lastYOffset);
+    /**
+     * Animate enter toolbarlayout
+     *
+     * @param yOffset
+     */
+    private void animateEnterToolbarLayout(float yOffset) {
+        if (!followScrollToolbarIsVisible && headerAnimator != null) {
+            headerAnimator.cancel();
+            headerAnimator = null;
+        }
 
-        View visibleView = getTheVisibileView(scrollViewList);
-        if(!canScroll(visibleView)){
-            followScrollToolbarLayout(0);
-            onMaterialScrolled(visibleView, 0);
+        if (headerAnimator == null) {
+
+            headerAnimator = ObjectAnimator.ofFloat(mHeader.toolbarLayout, View.TRANSLATION_Y, 0);
+            headerAnimator.setDuration(ENTER_TOOLBAR_ANIMATION_DURATION);
+            headerAnimator.addListener(new android.animation.AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(android.animation.Animator animation) {
+                    super.onAnimationEnd(animation);
+                    followScrollToolbarIsVisible = true;
+                    firstScrollValue = Float.MIN_VALUE;
+                    justToolbarAnimated = true;
+                }
+            });
+            headerAnimator.start();
         }
     }
 }

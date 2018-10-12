@@ -5,10 +5,12 @@
         <attr name="viewpager_header" format="reference"/>
         <attr name="viewpager_logo" format="reference"/>
         <attr name="viewpager_pagerTitleStrip" format="reference"/>
+        <attr name="viewpager_viewpager" format="reference"/>
         <attr name="viewpager_logoMarginTop" format="dimension"/>
         <attr name="viewpager_color" format="color"/>
         <attr name="viewpager_headerHeight" format="dimension"/>
         <attr name="viewpager_headerAlpha" format="float"/>
+        <attr name="viewpager_imageHeaderDarkLayerAlpha" format="float"/>
         <attr name="viewpager_hideToolbarAndTitle" format="boolean"/>
         <attr name="viewpager_hideLogoWithFade" format="boolean"/>
         <attr name="viewpager_enableToolbarElevation" format="boolean"/>
@@ -17,6 +19,7 @@
         <attr name="viewpager_displayToolbarWhenSwipe" format="boolean"/>
         <attr name="viewpager_transparentToolbar" format="boolean"/>
         <attr name="viewpager_animatedHeaderImage" format="boolean"/>
+        <attr name="viewpager_disableToolbar" format="boolean"/>
 
     </declare-styleable>
 
